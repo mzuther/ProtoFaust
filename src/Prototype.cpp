@@ -3,14 +3,14 @@
 
 struct Prototype : Module {
     enum ParamIds {
-        BIG_KNOB_1_PARAM,
-        BIG_KNOB_2_PARAM,
-        BIG_KNOB_3_PARAM,
-        BIG_KNOB_4_PARAM,
-        BIG_KNOB_5_PARAM,
-        BIG_KNOB_6_PARAM,
-        BIG_KNOB_7_PARAM,
-        BIG_KNOB_8_PARAM,
+        LARGE_KNOB_1_PARAM,
+        LARGE_KNOB_2_PARAM,
+        LARGE_KNOB_3_PARAM,
+        LARGE_KNOB_4_PARAM,
+        LARGE_KNOB_5_PARAM,
+        LARGE_KNOB_6_PARAM,
+        LARGE_KNOB_7_PARAM,
+        LARGE_KNOB_8_PARAM,
         SMALL_KNOB_1_PARAM,
         SMALL_KNOB_2_PARAM,
         SMALL_KNOB_3_PARAM,
@@ -92,14 +92,14 @@ struct Prototype : Module {
 
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
-        configParam(BIG_KNOB_1_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_2_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_3_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_4_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_5_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_6_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_7_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BIG_KNOB_8_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_1_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_2_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_3_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_4_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_5_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_6_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_7_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(LARGE_KNOB_8_PARAM, 0.f, 1.f, 0.f, "");
         configParam(SMALL_KNOB_1_PARAM, 0.f, 1.f, 0.f, "");
         configParam(SMALL_KNOB_2_PARAM, 0.f, 1.f, 0.f, "");
         configParam(SMALL_KNOB_3_PARAM, 0.f, 1.f, 0.f, "");
@@ -120,7 +120,7 @@ struct Prototype : Module {
 
     void process(const ProcessArgs &args) override {
         // Compute the frequency from the pitch parameter and input
-        float pitch = params[BIG_KNOB_1_PARAM].getValue();
+        float pitch = params[LARGE_KNOB_1_PARAM].getValue();
         pitch += inputs[CV_1_INPUT].getVoltage();
         pitch = clamp(pitch, -4.f, 4.f);
         // The default pitch is C4 = 261.6256f
@@ -162,30 +162,30 @@ struct PrototypeWidget : ModuleWidget {
         addChild(createWidget<ScrewBlack>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
         addChild(createWidget<ScrewBlack>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(102.87, 28.17)), module, Prototype::BIG_KNOB_1_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(125.73, 28.17)), module, Prototype::BIG_KNOB_2_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(102.87, 56.11)), module, Prototype::BIG_KNOB_3_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(125.73, 56.11)), module, Prototype::BIG_KNOB_4_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(102.87, 84.05)), module, Prototype::BIG_KNOB_5_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(125.73, 84.05)), module, Prototype::BIG_KNOB_6_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(102.87, 111.99)), module, Prototype::BIG_KNOB_7_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(125.73, 111.99)), module, Prototype::BIG_KNOB_8_PARAM));
-        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(50.8, 21.82)), module, Prototype::SMALL_KNOB_1_PARAM));
-        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(50.8, 34.52)), module, Prototype::SMALL_KNOB_2_PARAM));
-        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(50.8, 49.76)), module, Prototype::SMALL_KNOB_3_PARAM));
-        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(50.8, 62.46)), module, Prototype::SMALL_KNOB_4_PARAM));
-        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(50.8, 77.7)), module, Prototype::SMALL_KNOB_5_PARAM));
-        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(50.8, 90.4)), module, Prototype::SMALL_KNOB_6_PARAM));
-        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(50.8, 105.64)), module, Prototype::SMALL_KNOB_7_PARAM));
-        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(50.8, 118.34)), module, Prototype::SMALL_KNOB_8_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 21.82)), module, Prototype::SWITCH_1_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 34.52)), module, Prototype::SWITCH_2_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 49.76)), module, Prototype::SWITCH_3_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 62.46)), module, Prototype::SWITCH_4_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 77.7)), module, Prototype::SWITCH_5_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 90.4)), module, Prototype::SWITCH_6_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 105.64)), module, Prototype::SWITCH_7_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(83.82, 118.34)), module, Prototype::SWITCH_8_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(101.6, 28.17)), module, Prototype::LARGE_KNOB_1_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(123.19, 28.17)), module, Prototype::LARGE_KNOB_2_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(101.6, 56.11)), module, Prototype::LARGE_KNOB_3_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 56.11)), module, Prototype::LARGE_KNOB_4_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(101.6, 84.05)), module, Prototype::LARGE_KNOB_5_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(123.19, 84.05)), module, Prototype::LARGE_KNOB_6_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(101.6, 111.99)), module, Prototype::LARGE_KNOB_7_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 111.99)), module, Prototype::LARGE_KNOB_8_PARAM));
+        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(49.53, 21.82)), module, Prototype::SMALL_KNOB_1_PARAM));
+        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(49.53, 34.52)), module, Prototype::SMALL_KNOB_2_PARAM));
+        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(49.53, 49.76)), module, Prototype::SMALL_KNOB_3_PARAM));
+        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(49.53, 62.46)), module, Prototype::SMALL_KNOB_4_PARAM));
+        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(49.53, 77.7)), module, Prototype::SMALL_KNOB_5_PARAM));
+        addParam(createParamCentered<Davies1900hWhiteKnob>(mm2px(Vec(49.53, 90.4)), module, Prototype::SMALL_KNOB_6_PARAM));
+        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(49.53, 105.64)), module, Prototype::SMALL_KNOB_7_PARAM));
+        addParam(createParamCentered<Davies1900hRedKnob>(mm2px(Vec(49.53, 118.34)), module, Prototype::SMALL_KNOB_8_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 21.82)), module, Prototype::SWITCH_1_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 34.52)), module, Prototype::SWITCH_2_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 49.76)), module, Prototype::SWITCH_3_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 62.46)), module, Prototype::SWITCH_4_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 77.7)), module, Prototype::SWITCH_5_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 90.4)), module, Prototype::SWITCH_6_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 105.64)), module, Prototype::SWITCH_7_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(82.55, 118.34)), module, Prototype::SWITCH_8_PARAM));
 
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 21.82)), module, Prototype::AUDIO_1_INPUT));
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 34.52)), module, Prototype::AUDIO_2_INPUT));
@@ -195,22 +195,22 @@ struct PrototypeWidget : ModuleWidget {
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 90.4)), module, Prototype::AUDIO_6_INPUT));
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 105.64)), module, Prototype::AUDIO_7_INPUT));
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 118.34)), module, Prototype::AUDIO_8_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 21.82)), module, Prototype::CV_1_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 34.52)), module, Prototype::CV_2_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 49.76)), module, Prototype::CV_3_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 62.46)), module, Prototype::CV_4_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 77.7)), module, Prototype::CV_5_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 90.4)), module, Prototype::CV_6_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 105.64)), module, Prototype::CV_7_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 118.34)), module, Prototype::CV_8_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 21.82)), module, Prototype::GATE_1_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 34.52)), module, Prototype::GATE_2_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 49.76)), module, Prototype::GATE_3_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 62.46)), module, Prototype::GATE_4_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 77.7)), module, Prototype::GATE_5_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 90.4)), module, Prototype::GATE_6_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 105.64)), module, Prototype::GATE_7_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(71.12, 118.34)), module, Prototype::GATE_8_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 21.82)), module, Prototype::CV_1_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 34.52)), module, Prototype::CV_2_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 49.76)), module, Prototype::CV_3_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 62.46)), module, Prototype::CV_4_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 77.7)), module, Prototype::CV_5_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 90.4)), module, Prototype::CV_6_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 105.64)), module, Prototype::CV_7_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(34.29, 118.34)), module, Prototype::CV_8_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 21.82)), module, Prototype::GATE_1_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 34.52)), module, Prototype::GATE_2_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 49.76)), module, Prototype::GATE_3_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 62.46)), module, Prototype::GATE_4_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 77.7)), module, Prototype::GATE_5_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 90.4)), module, Prototype::GATE_6_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 105.64)), module, Prototype::GATE_7_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(69.85, 118.34)), module, Prototype::GATE_8_INPUT));
 
         addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 21.82)), module, Prototype::AUDIO_1_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 34.52)), module, Prototype::AUDIO_2_OUTPUT));
