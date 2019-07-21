@@ -1,0 +1,33 @@
+{
+  "token": "",
+  "windowSize": [
+    0.0,
+    0.0
+  ],
+  "windowPos": [
+    0.0,
+    0.0
+  ],
+  "zoom": 0.0,
+  "invertZoom": false,
+  "cableOpacity": 0.5,
+  "cableTension": 0.5,
+  "allowCursorLock": true,
+  "realTime": false,
+  "sampleRate": 44100.0,
+  "threadCount": 1,
+  "paramTooltip": false,
+  "cpuMeter": false,
+  "lockModules": false,
+  "frameRateLimit": 70.0,
+  "frameRateSync": true,
+  "autosavePeriod": 15.0,
+  "skipLoadOnLaunch": true,
+  "patchPath": "",
+  "cableColors": [
+    "#c9b70e",
+    "#0c8e15",
+    "#c91847",
+    "#0986ad"
+  ]
+}

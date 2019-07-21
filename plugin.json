@@ -1,0 +1,22 @@
+{
+  "slug": "MyPlugin",
+  "name": "MyPlugin",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "brand": "",
+  "author": "MyPlugin",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "modules": [
+    {
+      "slug": "MyModule",
+      "name": "My Module",
+      "description": "Simple sine oscillator",
+      "tags": []
+    }
+  ]
+}
