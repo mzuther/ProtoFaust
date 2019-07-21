@@ -1,7 +1,7 @@
 #include "plugin.hpp"
 
 
-struct MyModule : Module {
+struct Prototype : Module {
 	enum ParamIds {
 		PITCH_PARAM,
 		NUM_PARAMS
@@ -21,7 +21,7 @@ struct MyModule : Module {
     float phase = 0.f;
     float blinkPhase = 0.f;
 
-	MyModule() {
+	Prototype() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 		configParam(PITCH_PARAM, 0.f, 1.f, 0.f, "");
 	}
@@ -54,25 +54,25 @@ struct MyModule : Module {
 };
 
 
-struct MyModuleWidget : ModuleWidget {
-	MyModuleWidget(MyModule *module) {
+struct PrototypeWidget : ModuleWidget {
+	PrototypeWidget(Prototype *module) {
 		setModule(module);
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/MyModule.svg")));
+		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Prototype.svg")));
 
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 46.063)), module, MyModule::PITCH_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 46.063)), module, Prototype::PITCH_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 77.478)), module, MyModule::PITCH_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 77.478)), module, Prototype::PITCH_INPUT));
 
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 108.713)), module, MyModule::SINE_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 108.713)), module, Prototype::SINE_OUTPUT));
 
-		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 25.81)), module, MyModule::BLINK_LIGHT));
+		addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 25.81)), module, Prototype::BLINK_LIGHT));
 	}
 };
 
 
-Model *modelMyModule = createModel<MyModule, MyModuleWidget>("MyModule");
+Model *modelPrototype = createModel<Prototype, PrototypeWidget>("Prototype");

@@ -1,10 +1,10 @@
 {
-  "slug": "MyPlugin",
-  "name": "MyPlugin",
+  "slug": "Prototype",
+  "name": "Prototype",
   "version": "1.0.0",
   "license": "proprietary",
   "brand": "",
-  "author": "MyPlugin",
+  "author": "Prototype",
   "authorEmail": "",
   "authorUrl": "",
   "pluginUrl": "",
@@ -13,8 +13,8 @@
   "donateUrl": "",
   "modules": [
     {
-      "slug": "MyModule",
-      "name": "My Module",
+      "slug": "Prototype",
+      "name": "Prototype",
       "description": "Simple sine oscillator",
       "tags": []
     }
