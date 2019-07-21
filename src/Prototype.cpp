@@ -64,18 +64,18 @@ struct PrototypeWidget : ModuleWidget {
         setModule(module);
         setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Prototype.svg")));
 
-        addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
-        addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
-        addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
-        addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+        addChild(createWidget<ScrewBlack>(Vec(RACK_GRID_WIDTH, 0)));
+        addChild(createWidget<ScrewBlack>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
+        addChild(createWidget<ScrewBlack>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+        addChild(createWidget<ScrewBlack>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-        addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 46.063)), module, Prototype::PITCH_PARAM));
+        addParam(createParamCentered<Davies1900hLargeBlackKnob>(mm2px(Vec(15.24, 43.0)), module, Prototype::PITCH_PARAM));
 
-        addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 77.478)), module, Prototype::PITCH_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 77.478)), module, Prototype::PITCH_INPUT));
 
-        addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 108.713)), module, Prototype::SINE_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(15.24, 108.713)), module, Prototype::SINE_OUTPUT));
 
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 25.81)), module, Prototype::BLINK_LIGHT));
+        addChild(createLightCentered<MediumLight<WhiteLight>>(mm2px(Vec(15.24, 25.81)), module, Prototype::BLINK_LIGHT));
     }
 };
 
