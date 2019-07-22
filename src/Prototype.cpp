@@ -65,25 +65,25 @@ struct Prototype : Module {
         AUDIO_6_OUTPUT,
         AUDIO_7_OUTPUT,
         AUDIO_8_OUTPUT,
+        CV_1_OUTPUT,
+        CV_2_OUTPUT,
+        CV_3_OUTPUT,
+        CV_4_OUTPUT,
+        CV_5_OUTPUT,
+        CV_6_OUTPUT,
+        CV_7_OUTPUT,
+        CV_8_OUTPUT,
         NUM_OUTPUTS
     };
     enum LightIds {
-        LEFT_1_LIGHT,
-        LEFT_2_LIGHT,
-        LEFT_3_LIGHT,
-        LEFT_4_LIGHT,
-        LEFT_5_LIGHT,
-        LEFT_6_LIGHT,
-        LEFT_7_LIGHT,
-        LEFT_8_LIGHT,
-        RIGHT_1_LIGHT,
-        RIGHT_2_LIGHT,
-        RIGHT_3_LIGHT,
-        RIGHT_4_LIGHT,
-        RIGHT_5_LIGHT,
-        RIGHT_6_LIGHT,
-        RIGHT_7_LIGHT,
-        RIGHT_8_LIGHT,
+        LED_1_LIGHT,
+        LED_2_LIGHT,
+        LED_3_LIGHT,
+        LED_4_LIGHT,
+        LED_5_LIGHT,
+        LED_6_LIGHT,
+        LED_7_LIGHT,
+        LED_8_LIGHT,
         NUM_LIGHTS
     };
 
@@ -146,8 +146,8 @@ struct Prototype : Module {
             blinkPhase -= 1.f;
         }
 
-        lights[LEFT_1_LIGHT].setBrightness(blinkPhase < 0.5f ? 1.f : 0.f);
-        lights[RIGHT_1_LIGHT].setBrightness(blinkPhase < 0.5f ? 0.f : 1.f);
+        lights[LED_1_LIGHT].setBrightness(blinkPhase < 0.5f ? 1.f : 0.f);
+        lights[LED_2_LIGHT].setBrightness(blinkPhase < 0.5f ? 0.f : 1.f);
     }
 };
 
@@ -162,81 +162,81 @@ struct PrototypeWidget : ModuleWidget {
         addChild(createWidget<ScrewBlack>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
         addChild(createWidget<ScrewBlack>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(97.79, 28.17)), module, Prototype::LARGE_KNOB_1_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(97.79, 56.11)), module, Prototype::LARGE_KNOB_2_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(97.79, 84.05)), module, Prototype::LARGE_KNOB_3_PARAM));
-        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(97.79, 111.99)), module, Prototype::LARGE_KNOB_4_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(121.92, 28.17)), module, Prototype::LARGE_KNOB_5_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(121.92, 56.11)), module, Prototype::LARGE_KNOB_6_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(121.92, 84.05)), module, Prototype::LARGE_KNOB_7_PARAM));
-        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(121.92, 111.99)), module, Prototype::LARGE_KNOB_8_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 21.82)), module, Prototype::SMALL_KNOB_1_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 34.52)), module, Prototype::SMALL_KNOB_2_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 49.76)), module, Prototype::SMALL_KNOB_3_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 62.46)), module, Prototype::SMALL_KNOB_4_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 77.7)), module, Prototype::SMALL_KNOB_5_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 90.4)), module, Prototype::SMALL_KNOB_6_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 105.64)), module, Prototype::SMALL_KNOB_7_PARAM));
-        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(46.99, 118.34)), module, Prototype::SMALL_KNOB_8_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 21.82)), module, Prototype::SWITCH_1_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 34.52)), module, Prototype::SWITCH_2_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 49.76)), module, Prototype::SWITCH_3_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 62.46)), module, Prototype::SWITCH_4_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 77.7)), module, Prototype::SWITCH_5_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 90.4)), module, Prototype::SWITCH_6_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 105.64)), module, Prototype::SWITCH_7_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(77.47, 118.34)), module, Prototype::SWITCH_8_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(100.33, 28.17)), module, Prototype::LARGE_KNOB_1_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(100.33, 56.11)), module, Prototype::LARGE_KNOB_2_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(100.33, 84.05)), module, Prototype::LARGE_KNOB_3_PARAM));
+        addParam(createParamCentered<Davies1900hLargeWhiteKnob>(mm2px(Vec(100.33, 111.99)), module, Prototype::LARGE_KNOB_4_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 28.17)), module, Prototype::LARGE_KNOB_5_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 56.11)), module, Prototype::LARGE_KNOB_6_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 84.05)), module, Prototype::LARGE_KNOB_7_PARAM));
+        addParam(createParamCentered<Davies1900hLargeRedKnob>(mm2px(Vec(123.19, 111.99)), module, Prototype::LARGE_KNOB_8_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 21.82)), module, Prototype::SMALL_KNOB_1_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 34.52)), module, Prototype::SMALL_KNOB_2_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 49.76)), module, Prototype::SMALL_KNOB_3_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 62.46)), module, Prototype::SMALL_KNOB_4_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 77.7)), module, Prototype::SMALL_KNOB_5_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 90.4)), module, Prototype::SMALL_KNOB_6_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 105.64)), module, Prototype::SMALL_KNOB_7_PARAM));
+        addParam(createParamCentered<BefacoTinyKnob>(mm2px(Vec(49.53, 118.34)), module, Prototype::SMALL_KNOB_8_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 21.82)), module, Prototype::SWITCH_1_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 34.52)), module, Prototype::SWITCH_2_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 49.76)), module, Prototype::SWITCH_3_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 62.46)), module, Prototype::SWITCH_4_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 77.7)), module, Prototype::SWITCH_5_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 90.4)), module, Prototype::SWITCH_6_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 105.64)), module, Prototype::SWITCH_7_PARAM));
+        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 118.34)), module, Prototype::SWITCH_8_PARAM));
 
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 21.82)), module, Prototype::AUDIO_1_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 34.52)), module, Prototype::AUDIO_2_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 49.76)), module, Prototype::AUDIO_3_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 62.46)), module, Prototype::AUDIO_4_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 77.7)), module, Prototype::AUDIO_5_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 90.4)), module, Prototype::AUDIO_6_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 105.64)), module, Prototype::AUDIO_7_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(15.24, 118.34)), module, Prototype::AUDIO_8_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 21.82)), module, Prototype::CV_1_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 34.52)), module, Prototype::CV_2_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 49.76)), module, Prototype::CV_3_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 62.46)), module, Prototype::CV_4_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 77.7)), module, Prototype::CV_5_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 90.4)), module, Prototype::CV_6_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 105.64)), module, Prototype::CV_7_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(33.02, 118.34)), module, Prototype::CV_8_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 21.82)), module, Prototype::GATE_1_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 34.52)), module, Prototype::GATE_2_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 49.76)), module, Prototype::GATE_3_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 62.46)), module, Prototype::GATE_4_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 77.7)), module, Prototype::GATE_5_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 90.4)), module, Prototype::GATE_6_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 105.64)), module, Prototype::GATE_7_INPUT));
-        addInput(createInputCentered<CL1362Port>(mm2px(Vec(64.77, 118.34)), module, Prototype::GATE_8_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 21.82)), module, Prototype::AUDIO_1_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 34.52)), module, Prototype::AUDIO_2_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 49.76)), module, Prototype::AUDIO_3_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 62.46)), module, Prototype::AUDIO_4_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 77.7)), module, Prototype::AUDIO_5_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 90.4)), module, Prototype::AUDIO_6_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 105.64)), module, Prototype::AUDIO_7_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 118.34)), module, Prototype::AUDIO_8_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 21.82)), module, Prototype::CV_1_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 34.52)), module, Prototype::CV_2_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 49.76)), module, Prototype::CV_3_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 62.46)), module, Prototype::CV_4_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 77.7)), module, Prototype::CV_5_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 90.4)), module, Prototype::CV_6_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 105.64)), module, Prototype::CV_7_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(35.56, 118.34)), module, Prototype::CV_8_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 21.82)), module, Prototype::GATE_1_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 34.52)), module, Prototype::GATE_2_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 49.76)), module, Prototype::GATE_3_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 62.46)), module, Prototype::GATE_4_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 77.7)), module, Prototype::GATE_5_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 90.4)), module, Prototype::GATE_6_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 105.64)), module, Prototype::GATE_7_INPUT));
+        addInput(createInputCentered<CL1362Port>(mm2px(Vec(67.31, 118.34)), module, Prototype::GATE_8_INPUT));
 
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 21.82)), module, Prototype::AUDIO_1_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 34.52)), module, Prototype::AUDIO_2_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 49.76)), module, Prototype::AUDIO_3_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 62.46)), module, Prototype::AUDIO_4_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 77.7)), module, Prototype::AUDIO_5_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 90.4)), module, Prototype::AUDIO_6_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 105.64)), module, Prototype::AUDIO_7_OUTPUT));
-        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(167.64, 118.34)), module, Prototype::AUDIO_8_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 21.82)), module, Prototype::AUDIO_1_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 34.52)), module, Prototype::AUDIO_2_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 49.76)), module, Prototype::AUDIO_3_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 62.46)), module, Prototype::AUDIO_4_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 77.7)), module, Prototype::AUDIO_5_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 90.4)), module, Prototype::AUDIO_6_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 105.64)), module, Prototype::AUDIO_7_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(175.26, 118.34)), module, Prototype::AUDIO_8_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 21.82)), module, Prototype::CV_1_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 34.52)), module, Prototype::CV_2_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 49.76)), module, Prototype::CV_3_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 62.46)), module, Prototype::CV_4_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 77.7)), module, Prototype::CV_5_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 90.4)), module, Prototype::CV_6_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 105.64)), module, Prototype::CV_7_OUTPUT));
+        addOutput(createOutputCentered<CL1362Port>(mm2px(Vec(157.48, 118.34)), module, Prototype::CV_8_OUTPUT));
 
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 21.82)), module, Prototype::LEFT_1_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 34.52)), module, Prototype::LEFT_2_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 49.76)), module, Prototype::LEFT_3_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 62.46)), module, Prototype::LEFT_4_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 77.7)), module, Prototype::LEFT_5_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 90.4)), module, Prototype::LEFT_6_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 105.64)), module, Prototype::LEFT_7_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(142.24, 118.34)), module, Prototype::LEFT_8_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 21.82)), module, Prototype::RIGHT_1_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 34.52)), module, Prototype::RIGHT_2_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 49.76)), module, Prototype::RIGHT_3_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 62.46)), module, Prototype::RIGHT_4_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 77.7)), module, Prototype::RIGHT_5_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 90.4)), module, Prototype::RIGHT_6_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 105.64)), module, Prototype::RIGHT_7_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(153.67, 118.34)), module, Prototype::RIGHT_8_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 21.82)), module, Prototype::LED_1_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 34.52)), module, Prototype::LED_2_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 49.76)), module, Prototype::LED_3_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 62.46)), module, Prototype::LED_4_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 77.7)), module, Prototype::LED_5_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 90.4)), module, Prototype::LED_6_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 105.64)), module, Prototype::LED_7_LIGHT));
+        addChild(createLightCentered<MediumLight<BlueLight>>(mm2px(Vec(143.51, 118.34)), module, Prototype::LED_8_LIGHT));
     }
 };
 
