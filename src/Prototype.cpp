@@ -112,10 +112,10 @@ struct Prototype : Module {
         configParam(SWITCH_2_PARAM, 0.f, 1.f, 0.f, "");
         configParam(SWITCH_3_PARAM, 0.f, 1.f, 0.f, "");
         configParam(SWITCH_4_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(SWITCH_5_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(SWITCH_6_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(SWITCH_7_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(SWITCH_8_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(SWITCH_5_PARAM, -1.f, 1.f, 0.f, "");
+        configParam(SWITCH_6_PARAM, -1.f, 1.f, 0.f, "");
+        configParam(SWITCH_7_PARAM, -1.f, 1.f, 0.f, "");
+        configParam(SWITCH_8_PARAM, -1.f, 1.f, 0.f, "");
     }
 
     void process(const ProcessArgs &args) override {
@@ -182,10 +182,10 @@ struct PrototypeWidget : ModuleWidget {
         addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 34.52)), module, Prototype::SWITCH_2_PARAM));
         addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 49.76)), module, Prototype::SWITCH_3_PARAM));
         addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 62.46)), module, Prototype::SWITCH_4_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 77.7)), module, Prototype::SWITCH_5_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 90.4)), module, Prototype::SWITCH_6_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 105.64)), module, Prototype::SWITCH_7_PARAM));
-        addParam(createParamCentered<BefacoPush>(mm2px(Vec(80.01, 118.34)), module, Prototype::SWITCH_8_PARAM));
+        addParam(createParamCentered<CKSSThree>(mm2px(Vec(80.01, 77.7)), module, Prototype::SWITCH_5_PARAM));
+        addParam(createParamCentered<CKSSThree>(mm2px(Vec(80.01, 90.4)), module, Prototype::SWITCH_6_PARAM));
+        addParam(createParamCentered<CKSSThree>(mm2px(Vec(80.01, 105.64)), module, Prototype::SWITCH_7_PARAM));
+        addParam(createParamCentered<CKSSThree>(mm2px(Vec(80.01, 118.34)), module, Prototype::SWITCH_8_PARAM));
 
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 21.82)), module, Prototype::AUDIO_1_INPUT));
         addInput(createInputCentered<CL1362Port>(mm2px(Vec(17.78, 34.52)), module, Prototype::AUDIO_2_INPUT));
