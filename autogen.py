@@ -69,9 +69,7 @@ class OnWriteHandler(pyinotify.ProcessEvent):
 
 # define directories to be ignored
 def exclude_directories(path):
-    if path.startswith('src/faust/output'):
-        return True
-    elif path.startswith('src/faust/main-svg'):
+    if path.startswith('src/faust/main-svg'):
         return True
     else:
         return False
@@ -84,9 +82,7 @@ if __name__ == '__main__':
     # command to be run on payload.  "unbuffer" pretends a TTY, thus
     # keeping escape sequences
     payload_command = \
-      'rm -rf src/faust/main-svg/* && ' + \
-      'unbuffer faust2svg --simple-names --simplify-diagrams --fold-complexity 25 src/faust/main.dsp && ' + \
-      'faust -o src/faust/output/main.cpp src/faust/main.dsp'
+      'make faust-clean && make faust'
 
     # create an instance of "pyinotify"
     watchmanager = pyinotify.WatchManager()
