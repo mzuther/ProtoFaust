@@ -3,4 +3,7 @@
 /plugin.so
 /plugin.dylib
 /plugin.dll
+/src/faust/output
+/src/faust/main-svg
+/src/faust_generated.cpp
 .DS_Store

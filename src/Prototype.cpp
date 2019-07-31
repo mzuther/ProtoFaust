@@ -1,5 +1,9 @@
 #include "plugin.hpp"
 
+namespace faust {
+#include "faust_generated.cpp"
+}
+
 
 struct Prototype : Module {
     enum ParamIds {
@@ -87,8 +91,13 @@ struct Prototype : Module {
         NUM_LIGHTS
     };
 
+    faust::mydsp DSP;
+    faust::PrintUI ui;
+
     float phase = 0.f;
     float blinkPhase = 0.f;
+
+    const FAUSTFLOAT levelScaling = 5.0f;
 
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
@@ -118,26 +127,55 @@ struct Prototype : Module {
         configParam(SWITCH_8_PARAM, -1.f, 1.f, 0.f, "");
     }
 
+
+    void onAdd() override {
+        // Activate the UI
+        // (here that only print the control paths)
+        DSP.buildUserInterface(&ui);
+
+        int sampleRate = APP->engine->getSampleRate();
+        DSP.init(sampleRate);
+    }
+
+
+    void onSampleRateChange() override {
+        int sampleRate = APP->engine->getSampleRate();
+        DSP.instanceConstants(sampleRate);
+    }
+
+
     void process(const ProcessArgs &args) override {
-        // Compute the frequency from the pitch parameter and input
-        float pitch = params[LARGE_KNOB_1_PARAM].getValue();
-        pitch += inputs[CV_1_INPUT].getVoltage();
-        pitch = clamp(pitch, -4.f, 4.f);
-        // The default pitch is C4 = 261.6256f
-        float freq = dsp::FREQ_C4 * std::pow(2.f, pitch);
+        int int_control[DSP.getNumIntControls()];
+        FAUSTFLOAT real_control[DSP.getNumRealControls()];
 
-        // Accumulate the phase
-        phase += freq * args.sampleTime;
+        std::vector<FAUSTFLOAT> temporaryInputs(8);
+        std::vector<FAUSTFLOAT> temporaryOutputs(8);
 
-        if (phase >= 0.5f) {
-            phase -= 1.f;
+        for (int channel = 0; channel < 8; channel++) {
+            FAUSTFLOAT input = inputs[channel + AUDIO_1_INPUT].getVoltage();
+            FAUSTFLOAT output = outputs[channel + AUDIO_1_OUTPUT].getVoltage();
+
+            // scale levels to value range of Faust (-1.0 to +1.0)
+            output /= levelScaling;
+            input /= levelScaling;
+
+            temporaryInputs[channel] = input;
+            temporaryOutputs[channel] = output;
         }
 
-        // Compute the sine output
-        float sine = std::sin(2.f * M_PI * phase);
-        // Audio signals are typically +/-5V
-        // https://vcvrack.com/manual/VoltageStandards.html
-        outputs[AUDIO_1_OUTPUT].setVoltage(5.f * sine);
+        DSP.compute(temporaryInputs.data(), temporaryOutputs.data(), int_control, real_control);
+
+        for (int channel = 0; channel < 8; channel++) {
+            FAUSTFLOAT input = temporaryInputs[channel];
+            FAUSTFLOAT output = temporaryOutputs[channel];
+
+            // scale levels to value range of Rack (-5.0 to +5.0)
+            output *= levelScaling;
+            input *= levelScaling;
+
+            inputs[channel + AUDIO_1_INPUT].setVoltage(input);
+            outputs[channel + AUDIO_1_OUTPUT].setVoltage(output);
+        }
 
         // Blink light at 1Hz
         blinkPhase += args.sampleTime;
