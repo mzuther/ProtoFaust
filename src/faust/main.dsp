@@ -22,12 +22,12 @@ voices(i_cv_pitch_1 , i_cv_pitch_2) = internal_voices
 with
 {
   i_cv_pitch_added_1 = hslider(
-                         "[1] V/oct 1 [style:knob]" ,
+                         "[1] CV Pitch 1 [style:knob]" ,
                          0 ,
                          -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
 
   i_cv_pitch_added_2 = hslider(
-                         "[2] V/oct 2 [style:knob]" ,
+                         "[2] CV Pitch 2 [style:knob]" ,
                          7 / 12 ,
                          -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
 
@@ -45,9 +45,11 @@ with
 process(in1 , in2 , in3 , in4 , in5 , in6 , in7 , in8) = internal_processor
 with
 {
-  lfo_1 = os.lf_squarewavepos(1) : _;
-  led_1 = lfo_1 : vbargraph("[3] LED 1 [style:led]" , -1 , 1) : _;
-  led_2 = 1 - lfo_1 : vbargraph("[4] LED 2 [style:led]" , -1 , 1) : _;
+  lfo_1 = 1 , os.osccos(0.5) : + , 2 : / : _;
+  lfo_2 = 1 - lfo_1 : _;
+
+  led_1 = lfo_1 : vbargraph("[3] LED 1 [style:led]" , 0 , 1) : _;
+  led_2 = lfo_2 : vbargraph("[4] LED 2 [style:led]" , 0 , 1) : _;
 
   attacher = _ : attach(_ , led_1) : attach(_ , led_2) : _;
   internal_processor = (in1 : attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);

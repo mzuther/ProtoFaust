@@ -92,10 +92,10 @@ struct Prototype : Module {
     };
 
     faust::PrototypeDSP DSP;
-    faust::PrintUI ui;
+    faust::APIUI ui;
 
-    float phase = 0.f;
-    float blinkPhase = 0.f;
+    int paramLed_1 = -1;
+    int paramLed_2 = -1;
 
     const FAUSTFLOAT levelScaling = 5.0f;
 
@@ -130,8 +130,10 @@ struct Prototype : Module {
 
     void onAdd() override {
         // Activate the UI
-        // (here that only print the control paths)
         DSP.buildUserInterface(&ui);
+
+        paramLed_1 = ui.getParamIndex("/main/LED_1");
+        paramLed_2 = ui.getParamIndex("/main/LED_2");
 
         int sampleRate = APP->engine->getSampleRate();
         DSP.init(sampleRate);
@@ -177,15 +179,8 @@ struct Prototype : Module {
             outputs[channel + AUDIO_1_OUTPUT].setVoltage(output);
         }
 
-        // Blink light at 1Hz
-        blinkPhase += args.sampleTime;
-
-        if (blinkPhase >= 1.f) {
-            blinkPhase -= 1.f;
-        }
-
-        lights[LED_1_LIGHT].setBrightness(blinkPhase < 0.5f ? 1.f : 0.f);
-        lights[LED_2_LIGHT].setBrightness(blinkPhase < 0.5f ? 0.f : 1.f);
+        lights[LED_1_LIGHT].setBrightness(ui.getParamValue(paramLed_1));
+        lights[LED_2_LIGHT].setBrightness(ui.getParamValue(paramLed_2));
     }
 };
 

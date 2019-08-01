@@ -32,7 +32,7 @@
  ************************************************************************
  ************************************************************************/
 
-#include "faust/gui/PrintUI.h"
+#include "faust/gui/APIUI.h"
 #include "faust/gui/meta.h"
 #include "faust/dsp/one-sample-dsp.h"
 
