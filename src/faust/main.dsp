@@ -4,7 +4,7 @@ eurorack = component("eurorack.dsp");
 
 main_group(x) = vgroup("Prototype", x);
 
-large_knob_group(x) = main_group(hgroup("[1] Large Knobs", x));
+large_knob_group(x) = main_group(hgroup("[1] Knobs", x));
 
 large_knob_1 = large_knob_group(vslider("1 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
 large_knob_2 = large_knob_group(vslider("2 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
@@ -15,7 +15,7 @@ large_knob_6 = large_knob_group(vslider("6 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) 
 large_knob_7 = large_knob_group(vslider("7 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
 large_knob_8 = large_knob_group(vslider("8 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
 
-led_group(x) = main_group(hgroup("[2] LEDs", x));
+led_group(x) = main_group(hgroup("[2] Lights", x));
 
 led_1 = led_group(vbargraph("1 [style:led]" , 0 , 1)) : _;
 led_2 = led_group(vbargraph("2 [style:led]" , 0 , 1)) : _;
