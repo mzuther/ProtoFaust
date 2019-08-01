@@ -22,14 +22,14 @@ voices(i_cv_pitch_1 , i_cv_pitch_2) = internal_voices
 with
 {
   i_cv_pitch_added_1 = hslider(
-                         "[1] CV Pitch 1 [style:knob]" ,
-                         0 ,
-                         -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
+                         "[1] Large Knob 1 [style:knob]" ,
+                         0.5 ,
+                         0 , 1 , 1 / 120) , 0.5 : - : si.smooth(1e-3) : _;
 
   i_cv_pitch_added_2 = hslider(
-                         "[2] CV Pitch 2 [style:knob]" ,
-                         7 / 12 ,
-                         -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
+                         "[2] Large Knob 2 [style:knob]" ,
+                         0.5 + (7 / 120) ,
+                         0 , 1 , 1 / 120) , 0.5 : - : si.smooth(1e-3) : _;
 
   i_cv_pitch_final_1 = i_cv_pitch_1 , i_cv_pitch_added_1 : + : _;
   i_cv_pitch_final_2 = i_cv_pitch_2 , i_cv_pitch_added_2 : + : _;
@@ -38,7 +38,6 @@ with
   mix(a1 , b1 , a2 , b2) = a1 + a2 , b1 + b2 : _ , _;
 
   internal_voices = i_cv_pitch_final_1 , 0 , i_cv_pitch_final_2 , 1 : voice , voice : mix : _ , _;
-  //internal_voices = i_cv_pitch_final_1 , 0.5 : voice : _ , _;
 };
 
 
