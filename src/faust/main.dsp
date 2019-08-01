@@ -2,49 +2,53 @@ import("stdfaust.lib");
 eurorack = component("eurorack.dsp");
 
 
-vca(cv , in) = internal_vca
+vca(i_cv , in) = internal_vca
 with
 {
-  cv_limited = ba.if(cv > 0 , cv , 0) : _;
-  gain = cv_limited , 10 : / : _;
+  gain = ba.if(i_cv > 0 , i_cv , 0) : _;
   internal_vca = gain , in : * : _;
 };
 
 
-vco(v_oct) = internal_vco
+vco(i_cv_pitch) = internal_vco
 with
 {
-  freq = v_oct : eurorack.volts2frequency : _;
+  freq = i_cv_pitch : eurorack.i_cv_pitch2freq : _;
   internal_vco = freq : os.oscws : _;
 };
 
 
-voices(v_oct1 , v_oct2) = internal_voices
+voices(i_cv_pitch_1 , i_cv_pitch_2) = internal_voices
 with
 {
-  v_oct_added_1 = hslider(
-                    "[1] V/oct 1 [style:knob]" ,
-                    0 ,
-                    -5 , 5 , 1 / 12) : si.smooth(1e-3) : _;
+  i_cv_pitch_added_1 = hslider(
+                         "[1] V/oct 1 [style:knob]" ,
+                         0 ,
+                         -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
 
-  v_oct_added_2 = hslider(
-                    "[2] V/oct 2 [style:knob]" ,
-                    7 / 12 ,
-                    -5 , 5 , 1 / 12) : si.smooth(1e-3) : _;
+  i_cv_pitch_added_2 = hslider(
+                         "[2] V/oct 2 [style:knob]" ,
+                         7 / 12 ,
+                         -5 , 5 , 1 / 12) : eurorack.cv_pitch2internal : si.smooth(1e-3) : _;
 
-  v_oct_final_1 = v_oct1 , v_oct_added_1 : + : _;
-  v_oct_final_2 = v_oct2 , v_oct_added_2 : + : _;
+  i_cv_pitch_final_1 = i_cv_pitch_1 , i_cv_pitch_added_1 : + : _;
+  i_cv_pitch_final_2 = i_cv_pitch_2 , i_cv_pitch_added_2 : + : _;
 
-  voice(v_oct , pan) = v_oct : 0.1 , vco : pan , vca : sp.panner : _ , _;
+  voice(i_cv_pitch , pan) = i_cv_pitch : 1 , vco : pan , vca : sp.panner : _ , _;
   mix(a1 , b1 , a2 , b2) = a1 + a2 , b1 + b2 : _ , _;
 
-  internal_voices = v_oct_final_1 , 0 , v_oct_final_2 , 1 : voice , voice : mix : _ , _;
-  //internal_voices = v_oct_final_1 , 0.5 : voice : _ , _;
+  internal_voices = i_cv_pitch_final_1 , 0 , i_cv_pitch_final_2 , 1 : voice , voice : mix : _ , _;
+  //internal_voices = i_cv_pitch_final_1 , 0.5 : voice : _ , _;
 };
 
 
 process(in1 , in2 , in3 , in4 , in5 , in6 , in7 , in8) = internal_processor
 with
 {
-  internal_processor = in1 , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  lfo_1 = os.lf_squarewavepos(1) : _;
+  led_1 = lfo_1 : vbargraph("[3] LED 1 [style:led]" , -1 , 1) : _;
+  led_2 = 1 - lfo_1 : vbargraph("[4] LED 2 [style:led]" , -1 , 1) : _;
+
+  attacher = _ : attach(_ , led_1) : attach(_ , led_2) : _;
+  internal_processor = (in1 : attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
 };
