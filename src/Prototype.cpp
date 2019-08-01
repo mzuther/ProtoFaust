@@ -15,6 +15,7 @@ struct Prototype : Module {
         LARGE_KNOB_6_PARAM,
         LARGE_KNOB_7_PARAM,
         LARGE_KNOB_8_PARAM,
+
         SMALL_KNOB_1_PARAM,
         SMALL_KNOB_2_PARAM,
         SMALL_KNOB_3_PARAM,
@@ -23,6 +24,7 @@ struct Prototype : Module {
         SMALL_KNOB_6_PARAM,
         SMALL_KNOB_7_PARAM,
         SMALL_KNOB_8_PARAM,
+
         SWITCH_1_PARAM,
         SWITCH_2_PARAM,
         SWITCH_3_PARAM,
@@ -31,6 +33,7 @@ struct Prototype : Module {
         SWITCH_6_PARAM,
         SWITCH_7_PARAM,
         SWITCH_8_PARAM,
+
         NUM_PARAMS
     };
     enum InputIds {
@@ -42,6 +45,7 @@ struct Prototype : Module {
         AUDIO_6_INPUT,
         AUDIO_7_INPUT,
         AUDIO_8_INPUT,
+
         CV_1_INPUT,
         CV_2_INPUT,
         CV_3_INPUT,
@@ -50,6 +54,7 @@ struct Prototype : Module {
         CV_6_INPUT,
         CV_7_INPUT,
         CV_8_INPUT,
+
         GATE_1_INPUT,
         GATE_2_INPUT,
         GATE_3_INPUT,
@@ -58,6 +63,7 @@ struct Prototype : Module {
         GATE_6_INPUT,
         GATE_7_INPUT,
         GATE_8_INPUT,
+
         NUM_INPUTS
     };
     enum OutputIds {
@@ -69,6 +75,7 @@ struct Prototype : Module {
         AUDIO_6_OUTPUT,
         AUDIO_7_OUTPUT,
         AUDIO_8_OUTPUT,
+
         CV_1_OUTPUT,
         CV_2_OUTPUT,
         CV_3_OUTPUT,
@@ -77,6 +84,7 @@ struct Prototype : Module {
         CV_6_OUTPUT,
         CV_7_OUTPUT,
         CV_8_OUTPUT,
+
         NUM_OUTPUTS
     };
     enum LightIds {
@@ -91,14 +99,27 @@ struct Prototype : Module {
         NUM_LIGHTS
     };
 
+
     faust::PrototypeDSP DSP;
     faust::APIUI ui;
 
     int paramLed_1 = -1;
     int paramLed_2 = -1;
+    int paramLed_3 = -1;
+    int paramLed_4 = -1;
+    int paramLed_5 = -1;
+    int paramLed_6 = -1;
+    int paramLed_7 = -1;
+    int paramLed_8 = -1;
 
     int paramLargeKnob_1 = -1;
     int paramLargeKnob_2 = -1;
+    int paramLargeKnob_3 = -1;
+    int paramLargeKnob_4 = -1;
+    int paramLargeKnob_5 = -1;
+    int paramLargeKnob_6 = -1;
+    int paramLargeKnob_7 = -1;
+    int paramLargeKnob_8 = -1;
 
     const FAUSTFLOAT pitchScaling = 5.0f;
     const FAUSTFLOAT cvScaling = 10.0f;
@@ -113,6 +134,7 @@ struct Prototype : Module {
         configParam(LARGE_KNOB_6_PARAM, 0.f, 10.f, 5.f, "");
         configParam(LARGE_KNOB_7_PARAM, 0.f, 10.f, 5.f, "");
         configParam(LARGE_KNOB_8_PARAM, 0.f, 10.f, 5.f, "");
+
         configParam(SMALL_KNOB_1_PARAM, 0.f, 10.f, 5.f, "");
         configParam(SMALL_KNOB_2_PARAM, 0.f, 10.f, 5.f, "");
         configParam(SMALL_KNOB_3_PARAM, 0.f, 10.f, 5.f, "");
@@ -121,14 +143,15 @@ struct Prototype : Module {
         configParam(SMALL_KNOB_6_PARAM, 0.f, 10.f, 5.f, "");
         configParam(SMALL_KNOB_7_PARAM, 0.f, 10.f, 5.f, "");
         configParam(SMALL_KNOB_8_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(SWITCH_1_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_2_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_3_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_4_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_5_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_6_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_7_PARAM, 0.f, 10.f, 0.f, "");
-        configParam(SWITCH_8_PARAM, 0.f, 10.f, 0.f, "");
+
+        configParam(SWITCH_1_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(SWITCH_2_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(SWITCH_3_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(SWITCH_4_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(SWITCH_5_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(SWITCH_6_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(SWITCH_7_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(SWITCH_8_PARAM, 0.f, 2.f, 1.f, "");
     }
 
 
@@ -136,10 +159,26 @@ struct Prototype : Module {
         // Activate the UI
         DSP.buildUserInterface(&ui);
 
-        paramLed_1 = ui.getParamIndex("/main/LED_1");
-        paramLed_2 = ui.getParamIndex("/main/LED_2");
-        paramLargeKnob_1 = ui.getParamIndex("/main/Large_Knob_1");
-        paramLargeKnob_2 = ui.getParamIndex("/main/Large_Knob_2");
+        // for (int n=0; n < ui.getParamsCount(); n++)
+        //     std::cout << ui.getParamAddress(n) << std::endl;
+
+        paramLed_1 = ui.getParamIndex("/Prototype/LEDs/1");
+        paramLed_2 = ui.getParamIndex("/Prototype/LEDs/2");
+        paramLed_3 = ui.getParamIndex("/Prototype/LEDs/3");
+        paramLed_4 = ui.getParamIndex("/Prototype/LEDs/4");
+        paramLed_5 = ui.getParamIndex("/Prototype/LEDs/5");
+        paramLed_6 = ui.getParamIndex("/Prototype/LEDs/6");
+        paramLed_7 = ui.getParamIndex("/Prototype/LEDs/7");
+        paramLed_8 = ui.getParamIndex("/Prototype/LEDs/8");
+
+        paramLargeKnob_1 = ui.getParamIndex("/Prototype/Large_Knobs/1");
+        paramLargeKnob_2 = ui.getParamIndex("/Prototype/Large_Knobs/2");
+        paramLargeKnob_3 = ui.getParamIndex("/Prototype/Large_Knobs/3");
+        paramLargeKnob_4 = ui.getParamIndex("/Prototype/Large_Knobs/4");
+        paramLargeKnob_5 = ui.getParamIndex("/Prototype/Large_Knobs/5");
+        paramLargeKnob_6 = ui.getParamIndex("/Prototype/Large_Knobs/6");
+        paramLargeKnob_7 = ui.getParamIndex("/Prototype/Large_Knobs/7");
+        paramLargeKnob_8 = ui.getParamIndex("/Prototype/Large_Knobs/8");
 
         int sampleRate = APP->engine->getSampleRate();
         DSP.init(sampleRate);
@@ -176,9 +215,33 @@ struct Prototype : Module {
         value /= cvScaling;
         ui.setParamValue(paramLargeKnob_1, value);
 
-        value = params[LARGE_KNOB_5_PARAM].getValue();
+        value = params[LARGE_KNOB_2_PARAM].getValue();
         value /= cvScaling;
         ui.setParamValue(paramLargeKnob_2, value);
+
+        value = params[LARGE_KNOB_3_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_3, value);
+
+        value = params[LARGE_KNOB_4_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_4, value);
+
+        value = params[LARGE_KNOB_5_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_5, value);
+
+        value = params[LARGE_KNOB_6_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_6, value);
+
+        value = params[LARGE_KNOB_7_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_7, value);
+
+        value = params[LARGE_KNOB_8_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramLargeKnob_8, value);
 
         DSP.control(int_control, real_control);
         DSP.compute(temporaryInputs.data(), temporaryOutputs.data(), int_control, real_control);
@@ -197,6 +260,12 @@ struct Prototype : Module {
 
         lights[LED_1_LIGHT].setBrightness(ui.getParamValue(paramLed_1));
         lights[LED_2_LIGHT].setBrightness(ui.getParamValue(paramLed_2));
+        lights[LED_3_LIGHT].setBrightness(ui.getParamValue(paramLed_3));
+        lights[LED_4_LIGHT].setBrightness(ui.getParamValue(paramLed_4));
+        lights[LED_5_LIGHT].setBrightness(ui.getParamValue(paramLed_5));
+        lights[LED_6_LIGHT].setBrightness(ui.getParamValue(paramLed_6));
+        lights[LED_7_LIGHT].setBrightness(ui.getParamValue(paramLed_7));
+        lights[LED_8_LIGHT].setBrightness(ui.getParamValue(paramLed_8));
     }
 };
 
@@ -347,21 +416,21 @@ struct PrototypeWidget : ModuleWidget {
         addOutput(createOutputCentered<CL1362Port>(
                       mm2px(Vec(157.48, 118.34)), module, Prototype::CV_8_OUTPUT));
 
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<WhiteLight>>(
                      mm2px(Vec(143.51, 21.82)), module, Prototype::LED_1_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<RedLight>>(
                      mm2px(Vec(143.51, 34.52)), module, Prototype::LED_2_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<WhiteLight>>(
                      mm2px(Vec(143.51, 49.76)), module, Prototype::LED_3_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<RedLight>>(
                      mm2px(Vec(143.51, 62.46)), module, Prototype::LED_4_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<WhiteLight>>(
                      mm2px(Vec(143.51, 77.7)), module, Prototype::LED_5_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<RedLight>>(
                      mm2px(Vec(143.51, 90.4)), module, Prototype::LED_6_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<WhiteLight>>(
                      mm2px(Vec(143.51, 105.64)), module, Prototype::LED_7_LIGHT));
-        addChild(createLightCentered<MediumLight<BlueLight>>(
+        addChild(createLightCentered<MediumLight<RedLight>>(
                      mm2px(Vec(143.51, 118.34)), module, Prototype::LED_8_LIGHT));
     }
 };
