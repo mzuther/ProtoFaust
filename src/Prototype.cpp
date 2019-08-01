@@ -91,7 +91,7 @@ struct Prototype : Module {
         NUM_LIGHTS
     };
 
-    faust::mydsp DSP;
+    faust::PrototypeDSP DSP;
     faust::PrintUI ui;
 
     float phase = 0.f;
