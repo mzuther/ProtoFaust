@@ -68,15 +68,6 @@ struct Prototype : Module {
     faust::PrototypeDSP DSP;
     faust::APIUI ui;
 
-    int paramLight_1 = -1;
-    int paramLight_2 = -1;
-    int paramLight_3 = -1;
-    int paramLight_4 = -1;
-    int paramLight_5 = -1;
-    int paramLight_6 = -1;
-    int paramLight_7 = -1;
-    int paramLight_8 = -1;
-
     int paramKnob_1 = -1;
     int paramKnob_2 = -1;
     int paramKnob_3 = -1;
@@ -85,6 +76,15 @@ struct Prototype : Module {
     int paramKnob_6 = -1;
     int paramKnob_7 = -1;
     int paramKnob_8 = -1;
+
+    int paramLight_1 = -1;
+    int paramLight_2 = -1;
+    int paramLight_3 = -1;
+    int paramLight_4 = -1;
+    int paramLight_5 = -1;
+    int paramLight_6 = -1;
+    int paramLight_7 = -1;
+    int paramLight_8 = -1;
 
     const FAUSTFLOAT pitchScaling = 5.0f;
     const FAUSTFLOAT cvScaling = 10.0f;
@@ -119,15 +119,6 @@ struct Prototype : Module {
         // for (int n=0; n < ui.getParamsCount(); n++)
         //     std::cout << ui.getParamAddress(n) << std::endl;
 
-        paramLight_1 = ui.getParamIndex("/Prototype/Lights/1");
-        paramLight_2 = ui.getParamIndex("/Prototype/Lights/2");
-        paramLight_3 = ui.getParamIndex("/Prototype/Lights/3");
-        paramLight_4 = ui.getParamIndex("/Prototype/Lights/4");
-        paramLight_5 = ui.getParamIndex("/Prototype/Lights/5");
-        paramLight_6 = ui.getParamIndex("/Prototype/Lights/6");
-        paramLight_7 = ui.getParamIndex("/Prototype/Lights/7");
-        paramLight_8 = ui.getParamIndex("/Prototype/Lights/8");
-
         paramKnob_1 = ui.getParamIndex("/Prototype/Knobs/1");
         paramKnob_2 = ui.getParamIndex("/Prototype/Knobs/2");
         paramKnob_3 = ui.getParamIndex("/Prototype/Knobs/3");
@@ -136,6 +127,15 @@ struct Prototype : Module {
         paramKnob_6 = ui.getParamIndex("/Prototype/Knobs/6");
         paramKnob_7 = ui.getParamIndex("/Prototype/Knobs/7");
         paramKnob_8 = ui.getParamIndex("/Prototype/Knobs/8");
+
+        paramLight_1 = ui.getParamIndex("/Prototype/Lights/1");
+        paramLight_2 = ui.getParamIndex("/Prototype/Lights/2");
+        paramLight_3 = ui.getParamIndex("/Prototype/Lights/3");
+        paramLight_4 = ui.getParamIndex("/Prototype/Lights/4");
+        paramLight_5 = ui.getParamIndex("/Prototype/Lights/5");
+        paramLight_6 = ui.getParamIndex("/Prototype/Lights/6");
+        paramLight_7 = ui.getParamIndex("/Prototype/Lights/7");
+        paramLight_8 = ui.getParamIndex("/Prototype/Lights/8");
 
         int sampleRate = APP->engine->getSampleRate();
         DSP.init(sampleRate);
@@ -259,21 +259,21 @@ struct PrototypeWidget : ModuleWidget {
         addParam(createParamCentered<CKSSThree>(
                      mm2px(Vec(31.75, 118.34)), module, Prototype::BUTTON_8_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(52.07, 28.17)), module, Prototype::KNOB_1_PARAM));
+                     mm2px(Vec(53.34, 28.17)), module, Prototype::KNOB_1_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(74.93, 28.17)), module, Prototype::KNOB_2_PARAM));
+                     mm2px(Vec(78.74, 28.17)), module, Prototype::KNOB_2_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(52.07, 56.11)), module, Prototype::KNOB_3_PARAM));
+                     mm2px(Vec(53.34, 56.11)), module, Prototype::KNOB_3_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(74.93, 56.11)), module, Prototype::KNOB_4_PARAM));
+                     mm2px(Vec(78.74, 56.11)), module, Prototype::KNOB_4_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(52.07, 84.05)), module, Prototype::KNOB_5_PARAM));
+                     mm2px(Vec(53.34, 84.05)), module, Prototype::KNOB_5_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(74.93, 84.05)), module, Prototype::KNOB_6_PARAM));
+                     mm2px(Vec(78.74, 84.05)), module, Prototype::KNOB_6_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(52.07, 111.99)), module, Prototype::KNOB_7_PARAM));
+                     mm2px(Vec(53.34, 111.99)), module, Prototype::KNOB_7_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(74.93, 111.99)), module, Prototype::KNOB_8_PARAM));
+                     mm2px(Vec(78.74, 111.99)), module, Prototype::KNOB_8_PARAM));
 
         addInput(createInputCentered<CL1362Port>(
                      mm2px(Vec(17.78, 21.82)), module, Prototype::IN_1_INPUT));
@@ -293,38 +293,38 @@ struct PrototypeWidget : ModuleWidget {
                      mm2px(Vec(17.78, 118.34)), module, Prototype::IN_8_INPUT));
 
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 21.82)), module, Prototype::OUT_1_OUTPUT));
+                      mm2px(Vec(114.3, 21.82)), module, Prototype::OUT_1_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 34.52)), module, Prototype::OUT_2_OUTPUT));
+                      mm2px(Vec(114.3, 34.52)), module, Prototype::OUT_2_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 49.76)), module, Prototype::OUT_3_OUTPUT));
+                      mm2px(Vec(114.3, 49.76)), module, Prototype::OUT_3_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 62.46)), module, Prototype::OUT_4_OUTPUT));
+                      mm2px(Vec(114.3, 62.46)), module, Prototype::OUT_4_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 77.7)), module, Prototype::OUT_5_OUTPUT));
+                      mm2px(Vec(114.3, 77.7)), module, Prototype::OUT_5_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 90.4)), module, Prototype::OUT_6_OUTPUT));
+                      mm2px(Vec(114.3, 90.4)), module, Prototype::OUT_6_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 105.64)), module, Prototype::OUT_7_OUTPUT));
+                      mm2px(Vec(114.3, 105.64)), module, Prototype::OUT_7_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(109.22, 118.34)), module, Prototype::OUT_8_OUTPUT));
+                      mm2px(Vec(114.3, 118.34)), module, Prototype::OUT_8_OUTPUT));
 
         addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(95.25, 21.82)), module, Prototype::LED_1_LIGHT));
+                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT));
         addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(95.25, 34.52)), module, Prototype::LED_2_LIGHT));
+                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT));
         addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(95.25, 49.76)), module, Prototype::LED_3_LIGHT));
+                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT));
         addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(95.25, 62.46)), module, Prototype::LED_4_LIGHT));
+                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT));
         addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(95.25, 77.7)), module, Prototype::LED_5_LIGHT));
+                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT));
         addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(95.25, 90.4)), module, Prototype::LED_6_LIGHT));
+                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT));
         addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(95.25, 105.64)), module, Prototype::LED_7_LIGHT));
+                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT));
         addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(95.25, 118.34)), module, Prototype::LED_8_LIGHT));
+                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT));
     }
 };
 
