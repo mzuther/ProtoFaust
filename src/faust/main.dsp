@@ -28,14 +28,38 @@ knob_8 = knob_group(vslider("8 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
 
 led_group(x) = main_group(hgroup("[3] Lights", x));
 
-led_1 = led_group(vbargraph("1 [style:led]" , 0 , 1)) : _;
-led_2 = led_group(vbargraph("2 [style:led]" , 0 , 1)) : _;
-led_3 = led_group(vbargraph("3 [style:led]" , 0 , 1)) : _;
-led_4 = led_group(vbargraph("4 [style:led]" , 0 , 1)) : _;
-led_5 = led_group(vbargraph("5 [style:led]" , 0 , 1)) : _;
-led_6 = led_group(vbargraph("6 [style:led]" , 0 , 1)) : _;
-led_7 = led_group(vbargraph("7 [style:led]" , 0 , 1)) : _;
-led_8 = led_group(vbargraph("8 [style:led]" , 0 , 1)) : _;
+led_1_r = led_group(vbargraph("1 Red [style:led]" , 0 , 1)) : _;
+led_1_g = led_group(vbargraph("1 Green [style:led]" , 0 , 1)) : _;
+led_1_b = led_group(vbargraph("1 Blue [style:led]" , 0 , 1)) : _;
+
+led_2_r = led_group(vbargraph("2 Red [style:led]" , 0 , 1)) : _;
+led_2_g = led_group(vbargraph("2 Green [style:led]" , 0 , 1)) : _;
+led_2_b = led_group(vbargraph("2 Blue [style:led]" , 0 , 1)) : _;
+
+led_3_r = led_group(vbargraph("3 Red [style:led]" , 0 , 1)) : _;
+led_3_g = led_group(vbargraph("3 Green [style:led]" , 0 , 1)) : _;
+led_3_b = led_group(vbargraph("3 Blue [style:led]" , 0 , 1)) : _;
+
+led_4_r = led_group(vbargraph("4 Red [style:led]" , 0 , 1)) : _;
+led_4_g = led_group(vbargraph("4 Green [style:led]" , 0 , 1)) : _;
+led_4_b = led_group(vbargraph("4 Blue [style:led]" , 0 , 1)) : _;
+
+led_5_r = led_group(vbargraph("5 Red [style:led]" , 0 , 1)) : _;
+led_5_g = led_group(vbargraph("5 Green [style:led]" , 0 , 1)) : _;
+led_5_b = led_group(vbargraph("5 Blue [style:led]" , 0 , 1)) : _;
+
+led_6_r = led_group(vbargraph("6 Red [style:led]" , 0 , 1)) : _;
+led_6_g = led_group(vbargraph("6 Green [style:led]" , 0 , 1)) : _;
+led_6_b = led_group(vbargraph("6 Blue [style:led]" , 0 , 1)) : _;
+
+led_7_r = led_group(vbargraph("7 Red [style:led]" , 0 , 1)) : _;
+led_7_g = led_group(vbargraph("7 Green [style:led]" , 0 , 1)) : _;
+led_7_b = led_group(vbargraph("7 Blue [style:led]" , 0 , 1)) : _;
+
+led_8_r = led_group(vbargraph("8 Red [style:led]" , 0 , 1)) : _;
+led_8_g = led_group(vbargraph("8 Green [style:led]" , 0 , 1)) : _;
+led_8_b = led_group(vbargraph("8 Blue [style:led]" , 0 , 1)) : _;
+
 
 vca(i_cv , in) = internal_vca
 with
@@ -94,14 +118,37 @@ with
              attach(_ , knob_7) :
              attach(_ , knob_8) :
 
-             attach(_ , lfo_1 : led_1) :
-             attach(_ , lfo_2 : led_2) :
-             attach(_ , lfo_1 : led_3) :
-             attach(_ , lfo_2 : led_4) :
-             attach(_ , lfo_1 : led_5) :
-             attach(_ , lfo_2 : led_6) :
-             attach(_ , lfo_1 : led_7) :
-             attach(_ , lfo_2 : led_8) :
+             attach(_ , lfo_1 : led_1_r) :
+             attach(_ , lfo_1 : led_1_g) :
+             attach(_ , lfo_1 : led_1_b) :
+
+             attach(_ , lfo_2 : led_2_r) :
+             attach(_ , 0 : led_2_g) :
+             attach(_ , 0 : led_2_b) :
+
+             attach(_ , lfo_1 : led_3_r) :
+             attach(_ , lfo_1 : led_3_g) :
+             attach(_ , lfo_1 : led_3_b) :
+
+             attach(_ , lfo_2 : led_4_r) :
+             attach(_ , 0 : led_4_g) :
+             attach(_ , 0 : led_4_b) :
+
+             attach(_ , lfo_1 : led_5_r) :
+             attach(_ , lfo_1 : led_5_g) :
+             attach(_ , lfo_1 : led_5_b) :
+
+             attach(_ , lfo_2 : led_6_r) :
+             attach(_ , 0 : led_6_g) :
+             attach(_ , 0 : led_6_b) :
+
+             attach(_ , lfo_1 : led_7_r) :
+             attach(_ , lfo_1 : led_7_g) :
+             attach(_ , lfo_1 : led_7_b) :
+
+             attach(_ , lfo_2 : led_8_r) :
+             attach(_ , 0 : led_8_g) :
+             attach(_ , 0 : led_8_b) :
              _;
 
   internal_processor = (in1 : attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);

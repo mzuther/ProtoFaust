@@ -24,11 +24,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="251.32318"
-     inkscape:cy="371.23948"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="174.35459"
+     inkscape:cy="269.67605"
      inkscape:document-units="mm"
-     inkscape:current-layer="g5056"
+     inkscape:current-layer="layer3"
      showgrid="false"
      units="mm"
      inkscape:snap-bbox="false"
@@ -7560,7 +7560,7 @@
          inkscape:transform-center-x="-19.049995"
          inkscape:transform-center-y="-48.260015" />
       <circle
-         inkscape:label="led_1"
+         inkscape:label="led_1_red"
          r="2.5"
          cy="21.819981"
          cx="99.06002"
@@ -7598,7 +7598,7 @@
          cx="99.06002"
          cy="34.519981"
          r="2.5"
-         inkscape:label="led_2"
+         inkscape:label="led_2_red"
          inkscape:transform-center-x="-3.8100025"
          inkscape:transform-center-y="-35.560012" />
       <circle
@@ -7625,7 +7625,7 @@
          cx="99.06002"
          cy="49.759983"
          r="2.5"
-         inkscape:label="led_3"
+         inkscape:label="led_3_red"
          inkscape:transform-center-x="-3.8100025"
          inkscape:transform-center-y="-20.320008" />
       <circle
@@ -7660,7 +7660,7 @@
          id="circle1192"
          style="display:inline;opacity:1;vector-effect:none;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
       <circle
-         inkscape:label="led_4"
+         inkscape:label="led_4_red"
          r="2.5"
          cy="62.459988"
          cx="99.06002"
@@ -7687,7 +7687,7 @@
          inkscape:transform-center-x="-19.049995"
          inkscape:transform-center-y="7.6200024" />
       <circle
-         inkscape:label="led_5"
+         inkscape:label="led_5_red"
          r="2.5"
          cy="77.699989"
          cx="99.06002"
@@ -7732,7 +7732,7 @@
          cx="99.06002"
          cy="90.399994"
          r="2.5"
-         inkscape:label="led_6"
+         inkscape:label="led_6_red"
          inkscape:transform-center-x="-3.8100025"
          inkscape:transform-center-y="20.320009" />
       <circle
@@ -7759,7 +7759,7 @@
          cx="99.06002"
          cy="105.63999"
          r="2.5"
-         inkscape:label="led_7"
+         inkscape:label="led_7_red"
          inkscape:transform-center-x="-3.8100025"
          inkscape:transform-center-y="35.560009" />
       <circle
@@ -7794,7 +7794,7 @@
          id="circle1256"
          style="display:inline;opacity:1;vector-effect:none;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
       <circle
-         inkscape:label="led_8"
+         inkscape:label="led_8_red"
          r="2.5"
          cy="118.34"
          cx="99.06002"

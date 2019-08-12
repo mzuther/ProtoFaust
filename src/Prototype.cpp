@@ -52,14 +52,37 @@ struct Prototype : Module {
         NUM_OUTPUTS
     };
     enum LightIds {
-        LED_1_LIGHT,
-        LED_2_LIGHT,
-        LED_3_LIGHT,
-        LED_4_LIGHT,
-        LED_5_LIGHT,
-        LED_6_LIGHT,
-        LED_7_LIGHT,
-        LED_8_LIGHT,
+        LED_1_LIGHT_RED,
+        LED_1_LIGHT_GREEN,
+        LED_1_LIGHT_BLUE,
+
+        LED_2_LIGHT_RED,
+        LED_2_LIGHT_GREEN,
+        LED_2_LIGHT_BLUE,
+
+        LED_3_LIGHT_RED,
+        LED_3_LIGHT_GREEN,
+        LED_3_LIGHT_BLUE,
+
+        LED_4_LIGHT_RED,
+        LED_4_LIGHT_GREEN,
+        LED_4_LIGHT_BLUE,
+
+        LED_5_LIGHT_RED,
+        LED_5_LIGHT_GREEN,
+        LED_5_LIGHT_BLUE,
+
+        LED_6_LIGHT_RED,
+        LED_6_LIGHT_GREEN,
+        LED_6_LIGHT_BLUE,
+
+        LED_7_LIGHT_RED,
+        LED_7_LIGHT_GREEN,
+        LED_7_LIGHT_BLUE,
+
+        LED_8_LIGHT_RED,
+        LED_8_LIGHT_GREEN,
+        LED_8_LIGHT_BLUE,
 
         NUM_LIGHTS
     };
@@ -86,14 +109,37 @@ struct Prototype : Module {
     int paramKnob_7 = -1;
     int paramKnob_8 = -1;
 
-    int paramLight_1 = -1;
-    int paramLight_2 = -1;
-    int paramLight_3 = -1;
-    int paramLight_4 = -1;
-    int paramLight_5 = -1;
-    int paramLight_6 = -1;
-    int paramLight_7 = -1;
-    int paramLight_8 = -1;
+    int paramLight_1_red = -1;
+    int paramLight_1_green = -1;
+    int paramLight_1_blue = -1;
+
+    int paramLight_2_red = -1;
+    int paramLight_2_green = -1;
+    int paramLight_2_blue = -1;
+
+    int paramLight_3_red = -1;
+    int paramLight_3_green = -1;
+    int paramLight_3_blue = -1;
+
+    int paramLight_4_red = -1;
+    int paramLight_4_green = -1;
+    int paramLight_4_blue = -1;
+
+    int paramLight_5_red = -1;
+    int paramLight_5_green = -1;
+    int paramLight_5_blue = -1;
+
+    int paramLight_6_red = -1;
+    int paramLight_6_green = -1;
+    int paramLight_6_blue = -1;
+
+    int paramLight_7_red = -1;
+    int paramLight_7_green = -1;
+    int paramLight_7_blue = -1;
+
+    int paramLight_8_red = -1;
+    int paramLight_8_green = -1;
+    int paramLight_8_blue = -1;
 
     const FAUSTFLOAT pitchScaling = 5.0f;
     const FAUSTFLOAT cvScaling = 10.0f;
@@ -146,14 +192,37 @@ struct Prototype : Module {
         paramKnob_7 = ui.getParamIndex("/Prototype/Knobs/7");
         paramKnob_8 = ui.getParamIndex("/Prototype/Knobs/8");
 
-        paramLight_1 = ui.getParamIndex("/Prototype/Lights/1");
-        paramLight_2 = ui.getParamIndex("/Prototype/Lights/2");
-        paramLight_3 = ui.getParamIndex("/Prototype/Lights/3");
-        paramLight_4 = ui.getParamIndex("/Prototype/Lights/4");
-        paramLight_5 = ui.getParamIndex("/Prototype/Lights/5");
-        paramLight_6 = ui.getParamIndex("/Prototype/Lights/6");
-        paramLight_7 = ui.getParamIndex("/Prototype/Lights/7");
-        paramLight_8 = ui.getParamIndex("/Prototype/Lights/8");
+        paramLight_1_red = ui.getParamIndex("/Prototype/Lights/1_Red");
+        paramLight_1_green = ui.getParamIndex("/Prototype/Lights/1_Green");
+        paramLight_1_blue = ui.getParamIndex("/Prototype/Lights/1_Blue");
+
+        paramLight_2_red = ui.getParamIndex("/Prototype/Lights/2_Red");
+        paramLight_2_green = ui.getParamIndex("/Prototype/Lights/2_Green");
+        paramLight_2_blue = ui.getParamIndex("/Prototype/Lights/2_Blue");
+
+        paramLight_3_red = ui.getParamIndex("/Prototype/Lights/3_Red");
+        paramLight_3_green = ui.getParamIndex("/Prototype/Lights/3_Green");
+        paramLight_3_blue = ui.getParamIndex("/Prototype/Lights/3_Blue");
+
+        paramLight_4_red = ui.getParamIndex("/Prototype/Lights/4_Red");
+        paramLight_4_green = ui.getParamIndex("/Prototype/Lights/4_Green");
+        paramLight_4_blue = ui.getParamIndex("/Prototype/Lights/4_Blue");
+
+        paramLight_5_red = ui.getParamIndex("/Prototype/Lights/5_Red");
+        paramLight_5_green = ui.getParamIndex("/Prototype/Lights/5_Green");
+        paramLight_5_blue = ui.getParamIndex("/Prototype/Lights/5_Blue");
+
+        paramLight_6_red = ui.getParamIndex("/Prototype/Lights/6_Red");
+        paramLight_6_green = ui.getParamIndex("/Prototype/Lights/6_Green");
+        paramLight_6_blue = ui.getParamIndex("/Prototype/Lights/6_Blue");
+
+        paramLight_7_red = ui.getParamIndex("/Prototype/Lights/7_Red");
+        paramLight_7_green = ui.getParamIndex("/Prototype/Lights/7_Green");
+        paramLight_7_blue = ui.getParamIndex("/Prototype/Lights/7_Blue");
+
+        paramLight_8_red = ui.getParamIndex("/Prototype/Lights/8_Red");
+        paramLight_8_green = ui.getParamIndex("/Prototype/Lights/8_Green");
+        paramLight_8_blue = ui.getParamIndex("/Prototype/Lights/8_Blue");
 
         int sampleRate = APP->engine->getSampleRate();
         DSP.init(sampleRate);
@@ -265,14 +334,37 @@ struct Prototype : Module {
             outputs[channel + OUT_1_OUTPUT].setVoltage(output);
         }
 
-        lights[LED_1_LIGHT].setBrightness(ui.getParamValue(paramLight_1));
-        lights[LED_2_LIGHT].setBrightness(ui.getParamValue(paramLight_2));
-        lights[LED_3_LIGHT].setBrightness(ui.getParamValue(paramLight_3));
-        lights[LED_4_LIGHT].setBrightness(ui.getParamValue(paramLight_4));
-        lights[LED_5_LIGHT].setBrightness(ui.getParamValue(paramLight_5));
-        lights[LED_6_LIGHT].setBrightness(ui.getParamValue(paramLight_6));
-        lights[LED_7_LIGHT].setBrightness(ui.getParamValue(paramLight_7));
-        lights[LED_8_LIGHT].setBrightness(ui.getParamValue(paramLight_8));
+        lights[LED_1_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_1_red));
+        lights[LED_1_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_1_green));
+        lights[LED_1_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_1_blue));
+
+        lights[LED_2_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_2_red));
+        lights[LED_2_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_2_green));
+        lights[LED_2_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_2_blue));
+
+        lights[LED_3_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_3_red));
+        lights[LED_3_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_3_green));
+        lights[LED_3_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_3_blue));
+
+        lights[LED_4_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_4_red));
+        lights[LED_4_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_4_green));
+        lights[LED_4_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_4_blue));
+
+        lights[LED_5_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_5_red));
+        lights[LED_5_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_5_green));
+        lights[LED_5_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_5_blue));
+
+        lights[LED_6_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_6_red));
+        lights[LED_6_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_6_green));
+        lights[LED_6_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_6_blue));
+
+        lights[LED_7_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_7_red));
+        lights[LED_7_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_7_green));
+        lights[LED_7_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_7_blue));
+
+        lights[LED_8_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_8_red));
+        lights[LED_8_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_8_green));
+        lights[LED_8_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_8_blue));
     }
 };
 
@@ -360,22 +452,22 @@ struct PrototypeWidget : ModuleWidget {
         addOutput(createOutputCentered<CL1362Port>(
                       mm2px(Vec(114.3, 118.34)), module, Prototype::OUT_8_OUTPUT));
 
-        addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT));
-        addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT));
-        addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT));
-        addChild(createLightCentered<MediumLight<WhiteLight>>(
-                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT));
-        addChild(createLightCentered<MediumLight<RedLight>>(
-                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT_RED));
+        addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
+                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT_RED));
     }
 };
 
