@@ -68,6 +68,15 @@ struct Prototype : Module {
     faust::PrototypeDSP DSP;
     faust::APIUI ui;
 
+    int paramButton_1 = -1;
+    int paramButton_2 = -1;
+    int paramButton_3 = -1;
+    int paramButton_4 = -1;
+    int paramButton_5 = -1;
+    int paramButton_6 = -1;
+    int paramButton_7 = -1;
+    int paramButton_8 = -1;
+
     int paramKnob_1 = -1;
     int paramKnob_2 = -1;
     int paramKnob_3 = -1;
@@ -92,14 +101,14 @@ struct Prototype : Module {
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 
-        configParam(BUTTON_1_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_2_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_3_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_4_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_5_PARAM, 0.f, 2.f, 1.f, "");
-        configParam(BUTTON_6_PARAM, 0.f, 2.f, 1.f, "");
-        configParam(BUTTON_7_PARAM, 0.f, 2.f, 1.f, "");
-        configParam(BUTTON_8_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(BUTTON_1_PARAM, 0.f, 1.f, 1.f, "");
+        configParam(BUTTON_2_PARAM, 0.f, 1.f, 1.f, "");
+        configParam(BUTTON_3_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(BUTTON_4_PARAM, 0.f, 2.f, 1.f, "");
+        configParam(BUTTON_5_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(BUTTON_6_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(BUTTON_7_PARAM, 0.f, 1.f, 0.f, "");
+        configParam(BUTTON_8_PARAM, 0.f, 1.f, 0.f, "");
 
         configParam(KNOB_1_PARAM, 0.f, 10.f, 5.f, "");
         configParam(KNOB_2_PARAM, 0.f, 10.f, 5.f, "");
@@ -118,6 +127,15 @@ struct Prototype : Module {
 
         // for (int n=0; n < ui.getParamsCount(); n++)
         //     std::cout << ui.getParamAddress(n) << std::endl;
+
+        paramButton_1 = ui.getParamIndex("/Prototype/Buttons/1");
+        paramButton_2 = ui.getParamIndex("/Prototype/Buttons/2");
+        paramButton_3 = ui.getParamIndex("/Prototype/Buttons/3");
+        paramButton_4 = ui.getParamIndex("/Prototype/Buttons/4");
+        paramButton_5 = ui.getParamIndex("/Prototype/Buttons/5");
+        paramButton_6 = ui.getParamIndex("/Prototype/Buttons/6");
+        paramButton_7 = ui.getParamIndex("/Prototype/Buttons/7");
+        paramButton_8 = ui.getParamIndex("/Prototype/Buttons/8");
 
         paramKnob_1 = ui.getParamIndex("/Prototype/Knobs/1");
         paramKnob_2 = ui.getParamIndex("/Prototype/Knobs/2");
@@ -167,6 +185,38 @@ struct Prototype : Module {
         int int_control[DSP.getNumIntControls()];
         FAUSTFLOAT real_control[DSP.getNumRealControls()];
         FAUSTFLOAT value;
+
+        value = params[BUTTON_1_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_1, value);
+
+        value = params[BUTTON_2_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_2, value);
+
+        value = params[BUTTON_3_PARAM].getValue();
+        value /= (2.0f * cvScaling);
+        ui.setParamValue(paramButton_3, value);
+
+        value = params[BUTTON_4_PARAM].getValue();
+        value /= (2.0f * cvScaling);
+        ui.setParamValue(paramButton_4, value);
+
+        value = params[BUTTON_5_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_5, value);
+
+        value = params[BUTTON_6_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_6, value);
+
+        value = params[BUTTON_7_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_7, value);
+
+        value = params[BUTTON_8_PARAM].getValue();
+        value /= cvScaling;
+        ui.setParamValue(paramButton_8, value);
 
         value = params[KNOB_1_PARAM].getValue();
         value /= cvScaling;
@@ -242,22 +292,23 @@ struct PrototypeWidget : ModuleWidget {
         addChild(createWidget<ScrewBlack>(
                      Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-        addParam(createParamCentered<BefacoPush>(
+        addParam(createParamCentered<CKSS>(
                      mm2px(Vec(31.75, 21.82)), module, Prototype::BUTTON_1_PARAM));
-        addParam(createParamCentered<BefacoPush>(
+        addParam(createParamCentered<CKSS>(
                      mm2px(Vec(31.75, 34.52)), module, Prototype::BUTTON_2_PARAM));
-        addParam(createParamCentered<BefacoPush>(
+        addParam(createParamCentered<CKSSThree>(
                      mm2px(Vec(31.75, 49.76)), module, Prototype::BUTTON_3_PARAM));
-        addParam(createParamCentered<BefacoPush>(
+        addParam(createParamCentered<CKSSThree>(
                      mm2px(Vec(31.75, 62.46)), module, Prototype::BUTTON_4_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 77.7)), module, Prototype::BUTTON_5_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 90.4)), module, Prototype::BUTTON_6_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 105.64)), module, Prototype::BUTTON_7_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 118.34)), module, Prototype::BUTTON_8_PARAM));
+
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
                      mm2px(Vec(53.34, 28.17)), module, Prototype::KNOB_1_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(

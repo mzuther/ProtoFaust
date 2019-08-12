@@ -45,11 +45,11 @@ with
 };
 
 
-vco(i_cv_pitch) = internal_vco
+vco(i_cv_pitch , btn) = internal_vco
 with
 {
   freq = i_cv_pitch : eurorack.i_cv_pitch2freq : _;
-  internal_vco = freq : os.oscws : _;
+  internal_vco = ba.if(btn > 0 , (freq : os.oscws) , (freq : os.saw2)) : _;
 };
 
 
@@ -62,10 +62,10 @@ with
   i_cv_pitch_final_1 = i_cv_pitch_1 , i_cv_pitch_added_1 : + : _;
   i_cv_pitch_final_2 = i_cv_pitch_2 , i_cv_pitch_added_2 : + : _;
 
-  voice(i_cv_pitch , pan) = i_cv_pitch : 1 , vco : pan , vca : sp.panner : _ , _;
+  voice(i_cv_pitch , btn , pan) = i_cv_pitch , btn : 1 , vco : pan , vca : sp.panner : _ , _;
   mix(a1 , b1 , a2 , b2) = a1 + a2 , b1 + b2 : _ , _;
 
-  internal_voices = i_cv_pitch_final_1 , 0 , i_cv_pitch_final_2 , 1 : voice , voice : mix : _ , _;
+  internal_voices = i_cv_pitch_final_1 , button_1 , 0 , i_cv_pitch_final_2 , button_2 , 1 : voice , voice : mix : _ , _;
 };
 
 
