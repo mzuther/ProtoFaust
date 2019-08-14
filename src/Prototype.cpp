@@ -177,17 +177,17 @@ struct Prototype : Module {
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 
-        // two-way switches
-        // values:  0.0, 1.0
-        // default: 0.0 (off)
-        configParam(BUTTON_1_PARAM, 0.0f, 1.0f, 0.0f, "");
-        configParam(BUTTON_2_PARAM, 0.0f, 1.0f, 0.0f, "");
-
         // three-way switches
         // values:  0.0, 0.5, 1.0; see Prototype::process()
         // default: 0.0 (off)
-        configParam(BUTTON_3_PARAM, 0.0f, 2.0f, 0.0f, "");
-        configParam(BUTTON_4_PARAM, 0.0f, 2.0f, 0.0f, "");
+        configParam(BUTTON_1_PARAM, 0.0f, 2.0f, 0.0f, "");
+        configParam(BUTTON_2_PARAM, 0.0f, 2.0f, 0.0f, "");
+
+        // two-way switches
+        // values:  0.0, 1.0
+        // default: 0.0 (off)
+        configParam(BUTTON_3_PARAM, 0.0f, 1.0f, 0.0f, "");
+        configParam(BUTTON_4_PARAM, 0.0f, 1.0f, 0.0f, "");
 
         // momentary push buttons
         // values:  0.0, 1.0
@@ -299,19 +299,19 @@ struct Prototype : Module {
 
         // copy parameter values from Rack to Faust
         value = params[BUTTON_1_PARAM].getValue();
+        // scale range to (0 .. 1)
+        value /= 2.0f;
         FaustUI.setParamValue(paramButton_1, value);
 
         value = params[BUTTON_2_PARAM].getValue();
+        // scale range to (0 .. 1)
+        value /= 2.0f;
         FaustUI.setParamValue(paramButton_2, value);
 
         value = params[BUTTON_3_PARAM].getValue();
-        // scale range to (0 .. 1)
-        value /= 2.0f;
         FaustUI.setParamValue(paramButton_3, value);
 
         value = params[BUTTON_4_PARAM].getValue();
-        // scale range to (0 .. 1)
-        value /= 2.0f;
         FaustUI.setParamValue(paramButton_4, value);
 
         value = params[BUTTON_5_PARAM].getValue();
@@ -421,13 +421,13 @@ struct PrototypeWidget : ModuleWidget {
                      Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
         // buttons & switches
-        addParam(createParamCentered<CKSS>(
+        addParam(createParamCentered<CKSSThree>(
                      mm2px(Vec(31.75, 21.82)), module, Prototype::BUTTON_1_PARAM));
-        addParam(createParamCentered<CKSS>(
+        addParam(createParamCentered<CKSSThree>(
                      mm2px(Vec(31.75, 34.52)), module, Prototype::BUTTON_2_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<CKSS>(
                      mm2px(Vec(31.75, 49.76)), module, Prototype::BUTTON_3_PARAM));
-        addParam(createParamCentered<CKSSThree>(
+        addParam(createParamCentered<CKSS>(
                      mm2px(Vec(31.75, 62.46)), module, Prototype::BUTTON_4_PARAM));
         addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 77.7)), module, Prototype::BUTTON_5_PARAM));

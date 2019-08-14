@@ -42,23 +42,32 @@ vco(i_cv_pitch , btn) = internal_vco
 with
 {
   freq = i_cv_pitch : rack.i_cv_pitch2freq : _;
-  internal_vco = ba.if(btn > 0 , (freq : os.oscws) , (freq : os.saw2)) : _;
+  internal_vco = (freq : os.saw2) , (freq : os.square) , (freq : os.triangle) : ba.selectn(3 , btn) : _;
 };
 
 
-voices(i_cv_pitch_1 , i_cv_pitch_2) = internal_voices
+voices(i_cv_pitch) = internal_voices
 with
 {
-  i_cv_pitch_added_1 = knob_1 , 0.5 : - : si.smooth(1e-3) : _;
-  i_cv_pitch_added_2 = knob_2 , 0.5 : - : si.smooth(1e-3) : _;
+  i_cv_pitch_coarse_1 = knob_1 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_fine_1 = knob_2 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
 
-  i_cv_pitch_final_1 = i_cv_pitch_1 , i_cv_pitch_added_1 : + : _;
-  i_cv_pitch_final_2 = i_cv_pitch_2 , i_cv_pitch_added_2 : + : _;
+  i_cv_pitch_coarse_2 = knob_3 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_fine_2 = knob_4 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
+
+  i_cv_pitch_coarse_3 = knob_5 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_fine_3 = knob_6 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
+
+  i_cv_pitch_final_1 = i_cv_pitch , i_cv_pitch_coarse_1 : + , i_cv_pitch_fine_1 : + : _;
+  i_cv_pitch_final_2 = i_cv_pitch , i_cv_pitch_coarse_2 : + , i_cv_pitch_fine_2 : + : _;
+  i_cv_pitch_final_3 = i_cv_pitch , i_cv_pitch_coarse_3 : + , i_cv_pitch_fine_3 : + : _;
 
   voice(i_cv_pitch , btn , pan) = i_cv_pitch , btn : 1 , vco : pan , vca : sp.panner : _ , _;
-  mix(a1 , b1 , a2 , b2) = a1 + a2 , b1 + b2 : _ , _;
+  mix(a1 , b1 , a2 , b2 , a3 , b3) = a1 + a2 + a3 , b1 + b2 + b3 : _ , _;
 
-  internal_voices = i_cv_pitch_final_1 , button_1 , 0 , i_cv_pitch_final_2 , button_2 , 1 : voice , voice : mix : _ , _;
+  internal_voices = i_cv_pitch_final_1 , (button_1 , 2 : *) , 0 ,
+                    i_cv_pitch_final_2 , (button_2 , 2 : *) , 1 ,
+                    i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) , 0.5 : voice , voice , voice : mix : _ , _;
 };
 
 
@@ -120,5 +129,5 @@ with
                  attach(_ , 0 : led_8_b) :
                  _;
 
-  internal_processor = (in1 : gui_attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  internal_processor = in1 : gui_attacher : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
 };
