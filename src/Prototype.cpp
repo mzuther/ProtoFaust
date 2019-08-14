@@ -171,7 +171,8 @@ struct Prototype : Module {
     int paramLight_8_g = -1;
     int paramLight_8_b = -1;
 
-    const FAUSTFLOAT pitchScaling = 5.0f;
+    const int numberOfChannels = 8;
+    const FAUSTFLOAT voltageScaling = 5.0f;
 
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
@@ -279,25 +280,24 @@ struct Prototype : Module {
 
 
     void process(const ProcessArgs &args) override {
-        std::vector<FAUSTFLOAT> temporaryInputs(8);
-        std::vector<FAUSTFLOAT> temporaryOutputs(8);
+        std::vector<FAUSTFLOAT> temporaryInputs(numberOfChannels);
+        std::vector<FAUSTFLOAT> temporaryOutputs(numberOfChannels);
 
-        for (int channel = 0; channel < 8; channel++) {
-            FAUSTFLOAT input = inputs[channel + IN_1_INPUT].getVoltage();
-            FAUSTFLOAT output = outputs[channel + OUT_1_OUTPUT].getVoltage();
+        // initialize inputs and outputs
+        for (int channel = 0; channel < numberOfChannels; channel++) {
+            // get input voltages from Rack
+            FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
 
-            // scale levels from Rack to value range of Faust (-1.0 to +1.0)
-            output /= pitchScaling;
-            input /= pitchScaling;
+            // scale voltages from Rack to value range of Faust (-1.0 to +1.0)
+            temporaryInputs[channel] = input / voltageScaling;
 
-            temporaryInputs[channel] = input;
-            temporaryOutputs[channel] = output;
+            // silence temporary outputs (might protect your ears in case of misbehaviour)
+            temporaryOutputs[channel] = 0.0;
         }
 
-        int int_control[FaustDSP.getNumIntControls()];
-        FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
         FAUSTFLOAT value;
 
+        // copy parameter values from Rack to Faust
         value = params[BUTTON_1_PARAM].getValue();
         FaustUI.setParamValue(paramButton_1, value);
 
@@ -305,12 +305,12 @@ struct Prototype : Module {
         FaustUI.setParamValue(paramButton_2, value);
 
         value = params[BUTTON_3_PARAM].getValue();
-        // limit range to (0 .. 1)
+        // scale range to (0 .. 1)
         value /= 2.0f;
         FaustUI.setParamValue(paramButton_3, value);
 
         value = params[BUTTON_4_PARAM].getValue();
-        // limit range to (0 .. 1)
+        // scale range to (0 .. 1)
         value /= 2.0f;
         FaustUI.setParamValue(paramButton_4, value);
 
@@ -350,21 +350,25 @@ struct Prototype : Module {
         value = params[KNOB_8_PARAM].getValue();
         FaustUI.setParamValue(paramKnob_8, value);
 
+        int int_control[FaustDSP.getNumIntControls()];
+        FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
+
+        // update Faust controls
         FaustDSP.control(int_control, real_control);
+
+        // compute one sample in Faust
         FaustDSP.compute(temporaryInputs.data(), temporaryOutputs.data(), int_control, real_control);
 
-        for (int channel = 0; channel < 8; channel++) {
-            FAUSTFLOAT input = temporaryInputs[channel];
+        // update inputs and outputs
+        for (int channel = 0; channel < numberOfChannels; channel++) {
+            // update output voltages
             FAUSTFLOAT output = temporaryOutputs[channel];
 
-            // scale levels from Faust back to value range of Rack (-5.0 to +5.0)
-            output *= pitchScaling;
-            input *= pitchScaling;
-
-            inputs[channel + IN_1_INPUT].setVoltage(input);
-            outputs[channel + OUT_1_OUTPUT].setVoltage(output);
+            // scale voltages from Faust back to value range of Rack (-5.0 to +5.0)
+            outputs[OUT_1_OUTPUT + channel].setVoltage(output * voltageScaling);
         }
 
+        // update RGB LEDs
         lights[LED_1_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_1_r));
         lights[LED_1_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_1_g));
         lights[LED_1_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_1_b));
@@ -406,6 +410,7 @@ struct PrototypeWidget : ModuleWidget {
         setPanel(APP->window->loadSvg(
                      asset::plugin(pluginInstance, "res/Prototype.svg")));
 
+        // screws
         addChild(createWidget<ScrewBlack>(
                      Vec(RACK_GRID_WIDTH, 0)));
         addChild(createWidget<ScrewBlack>(
@@ -415,6 +420,7 @@ struct PrototypeWidget : ModuleWidget {
         addChild(createWidget<ScrewBlack>(
                      Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
+        // buttons & switches
         addParam(createParamCentered<CKSS>(
                      mm2px(Vec(31.75, 21.82)), module, Prototype::BUTTON_1_PARAM));
         addParam(createParamCentered<CKSS>(
@@ -432,6 +438,7 @@ struct PrototypeWidget : ModuleWidget {
         addParam(createParamCentered<BefacoPush>(
                      mm2px(Vec(31.75, 118.34)), module, Prototype::BUTTON_8_PARAM));
 
+        // big knobs
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
                      mm2px(Vec(53.34, 28.17)), module, Prototype::KNOB_1_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
@@ -449,6 +456,7 @@ struct PrototypeWidget : ModuleWidget {
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
                      mm2px(Vec(78.74, 111.99)), module, Prototype::KNOB_8_PARAM));
 
+        // input ports
         addInput(createInputCentered<CL1362Port>(
                      mm2px(Vec(17.78, 21.82)), module, Prototype::IN_1_INPUT));
         addInput(createInputCentered<CL1362Port>(
@@ -466,6 +474,7 @@ struct PrototypeWidget : ModuleWidget {
         addInput(createInputCentered<CL1362Port>(
                      mm2px(Vec(17.78, 118.34)), module, Prototype::IN_8_INPUT));
 
+        // output ports
         addOutput(createOutputCentered<CL1362Port>(
                       mm2px(Vec(114.3, 21.82)), module, Prototype::OUT_1_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
