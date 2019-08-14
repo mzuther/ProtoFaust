@@ -53,6 +53,7 @@ struct Prototype : Module {
 
         NUM_PARAMS
     };
+
     enum InputIds {
         IN_1_INPUT,
         IN_2_INPUT,
@@ -65,6 +66,7 @@ struct Prototype : Module {
 
         NUM_INPUTS
     };
+
     enum OutputIds {
         OUT_1_OUTPUT,
         OUT_2_OUTPUT,
@@ -77,38 +79,39 @@ struct Prototype : Module {
 
         NUM_OUTPUTS
     };
+
     enum LightIds {
-        LED_1_LIGHT_RED,
-        LED_1_LIGHT_GREEN,
-        LED_1_LIGHT_BLUE,
+        LED_1_LIGHT_R,
+        LED_1_LIGHT_G,
+        LED_1_LIGHT_B,
 
-        LED_2_LIGHT_RED,
-        LED_2_LIGHT_GREEN,
-        LED_2_LIGHT_BLUE,
+        LED_2_LIGHT_R,
+        LED_2_LIGHT_G,
+        LED_2_LIGHT_B,
 
-        LED_3_LIGHT_RED,
-        LED_3_LIGHT_GREEN,
-        LED_3_LIGHT_BLUE,
+        LED_3_LIGHT_R,
+        LED_3_LIGHT_G,
+        LED_3_LIGHT_B,
 
-        LED_4_LIGHT_RED,
-        LED_4_LIGHT_GREEN,
-        LED_4_LIGHT_BLUE,
+        LED_4_LIGHT_R,
+        LED_4_LIGHT_G,
+        LED_4_LIGHT_B,
 
-        LED_5_LIGHT_RED,
-        LED_5_LIGHT_GREEN,
-        LED_5_LIGHT_BLUE,
+        LED_5_LIGHT_R,
+        LED_5_LIGHT_G,
+        LED_5_LIGHT_B,
 
-        LED_6_LIGHT_RED,
-        LED_6_LIGHT_GREEN,
-        LED_6_LIGHT_BLUE,
+        LED_6_LIGHT_R,
+        LED_6_LIGHT_G,
+        LED_6_LIGHT_B,
 
-        LED_7_LIGHT_RED,
-        LED_7_LIGHT_GREEN,
-        LED_7_LIGHT_BLUE,
+        LED_7_LIGHT_R,
+        LED_7_LIGHT_G,
+        LED_7_LIGHT_B,
 
-        LED_8_LIGHT_RED,
-        LED_8_LIGHT_GREEN,
-        LED_8_LIGHT_BLUE,
+        LED_8_LIGHT_R,
+        LED_8_LIGHT_G,
+        LED_8_LIGHT_B,
 
         NUM_LIGHTS
     };
@@ -117,6 +120,7 @@ struct Prototype : Module {
     faust::PrototypeDSP DSP;
     faust::APIUI ui;
 
+    // variables for storing GUI IDs
     int paramButton_1 = -1;
     int paramButton_2 = -1;
     int paramButton_3 = -1;
@@ -135,61 +139,74 @@ struct Prototype : Module {
     int paramKnob_7 = -1;
     int paramKnob_8 = -1;
 
-    int paramLight_1_red = -1;
-    int paramLight_1_green = -1;
-    int paramLight_1_blue = -1;
+    int paramLight_1_r = -1;
+    int paramLight_1_g = -1;
+    int paramLight_1_b = -1;
 
-    int paramLight_2_red = -1;
-    int paramLight_2_green = -1;
-    int paramLight_2_blue = -1;
+    int paramLight_2_r = -1;
+    int paramLight_2_g = -1;
+    int paramLight_2_b = -1;
 
-    int paramLight_3_red = -1;
-    int paramLight_3_green = -1;
-    int paramLight_3_blue = -1;
+    int paramLight_3_r = -1;
+    int paramLight_3_g = -1;
+    int paramLight_3_b = -1;
 
-    int paramLight_4_red = -1;
-    int paramLight_4_green = -1;
-    int paramLight_4_blue = -1;
+    int paramLight_4_r = -1;
+    int paramLight_4_g = -1;
+    int paramLight_4_b = -1;
 
-    int paramLight_5_red = -1;
-    int paramLight_5_green = -1;
-    int paramLight_5_blue = -1;
+    int paramLight_5_r = -1;
+    int paramLight_5_g = -1;
+    int paramLight_5_b = -1;
 
-    int paramLight_6_red = -1;
-    int paramLight_6_green = -1;
-    int paramLight_6_blue = -1;
+    int paramLight_6_r = -1;
+    int paramLight_6_g = -1;
+    int paramLight_6_b = -1;
 
-    int paramLight_7_red = -1;
-    int paramLight_7_green = -1;
-    int paramLight_7_blue = -1;
+    int paramLight_7_r = -1;
+    int paramLight_7_g = -1;
+    int paramLight_7_b = -1;
 
-    int paramLight_8_red = -1;
-    int paramLight_8_green = -1;
-    int paramLight_8_blue = -1;
+    int paramLight_8_r = -1;
+    int paramLight_8_g = -1;
+    int paramLight_8_b = -1;
 
     const FAUSTFLOAT pitchScaling = 5.0f;
-    const FAUSTFLOAT cvScaling = 10.0f;
 
     Prototype() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 
-        configParam(BUTTON_1_PARAM, 0.f, 1.f, 1.f, "");
-        configParam(BUTTON_2_PARAM, 0.f, 1.f, 1.f, "");
-        configParam(BUTTON_3_PARAM, 0.f, 2.f, 1.f, "");
-        configParam(BUTTON_4_PARAM, 0.f, 2.f, 1.f, "");
-        configParam(BUTTON_5_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_6_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_7_PARAM, 0.f, 1.f, 0.f, "");
-        configParam(BUTTON_8_PARAM, 0.f, 1.f, 0.f, "");
+        // two-way switches
+        // values:  0.0, 1.0
+        // default: 0.0 (off)
+        configParam(BUTTON_1_PARAM, 0.0f, 1.0f, 0.0f, "");
+        configParam(BUTTON_2_PARAM, 0.0f, 1.0f, 0.0f, "");
 
-        configParam(KNOB_1_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_2_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_3_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_4_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_5_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_6_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_7_PARAM, 0.f, 10.f, 5.f, "");
-        configParam(KNOB_8_PARAM, 0.f, 10.f, 5.f, "");
+        // three-way switches
+        // values:  0.0, 0.5, 1.0; see Prototype::process()
+        // default: 0.0 (off)
+        configParam(BUTTON_3_PARAM, 0.0f, 2.0f, 0.0f, "");
+        configParam(BUTTON_4_PARAM, 0.0f, 2.0f, 0.0f, "");
+
+        // momentary push buttons
+        // values:  0.0, 1.0
+        // default: 0.0 (off)
+        configParam(BUTTON_5_PARAM, 0.0f, 1.0f, 0.0f, "");
+        configParam(BUTTON_6_PARAM, 0.0f, 1.0f, 0.0f, "");
+        configParam(BUTTON_7_PARAM, 0.0f, 1.0f, 0.0f, "");
+        configParam(BUTTON_8_PARAM, 0.0f, 1.0f, 0.0f, "");
+
+        // big knobs
+        // range:   0.0 to 1.0
+        // default: 0.5 (centered)
+        configParam(KNOB_1_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_2_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_3_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_4_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_5_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_6_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_7_PARAM, 0.0f, 1.0f, 0.5f, "");
+        configParam(KNOB_8_PARAM, 0.0f, 1.0f, 0.5f, "");
     }
 
 
@@ -197,9 +214,7 @@ struct Prototype : Module {
         // Activate the UI
         DSP.buildUserInterface(&ui);
 
-        // for (int n=0; n < ui.getParamsCount(); n++)
-        //     std::cout << ui.getParamAddress(n) << std::endl;
-
+        // store GUI IDs to save time during processing
         paramButton_1 = ui.getParamIndex("/Prototype/Buttons/1");
         paramButton_2 = ui.getParamIndex("/Prototype/Buttons/2");
         paramButton_3 = ui.getParamIndex("/Prototype/Buttons/3");
@@ -218,38 +233,39 @@ struct Prototype : Module {
         paramKnob_7 = ui.getParamIndex("/Prototype/Knobs/7");
         paramKnob_8 = ui.getParamIndex("/Prototype/Knobs/8");
 
-        paramLight_1_red = ui.getParamIndex("/Prototype/Lights/1_Red");
-        paramLight_1_green = ui.getParamIndex("/Prototype/Lights/1_Green");
-        paramLight_1_blue = ui.getParamIndex("/Prototype/Lights/1_Blue");
+        paramLight_1_r = ui.getParamIndex("/Prototype/Lights/1_R");
+        paramLight_1_g = ui.getParamIndex("/Prototype/Lights/1_G");
+        paramLight_1_b = ui.getParamIndex("/Prototype/Lights/1_B");
 
-        paramLight_2_red = ui.getParamIndex("/Prototype/Lights/2_Red");
-        paramLight_2_green = ui.getParamIndex("/Prototype/Lights/2_Green");
-        paramLight_2_blue = ui.getParamIndex("/Prototype/Lights/2_Blue");
+        paramLight_2_r = ui.getParamIndex("/Prototype/Lights/2_R");
+        paramLight_2_g = ui.getParamIndex("/Prototype/Lights/2_G");
+        paramLight_2_b = ui.getParamIndex("/Prototype/Lights/2_B");
 
-        paramLight_3_red = ui.getParamIndex("/Prototype/Lights/3_Red");
-        paramLight_3_green = ui.getParamIndex("/Prototype/Lights/3_Green");
-        paramLight_3_blue = ui.getParamIndex("/Prototype/Lights/3_Blue");
+        paramLight_3_r = ui.getParamIndex("/Prototype/Lights/3_R");
+        paramLight_3_g = ui.getParamIndex("/Prototype/Lights/3_G");
+        paramLight_3_b = ui.getParamIndex("/Prototype/Lights/3_B");
 
-        paramLight_4_red = ui.getParamIndex("/Prototype/Lights/4_Red");
-        paramLight_4_green = ui.getParamIndex("/Prototype/Lights/4_Green");
-        paramLight_4_blue = ui.getParamIndex("/Prototype/Lights/4_Blue");
+        paramLight_4_r = ui.getParamIndex("/Prototype/Lights/4_R");
+        paramLight_4_g = ui.getParamIndex("/Prototype/Lights/4_G");
+        paramLight_4_b = ui.getParamIndex("/Prototype/Lights/4_B");
 
-        paramLight_5_red = ui.getParamIndex("/Prototype/Lights/5_Red");
-        paramLight_5_green = ui.getParamIndex("/Prototype/Lights/5_Green");
-        paramLight_5_blue = ui.getParamIndex("/Prototype/Lights/5_Blue");
+        paramLight_5_r = ui.getParamIndex("/Prototype/Lights/5_R");
+        paramLight_5_g = ui.getParamIndex("/Prototype/Lights/5_G");
+        paramLight_5_b = ui.getParamIndex("/Prototype/Lights/5_B");
 
-        paramLight_6_red = ui.getParamIndex("/Prototype/Lights/6_Red");
-        paramLight_6_green = ui.getParamIndex("/Prototype/Lights/6_Green");
-        paramLight_6_blue = ui.getParamIndex("/Prototype/Lights/6_Blue");
+        paramLight_6_r = ui.getParamIndex("/Prototype/Lights/6_R");
+        paramLight_6_g = ui.getParamIndex("/Prototype/Lights/6_G");
+        paramLight_6_b = ui.getParamIndex("/Prototype/Lights/6_B");
 
-        paramLight_7_red = ui.getParamIndex("/Prototype/Lights/7_Red");
-        paramLight_7_green = ui.getParamIndex("/Prototype/Lights/7_Green");
-        paramLight_7_blue = ui.getParamIndex("/Prototype/Lights/7_Blue");
+        paramLight_7_r = ui.getParamIndex("/Prototype/Lights/7_R");
+        paramLight_7_g = ui.getParamIndex("/Prototype/Lights/7_G");
+        paramLight_7_b = ui.getParamIndex("/Prototype/Lights/7_B");
 
-        paramLight_8_red = ui.getParamIndex("/Prototype/Lights/8_Red");
-        paramLight_8_green = ui.getParamIndex("/Prototype/Lights/8_Green");
-        paramLight_8_blue = ui.getParamIndex("/Prototype/Lights/8_Blue");
+        paramLight_8_r = ui.getParamIndex("/Prototype/Lights/8_R");
+        paramLight_8_g = ui.getParamIndex("/Prototype/Lights/8_G");
+        paramLight_8_b = ui.getParamIndex("/Prototype/Lights/8_B");
 
+        // initialize sample rate in Faust
         int sampleRate = APP->engine->getSampleRate();
         DSP.init(sampleRate);
     }
@@ -257,6 +273,7 @@ struct Prototype : Module {
 
     void onSampleRateChange() override {
         int sampleRate = APP->engine->getSampleRate();
+        // update sample rate in Faust
         DSP.instanceConstants(sampleRate);
     }
 
@@ -269,7 +286,7 @@ struct Prototype : Module {
             FAUSTFLOAT input = inputs[channel + IN_1_INPUT].getVoltage();
             FAUSTFLOAT output = outputs[channel + OUT_1_OUTPUT].getVoltage();
 
-            // scale levels to value range of Faust (-1.0 to +1.0)
+            // scale levels from Rack to value range of Faust (-1.0 to +1.0)
             output /= pitchScaling;
             input /= pitchScaling;
 
@@ -282,67 +299,55 @@ struct Prototype : Module {
         FAUSTFLOAT value;
 
         value = params[BUTTON_1_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_1, value);
 
         value = params[BUTTON_2_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_2, value);
 
         value = params[BUTTON_3_PARAM].getValue();
-        value /= (2.0f * cvScaling);
+        // limit range to (0 .. 1)
+        value /= 2.0f;
         ui.setParamValue(paramButton_3, value);
 
         value = params[BUTTON_4_PARAM].getValue();
-        value /= (2.0f * cvScaling);
+        // limit range to (0 .. 1)
+        value /= 2.0f;
         ui.setParamValue(paramButton_4, value);
 
         value = params[BUTTON_5_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_5, value);
 
         value = params[BUTTON_6_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_6, value);
 
         value = params[BUTTON_7_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_7, value);
 
         value = params[BUTTON_8_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramButton_8, value);
 
         value = params[KNOB_1_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_1, value);
 
         value = params[KNOB_2_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_2, value);
 
         value = params[KNOB_3_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_3, value);
 
         value = params[KNOB_4_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_4, value);
 
         value = params[KNOB_5_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_5, value);
 
         value = params[KNOB_6_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_6, value);
 
         value = params[KNOB_7_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_7, value);
 
         value = params[KNOB_8_PARAM].getValue();
-        value /= cvScaling;
         ui.setParamValue(paramKnob_8, value);
 
         DSP.control(int_control, real_control);
@@ -352,7 +357,7 @@ struct Prototype : Module {
             FAUSTFLOAT input = temporaryInputs[channel];
             FAUSTFLOAT output = temporaryOutputs[channel];
 
-            // scale levels to value range of Rack (-5.0 to +5.0)
+            // scale levels from Faust back to value range of Rack (-5.0 to +5.0)
             output *= pitchScaling;
             input *= pitchScaling;
 
@@ -360,37 +365,37 @@ struct Prototype : Module {
             outputs[channel + OUT_1_OUTPUT].setVoltage(output);
         }
 
-        lights[LED_1_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_1_red));
-        lights[LED_1_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_1_green));
-        lights[LED_1_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_1_blue));
+        lights[LED_1_LIGHT_R].setBrightness(ui.getParamValue(paramLight_1_r));
+        lights[LED_1_LIGHT_G].setBrightness(ui.getParamValue(paramLight_1_g));
+        lights[LED_1_LIGHT_B].setBrightness(ui.getParamValue(paramLight_1_b));
 
-        lights[LED_2_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_2_red));
-        lights[LED_2_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_2_green));
-        lights[LED_2_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_2_blue));
+        lights[LED_2_LIGHT_R].setBrightness(ui.getParamValue(paramLight_2_r));
+        lights[LED_2_LIGHT_G].setBrightness(ui.getParamValue(paramLight_2_g));
+        lights[LED_2_LIGHT_B].setBrightness(ui.getParamValue(paramLight_2_b));
 
-        lights[LED_3_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_3_red));
-        lights[LED_3_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_3_green));
-        lights[LED_3_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_3_blue));
+        lights[LED_3_LIGHT_R].setBrightness(ui.getParamValue(paramLight_3_r));
+        lights[LED_3_LIGHT_G].setBrightness(ui.getParamValue(paramLight_3_g));
+        lights[LED_3_LIGHT_B].setBrightness(ui.getParamValue(paramLight_3_b));
 
-        lights[LED_4_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_4_red));
-        lights[LED_4_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_4_green));
-        lights[LED_4_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_4_blue));
+        lights[LED_4_LIGHT_R].setBrightness(ui.getParamValue(paramLight_4_r));
+        lights[LED_4_LIGHT_G].setBrightness(ui.getParamValue(paramLight_4_g));
+        lights[LED_4_LIGHT_B].setBrightness(ui.getParamValue(paramLight_4_b));
 
-        lights[LED_5_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_5_red));
-        lights[LED_5_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_5_green));
-        lights[LED_5_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_5_blue));
+        lights[LED_5_LIGHT_R].setBrightness(ui.getParamValue(paramLight_5_r));
+        lights[LED_5_LIGHT_G].setBrightness(ui.getParamValue(paramLight_5_g));
+        lights[LED_5_LIGHT_B].setBrightness(ui.getParamValue(paramLight_5_b));
 
-        lights[LED_6_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_6_red));
-        lights[LED_6_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_6_green));
-        lights[LED_6_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_6_blue));
+        lights[LED_6_LIGHT_R].setBrightness(ui.getParamValue(paramLight_6_r));
+        lights[LED_6_LIGHT_G].setBrightness(ui.getParamValue(paramLight_6_g));
+        lights[LED_6_LIGHT_B].setBrightness(ui.getParamValue(paramLight_6_b));
 
-        lights[LED_7_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_7_red));
-        lights[LED_7_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_7_green));
-        lights[LED_7_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_7_blue));
+        lights[LED_7_LIGHT_R].setBrightness(ui.getParamValue(paramLight_7_r));
+        lights[LED_7_LIGHT_G].setBrightness(ui.getParamValue(paramLight_7_g));
+        lights[LED_7_LIGHT_B].setBrightness(ui.getParamValue(paramLight_7_b));
 
-        lights[LED_8_LIGHT_RED].setBrightness(ui.getParamValue(paramLight_8_red));
-        lights[LED_8_LIGHT_GREEN].setBrightness(ui.getParamValue(paramLight_8_green));
-        lights[LED_8_LIGHT_BLUE].setBrightness(ui.getParamValue(paramLight_8_blue));
+        lights[LED_8_LIGHT_R].setBrightness(ui.getParamValue(paramLight_8_r));
+        lights[LED_8_LIGHT_G].setBrightness(ui.getParamValue(paramLight_8_g));
+        lights[LED_8_LIGHT_B].setBrightness(ui.getParamValue(paramLight_8_b));
     }
 };
 
@@ -479,21 +484,21 @@ struct PrototypeWidget : ModuleWidget {
                       mm2px(Vec(114.3, 118.34)), module, Prototype::OUT_8_OUTPUT));
 
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT_RED));
+                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT_RED));
+                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT_RED));
+                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT_RED));
+                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT_RED));
+                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT_RED));
+                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT_RED));
+                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT_RED));
+                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT_R));
     }
 };
 
