@@ -48,18 +48,20 @@ with
 };
 
 
-vcf(i_cv_cutoff , i_cv_resonance , in) = internal_vcf
+vcf(i_cv_cutoff , i_cv_resonance , btn , in) = internal_vcf
 with
 {
   cutoff = i_cv_cutoff , 1.5 : * , 0.5 : - : rack.i_cv_pitch2freq , (ma.SR / 2) : min : _;
-  resonance = i_cv_resonance , 10 : * , 0.1 : max : _;
+  resonance = i_cv_resonance , 5 : * , 0.1 : max : _;
   gain = 1;
 
-  internal_vcf = cutoff , resonance , gain , in : fi.resonlp : _;
+  internal_vcf = (cutoff , resonance , gain , in : fi.resonhp) ,
+                 (cutoff , resonance , gain , in : fi.resonlp) :
+                 ba.selectn(2 , btn) : _;
 };
 
 
-voices(i_cv_pitch) = internal_voices
+voices(i_cv_pitch , i_cv_cutoff , i_cv_resonance) = internal_voices
 with
 {
   i_cv_pitch_coarse_1 = knob_1 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
@@ -75,16 +77,20 @@ with
   i_cv_pitch_final_2 = i_cv_pitch , i_cv_pitch_coarse_2 : + , i_cv_pitch_fine_2 : + : _;
   i_cv_pitch_final_3 = i_cv_pitch , i_cv_pitch_coarse_3 : + , i_cv_pitch_fine_3 : + : _;
 
-  i_cv_cutoff = knob_7 : si.smooth(1e-3) : _;
-  i_cv_resonance = knob_8 : si.smooth(1e-3) : _;
+  i_cv_cutoff_knob = knob_7 : si.smooth(1e-3) : _;
+  i_cv_cutoff_final = i_cv_cutoff , i_cv_cutoff_knob : + : _;
 
-  voice(i_cv_pitch , btn) = i_cv_pitch , btn : 1 , vco : vca : _;
+  i_cv_resonance_knob = knob_8 : si.smooth(1e-3) : _;
+  i_cv_resonance_final = i_cv_resonance , i_cv_resonance_knob : + : _;
+
+  voice(i_cv_pitch , btn) = i_cv_pitch , btn : (-18 : ba.db2linear) , vco : vca : _;
   mix(a1 , a2 , a3) = a1 + a2 + a3 : _;
 
   internal_voices = (i_cv_pitch_final_1 , (button_1 , 2 : *) : voice),
                     (i_cv_pitch_final_2 , (button_2 , 2 : *) : voice) ,
                     (i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) : voice) : mix :
-                    i_cv_cutoff , i_cv_resonance , _ : vcf : _;
+                    i_cv_cutoff_final , i_cv_resonance_final , (button_4 , 2 : *) , _ : vcf :
+                    0.3 , 0.1 , _ : ef.cubicnl : fi.dcblocker : _;
 };
 
 
@@ -146,5 +152,5 @@ with
                  attach(_ , 0 : led_8_b) :
                  _;
 
-  internal_processor = in1 : gui_attacher : voices : _ , in2 , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  internal_processor = (in1 : gui_attacher) , in2 , in3 : voices : _ , in2 , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
 };
