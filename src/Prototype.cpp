@@ -117,8 +117,8 @@ struct Prototype : Module {
     };
 
 
-    faust::PrototypeDSP DSP;
-    faust::APIUI ui;
+    faust::PrototypeDSP FaustDSP;
+    faust::APIUI FaustUI;
 
     // variables for storing GUI IDs
     int paramButton_1 = -1;
@@ -212,69 +212,69 @@ struct Prototype : Module {
 
     void onAdd() override {
         // Activate the UI
-        DSP.buildUserInterface(&ui);
+        FaustDSP.buildUserInterface(&FaustUI);
 
         // store GUI IDs to save time during processing
-        paramButton_1 = ui.getParamIndex("/Prototype/Buttons/1");
-        paramButton_2 = ui.getParamIndex("/Prototype/Buttons/2");
-        paramButton_3 = ui.getParamIndex("/Prototype/Buttons/3");
-        paramButton_4 = ui.getParamIndex("/Prototype/Buttons/4");
-        paramButton_5 = ui.getParamIndex("/Prototype/Buttons/5");
-        paramButton_6 = ui.getParamIndex("/Prototype/Buttons/6");
-        paramButton_7 = ui.getParamIndex("/Prototype/Buttons/7");
-        paramButton_8 = ui.getParamIndex("/Prototype/Buttons/8");
+        paramButton_1 = FaustUI.getParamIndex("/Prototype/Buttons/1");
+        paramButton_2 = FaustUI.getParamIndex("/Prototype/Buttons/2");
+        paramButton_3 = FaustUI.getParamIndex("/Prototype/Buttons/3");
+        paramButton_4 = FaustUI.getParamIndex("/Prototype/Buttons/4");
+        paramButton_5 = FaustUI.getParamIndex("/Prototype/Buttons/5");
+        paramButton_6 = FaustUI.getParamIndex("/Prototype/Buttons/6");
+        paramButton_7 = FaustUI.getParamIndex("/Prototype/Buttons/7");
+        paramButton_8 = FaustUI.getParamIndex("/Prototype/Buttons/8");
 
-        paramKnob_1 = ui.getParamIndex("/Prototype/Knobs/1");
-        paramKnob_2 = ui.getParamIndex("/Prototype/Knobs/2");
-        paramKnob_3 = ui.getParamIndex("/Prototype/Knobs/3");
-        paramKnob_4 = ui.getParamIndex("/Prototype/Knobs/4");
-        paramKnob_5 = ui.getParamIndex("/Prototype/Knobs/5");
-        paramKnob_6 = ui.getParamIndex("/Prototype/Knobs/6");
-        paramKnob_7 = ui.getParamIndex("/Prototype/Knobs/7");
-        paramKnob_8 = ui.getParamIndex("/Prototype/Knobs/8");
+        paramKnob_1 = FaustUI.getParamIndex("/Prototype/Knobs/1");
+        paramKnob_2 = FaustUI.getParamIndex("/Prototype/Knobs/2");
+        paramKnob_3 = FaustUI.getParamIndex("/Prototype/Knobs/3");
+        paramKnob_4 = FaustUI.getParamIndex("/Prototype/Knobs/4");
+        paramKnob_5 = FaustUI.getParamIndex("/Prototype/Knobs/5");
+        paramKnob_6 = FaustUI.getParamIndex("/Prototype/Knobs/6");
+        paramKnob_7 = FaustUI.getParamIndex("/Prototype/Knobs/7");
+        paramKnob_8 = FaustUI.getParamIndex("/Prototype/Knobs/8");
 
-        paramLight_1_r = ui.getParamIndex("/Prototype/Lights/1_R");
-        paramLight_1_g = ui.getParamIndex("/Prototype/Lights/1_G");
-        paramLight_1_b = ui.getParamIndex("/Prototype/Lights/1_B");
+        paramLight_1_r = FaustUI.getParamIndex("/Prototype/Lights/1_R");
+        paramLight_1_g = FaustUI.getParamIndex("/Prototype/Lights/1_G");
+        paramLight_1_b = FaustUI.getParamIndex("/Prototype/Lights/1_B");
 
-        paramLight_2_r = ui.getParamIndex("/Prototype/Lights/2_R");
-        paramLight_2_g = ui.getParamIndex("/Prototype/Lights/2_G");
-        paramLight_2_b = ui.getParamIndex("/Prototype/Lights/2_B");
+        paramLight_2_r = FaustUI.getParamIndex("/Prototype/Lights/2_R");
+        paramLight_2_g = FaustUI.getParamIndex("/Prototype/Lights/2_G");
+        paramLight_2_b = FaustUI.getParamIndex("/Prototype/Lights/2_B");
 
-        paramLight_3_r = ui.getParamIndex("/Prototype/Lights/3_R");
-        paramLight_3_g = ui.getParamIndex("/Prototype/Lights/3_G");
-        paramLight_3_b = ui.getParamIndex("/Prototype/Lights/3_B");
+        paramLight_3_r = FaustUI.getParamIndex("/Prototype/Lights/3_R");
+        paramLight_3_g = FaustUI.getParamIndex("/Prototype/Lights/3_G");
+        paramLight_3_b = FaustUI.getParamIndex("/Prototype/Lights/3_B");
 
-        paramLight_4_r = ui.getParamIndex("/Prototype/Lights/4_R");
-        paramLight_4_g = ui.getParamIndex("/Prototype/Lights/4_G");
-        paramLight_4_b = ui.getParamIndex("/Prototype/Lights/4_B");
+        paramLight_4_r = FaustUI.getParamIndex("/Prototype/Lights/4_R");
+        paramLight_4_g = FaustUI.getParamIndex("/Prototype/Lights/4_G");
+        paramLight_4_b = FaustUI.getParamIndex("/Prototype/Lights/4_B");
 
-        paramLight_5_r = ui.getParamIndex("/Prototype/Lights/5_R");
-        paramLight_5_g = ui.getParamIndex("/Prototype/Lights/5_G");
-        paramLight_5_b = ui.getParamIndex("/Prototype/Lights/5_B");
+        paramLight_5_r = FaustUI.getParamIndex("/Prototype/Lights/5_R");
+        paramLight_5_g = FaustUI.getParamIndex("/Prototype/Lights/5_G");
+        paramLight_5_b = FaustUI.getParamIndex("/Prototype/Lights/5_B");
 
-        paramLight_6_r = ui.getParamIndex("/Prototype/Lights/6_R");
-        paramLight_6_g = ui.getParamIndex("/Prototype/Lights/6_G");
-        paramLight_6_b = ui.getParamIndex("/Prototype/Lights/6_B");
+        paramLight_6_r = FaustUI.getParamIndex("/Prototype/Lights/6_R");
+        paramLight_6_g = FaustUI.getParamIndex("/Prototype/Lights/6_G");
+        paramLight_6_b = FaustUI.getParamIndex("/Prototype/Lights/6_B");
 
-        paramLight_7_r = ui.getParamIndex("/Prototype/Lights/7_R");
-        paramLight_7_g = ui.getParamIndex("/Prototype/Lights/7_G");
-        paramLight_7_b = ui.getParamIndex("/Prototype/Lights/7_B");
+        paramLight_7_r = FaustUI.getParamIndex("/Prototype/Lights/7_R");
+        paramLight_7_g = FaustUI.getParamIndex("/Prototype/Lights/7_G");
+        paramLight_7_b = FaustUI.getParamIndex("/Prototype/Lights/7_B");
 
-        paramLight_8_r = ui.getParamIndex("/Prototype/Lights/8_R");
-        paramLight_8_g = ui.getParamIndex("/Prototype/Lights/8_G");
-        paramLight_8_b = ui.getParamIndex("/Prototype/Lights/8_B");
+        paramLight_8_r = FaustUI.getParamIndex("/Prototype/Lights/8_R");
+        paramLight_8_g = FaustUI.getParamIndex("/Prototype/Lights/8_G");
+        paramLight_8_b = FaustUI.getParamIndex("/Prototype/Lights/8_B");
 
         // initialize sample rate in Faust
         int sampleRate = APP->engine->getSampleRate();
-        DSP.init(sampleRate);
+        FaustDSP.init(sampleRate);
     }
 
 
     void onSampleRateChange() override {
         int sampleRate = APP->engine->getSampleRate();
         // update sample rate in Faust
-        DSP.instanceConstants(sampleRate);
+        FaustDSP.instanceConstants(sampleRate);
     }
 
 
@@ -294,64 +294,64 @@ struct Prototype : Module {
             temporaryOutputs[channel] = output;
         }
 
-        int int_control[DSP.getNumIntControls()];
-        FAUSTFLOAT real_control[DSP.getNumRealControls()];
+        int int_control[FaustDSP.getNumIntControls()];
+        FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
         FAUSTFLOAT value;
 
         value = params[BUTTON_1_PARAM].getValue();
-        ui.setParamValue(paramButton_1, value);
+        FaustUI.setParamValue(paramButton_1, value);
 
         value = params[BUTTON_2_PARAM].getValue();
-        ui.setParamValue(paramButton_2, value);
+        FaustUI.setParamValue(paramButton_2, value);
 
         value = params[BUTTON_3_PARAM].getValue();
         // limit range to (0 .. 1)
         value /= 2.0f;
-        ui.setParamValue(paramButton_3, value);
+        FaustUI.setParamValue(paramButton_3, value);
 
         value = params[BUTTON_4_PARAM].getValue();
         // limit range to (0 .. 1)
         value /= 2.0f;
-        ui.setParamValue(paramButton_4, value);
+        FaustUI.setParamValue(paramButton_4, value);
 
         value = params[BUTTON_5_PARAM].getValue();
-        ui.setParamValue(paramButton_5, value);
+        FaustUI.setParamValue(paramButton_5, value);
 
         value = params[BUTTON_6_PARAM].getValue();
-        ui.setParamValue(paramButton_6, value);
+        FaustUI.setParamValue(paramButton_6, value);
 
         value = params[BUTTON_7_PARAM].getValue();
-        ui.setParamValue(paramButton_7, value);
+        FaustUI.setParamValue(paramButton_7, value);
 
         value = params[BUTTON_8_PARAM].getValue();
-        ui.setParamValue(paramButton_8, value);
+        FaustUI.setParamValue(paramButton_8, value);
 
         value = params[KNOB_1_PARAM].getValue();
-        ui.setParamValue(paramKnob_1, value);
+        FaustUI.setParamValue(paramKnob_1, value);
 
         value = params[KNOB_2_PARAM].getValue();
-        ui.setParamValue(paramKnob_2, value);
+        FaustUI.setParamValue(paramKnob_2, value);
 
         value = params[KNOB_3_PARAM].getValue();
-        ui.setParamValue(paramKnob_3, value);
+        FaustUI.setParamValue(paramKnob_3, value);
 
         value = params[KNOB_4_PARAM].getValue();
-        ui.setParamValue(paramKnob_4, value);
+        FaustUI.setParamValue(paramKnob_4, value);
 
         value = params[KNOB_5_PARAM].getValue();
-        ui.setParamValue(paramKnob_5, value);
+        FaustUI.setParamValue(paramKnob_5, value);
 
         value = params[KNOB_6_PARAM].getValue();
-        ui.setParamValue(paramKnob_6, value);
+        FaustUI.setParamValue(paramKnob_6, value);
 
         value = params[KNOB_7_PARAM].getValue();
-        ui.setParamValue(paramKnob_7, value);
+        FaustUI.setParamValue(paramKnob_7, value);
 
         value = params[KNOB_8_PARAM].getValue();
-        ui.setParamValue(paramKnob_8, value);
+        FaustUI.setParamValue(paramKnob_8, value);
 
-        DSP.control(int_control, real_control);
-        DSP.compute(temporaryInputs.data(), temporaryOutputs.data(), int_control, real_control);
+        FaustDSP.control(int_control, real_control);
+        FaustDSP.compute(temporaryInputs.data(), temporaryOutputs.data(), int_control, real_control);
 
         for (int channel = 0; channel < 8; channel++) {
             FAUSTFLOAT input = temporaryInputs[channel];
@@ -365,37 +365,37 @@ struct Prototype : Module {
             outputs[channel + OUT_1_OUTPUT].setVoltage(output);
         }
 
-        lights[LED_1_LIGHT_R].setBrightness(ui.getParamValue(paramLight_1_r));
-        lights[LED_1_LIGHT_G].setBrightness(ui.getParamValue(paramLight_1_g));
-        lights[LED_1_LIGHT_B].setBrightness(ui.getParamValue(paramLight_1_b));
+        lights[LED_1_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_1_r));
+        lights[LED_1_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_1_g));
+        lights[LED_1_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_1_b));
 
-        lights[LED_2_LIGHT_R].setBrightness(ui.getParamValue(paramLight_2_r));
-        lights[LED_2_LIGHT_G].setBrightness(ui.getParamValue(paramLight_2_g));
-        lights[LED_2_LIGHT_B].setBrightness(ui.getParamValue(paramLight_2_b));
+        lights[LED_2_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_2_r));
+        lights[LED_2_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_2_g));
+        lights[LED_2_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_2_b));
 
-        lights[LED_3_LIGHT_R].setBrightness(ui.getParamValue(paramLight_3_r));
-        lights[LED_3_LIGHT_G].setBrightness(ui.getParamValue(paramLight_3_g));
-        lights[LED_3_LIGHT_B].setBrightness(ui.getParamValue(paramLight_3_b));
+        lights[LED_3_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_3_r));
+        lights[LED_3_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_3_g));
+        lights[LED_3_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_3_b));
 
-        lights[LED_4_LIGHT_R].setBrightness(ui.getParamValue(paramLight_4_r));
-        lights[LED_4_LIGHT_G].setBrightness(ui.getParamValue(paramLight_4_g));
-        lights[LED_4_LIGHT_B].setBrightness(ui.getParamValue(paramLight_4_b));
+        lights[LED_4_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_4_r));
+        lights[LED_4_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_4_g));
+        lights[LED_4_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_4_b));
 
-        lights[LED_5_LIGHT_R].setBrightness(ui.getParamValue(paramLight_5_r));
-        lights[LED_5_LIGHT_G].setBrightness(ui.getParamValue(paramLight_5_g));
-        lights[LED_5_LIGHT_B].setBrightness(ui.getParamValue(paramLight_5_b));
+        lights[LED_5_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_5_r));
+        lights[LED_5_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_5_g));
+        lights[LED_5_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_5_b));
 
-        lights[LED_6_LIGHT_R].setBrightness(ui.getParamValue(paramLight_6_r));
-        lights[LED_6_LIGHT_G].setBrightness(ui.getParamValue(paramLight_6_g));
-        lights[LED_6_LIGHT_B].setBrightness(ui.getParamValue(paramLight_6_b));
+        lights[LED_6_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_6_r));
+        lights[LED_6_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_6_g));
+        lights[LED_6_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_6_b));
 
-        lights[LED_7_LIGHT_R].setBrightness(ui.getParamValue(paramLight_7_r));
-        lights[LED_7_LIGHT_G].setBrightness(ui.getParamValue(paramLight_7_g));
-        lights[LED_7_LIGHT_B].setBrightness(ui.getParamValue(paramLight_7_b));
+        lights[LED_7_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_7_r));
+        lights[LED_7_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_7_g));
+        lights[LED_7_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_7_b));
 
-        lights[LED_8_LIGHT_R].setBrightness(ui.getParamValue(paramLight_8_r));
-        lights[LED_8_LIGHT_G].setBrightness(ui.getParamValue(paramLight_8_g));
-        lights[LED_8_LIGHT_B].setBrightness(ui.getParamValue(paramLight_8_b));
+        lights[LED_8_LIGHT_R].setBrightness(FaustUI.getParamValue(paramLight_8_r));
+        lights[LED_8_LIGHT_G].setBrightness(FaustUI.getParamValue(paramLight_8_g));
+        lights[LED_8_LIGHT_B].setBrightness(FaustUI.getParamValue(paramLight_8_b));
     }
 };
 
