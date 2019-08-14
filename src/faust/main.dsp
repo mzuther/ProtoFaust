@@ -34,6 +34,7 @@ vca(i_cv , in) = internal_vca
 with
 {
   gain = ba.if(i_cv > 0 , i_cv , 0) : _;
+
   internal_vca = gain , in : * : _;
 };
 
@@ -42,7 +43,19 @@ vco(i_cv_pitch , btn) = internal_vco
 with
 {
   freq = i_cv_pitch : rack.i_cv_pitch2freq : _;
+
   internal_vco = (freq : os.saw2) , (freq : os.square) , (freq : os.triangle) : ba.selectn(3 , btn) : _;
+};
+
+
+vcf(i_cv_cutoff , i_cv_resonance , in) = internal_vcf
+with
+{
+  cutoff = i_cv_cutoff , 1.5 : * , 0.5 : - : rack.i_cv_pitch2freq , (ma.SR / 2) : min : _;
+  resonance = i_cv_resonance , 10 : * , 0.1 : max : _;
+  gain = 1;
+
+  internal_vcf = cutoff , resonance , gain , in : fi.resonlp : _;
 };
 
 
@@ -62,12 +75,16 @@ with
   i_cv_pitch_final_2 = i_cv_pitch , i_cv_pitch_coarse_2 : + , i_cv_pitch_fine_2 : + : _;
   i_cv_pitch_final_3 = i_cv_pitch , i_cv_pitch_coarse_3 : + , i_cv_pitch_fine_3 : + : _;
 
-  voice(i_cv_pitch , btn , pan) = i_cv_pitch , btn : 1 , vco : pan , vca : sp.panner : _ , _;
-  mix(a1 , b1 , a2 , b2 , a3 , b3) = a1 + a2 + a3 , b1 + b2 + b3 : _ , _;
+  i_cv_cutoff = knob_7 : si.smooth(1e-3) : _;
+  i_cv_resonance = knob_8 : si.smooth(1e-3) : _;
 
-  internal_voices = i_cv_pitch_final_1 , (button_1 , 2 : *) , 0 ,
-                    i_cv_pitch_final_2 , (button_2 , 2 : *) , 1 ,
-                    i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) , 0.5 : voice , voice , voice : mix : _ , _;
+  voice(i_cv_pitch , btn) = i_cv_pitch , btn : 1 , vco : vca : _;
+  mix(a1 , a2 , a3) = a1 + a2 + a3 : _;
+
+  internal_voices = (i_cv_pitch_final_1 , (button_1 , 2 : *) : voice),
+                    (i_cv_pitch_final_2 , (button_2 , 2 : *) : voice) ,
+                    (i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) : voice) : mix :
+                    i_cv_cutoff , i_cv_resonance , _ : vcf : _;
 };
 
 
@@ -129,5 +146,5 @@ with
                  attach(_ , 0 : led_8_b) :
                  _;
 
-  internal_processor = in1 : gui_attacher : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  internal_processor = in1 : gui_attacher : voices : _ , in2 , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
 };
