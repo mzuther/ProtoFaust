@@ -25,66 +25,9 @@
 
 
 import("stdfaust.lib");
-eurorack = component("eurorack.dsp");
+import("prototype_gui.dsp");
 
-
-main_group(x) = vgroup("Prototype", x);
-
-button_group(x) = main_group(hgroup("[2] Buttons", x));
-
-button_1 = button_group(vslider("1 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_2 = button_group(vslider("2 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_3 = button_group(vslider("3 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_4 = button_group(vslider("4 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_5 = button_group(vslider("5 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_6 = button_group(vslider("6 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_7 = button_group(vslider("7 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-button_8 = button_group(vslider("8 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-
-knob_group(x) = main_group(hgroup("[1] Knobs", x));
-
-knob_1 = knob_group(vslider("1 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_2 = knob_group(vslider("2 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_3 = knob_group(vslider("3 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_4 = knob_group(vslider("4 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_5 = knob_group(vslider("5 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_6 = knob_group(vslider("6 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_7 = knob_group(vslider("7 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-knob_8 = knob_group(vslider("8 [style:knob]" , 0.5 , 0 , 1 , 1e-3)) : _;
-
-led_group(x) = main_group(hgroup("[3] Lights", x));
-
-led_1_r = led_group(vbargraph("1 Red [style:led]" , 0 , 1)) : _;
-led_1_g = led_group(vbargraph("1 Green [style:led]" , 0 , 1)) : _;
-led_1_b = led_group(vbargraph("1 Blue [style:led]" , 0 , 1)) : _;
-
-led_2_r = led_group(vbargraph("2 Red [style:led]" , 0 , 1)) : _;
-led_2_g = led_group(vbargraph("2 Green [style:led]" , 0 , 1)) : _;
-led_2_b = led_group(vbargraph("2 Blue [style:led]" , 0 , 1)) : _;
-
-led_3_r = led_group(vbargraph("3 Red [style:led]" , 0 , 1)) : _;
-led_3_g = led_group(vbargraph("3 Green [style:led]" , 0 , 1)) : _;
-led_3_b = led_group(vbargraph("3 Blue [style:led]" , 0 , 1)) : _;
-
-led_4_r = led_group(vbargraph("4 Red [style:led]" , 0 , 1)) : _;
-led_4_g = led_group(vbargraph("4 Green [style:led]" , 0 , 1)) : _;
-led_4_b = led_group(vbargraph("4 Blue [style:led]" , 0 , 1)) : _;
-
-led_5_r = led_group(vbargraph("5 Red [style:led]" , 0 , 1)) : _;
-led_5_g = led_group(vbargraph("5 Green [style:led]" , 0 , 1)) : _;
-led_5_b = led_group(vbargraph("5 Blue [style:led]" , 0 , 1)) : _;
-
-led_6_r = led_group(vbargraph("6 Red [style:led]" , 0 , 1)) : _;
-led_6_g = led_group(vbargraph("6 Green [style:led]" , 0 , 1)) : _;
-led_6_b = led_group(vbargraph("6 Blue [style:led]" , 0 , 1)) : _;
-
-led_7_r = led_group(vbargraph("7 Red [style:led]" , 0 , 1)) : _;
-led_7_g = led_group(vbargraph("7 Green [style:led]" , 0 , 1)) : _;
-led_7_b = led_group(vbargraph("7 Blue [style:led]" , 0 , 1)) : _;
-
-led_8_r = led_group(vbargraph("8 Red [style:led]" , 0 , 1)) : _;
-led_8_g = led_group(vbargraph("8 Green [style:led]" , 0 , 1)) : _;
-led_8_b = led_group(vbargraph("8 Blue [style:led]" , 0 , 1)) : _;
+rack = component("rack.dsp");
 
 
 vca(i_cv , in) = internal_vca
@@ -98,7 +41,7 @@ with
 vco(i_cv_pitch , btn) = internal_vco
 with
 {
-  freq = i_cv_pitch : eurorack.i_cv_pitch2freq : _;
+  freq = i_cv_pitch : rack.i_cv_pitch2freq : _;
   internal_vco = ba.if(btn > 0 , (freq : os.oscws) , (freq : os.saw2)) : _;
 };
 
@@ -125,57 +68,57 @@ with
   lfo_1 = 1 , os.osccos(0.5) : + , 2 : / : _;
   lfo_2 = 1 - lfo_1 : _;
 
-  attacher = _ :
-             attach(_ , button_1) :
-             attach(_ , button_2) :
-             attach(_ , button_3) :
-             attach(_ , button_4) :
-             attach(_ , button_5) :
-             attach(_ , button_6) :
-             attach(_ , button_7) :
-             attach(_ , button_8) :
+  gui_attacher = _ :
+                 attach(_ , button_1) :
+                 attach(_ , button_2) :
+                 attach(_ , button_3) :
+                 attach(_ , button_4) :
+                 attach(_ , button_5) :
+                 attach(_ , button_6) :
+                 attach(_ , button_7) :
+                 attach(_ , button_8) :
 
-             attach(_ , knob_1) :
-             attach(_ , knob_2) :
-             attach(_ , knob_3) :
-             attach(_ , knob_4) :
-             attach(_ , knob_5) :
-             attach(_ , knob_6) :
-             attach(_ , knob_7) :
-             attach(_ , knob_8) :
+                 attach(_ , knob_1) :
+                 attach(_ , knob_2) :
+                 attach(_ , knob_3) :
+                 attach(_ , knob_4) :
+                 attach(_ , knob_5) :
+                 attach(_ , knob_6) :
+                 attach(_ , knob_7) :
+                 attach(_ , knob_8) :
 
-             attach(_ , lfo_1 : led_1_r) :
-             attach(_ , lfo_1 : led_1_g) :
-             attach(_ , lfo_1 : led_1_b) :
+                 attach(_ , lfo_1 : led_1_r) :
+                 attach(_ , lfo_1 : led_1_g) :
+                 attach(_ , lfo_1 : led_1_b) :
 
-             attach(_ , lfo_2 : led_2_r) :
-             attach(_ , 0 : led_2_g) :
-             attach(_ , 0 : led_2_b) :
+                 attach(_ , lfo_2 : led_2_r) :
+                 attach(_ , 0 : led_2_g) :
+                 attach(_ , 0 : led_2_b) :
 
-             attach(_ , lfo_1 : led_3_r) :
-             attach(_ , lfo_1 : led_3_g) :
-             attach(_ , lfo_1 : led_3_b) :
+                 attach(_ , lfo_1 : led_3_r) :
+                 attach(_ , lfo_1 : led_3_g) :
+                 attach(_ , lfo_1 : led_3_b) :
 
-             attach(_ , lfo_2 : led_4_r) :
-             attach(_ , 0 : led_4_g) :
-             attach(_ , 0 : led_4_b) :
+                 attach(_ , lfo_2 : led_4_r) :
+                 attach(_ , 0 : led_4_g) :
+                 attach(_ , 0 : led_4_b) :
 
-             attach(_ , lfo_1 : led_5_r) :
-             attach(_ , lfo_1 : led_5_g) :
-             attach(_ , lfo_1 : led_5_b) :
+                 attach(_ , lfo_1 : led_5_r) :
+                 attach(_ , lfo_1 : led_5_g) :
+                 attach(_ , lfo_1 : led_5_b) :
 
-             attach(_ , lfo_2 : led_6_r) :
-             attach(_ , 0 : led_6_g) :
-             attach(_ , 0 : led_6_b) :
+                 attach(_ , lfo_2 : led_6_r) :
+                 attach(_ , 0 : led_6_g) :
+                 attach(_ , 0 : led_6_b) :
 
-             attach(_ , lfo_1 : led_7_r) :
-             attach(_ , lfo_1 : led_7_g) :
-             attach(_ , lfo_1 : led_7_b) :
+                 attach(_ , lfo_1 : led_7_r) :
+                 attach(_ , lfo_1 : led_7_g) :
+                 attach(_ , lfo_1 : led_7_b) :
 
-             attach(_ , lfo_2 : led_8_r) :
-             attach(_ , 0 : led_8_g) :
-             attach(_ , 0 : led_8_b) :
-             _;
+                 attach(_ , lfo_2 : led_8_r) :
+                 attach(_ , 0 : led_8_g) :
+                 attach(_ , 0 : led_8_b) :
+                 _;
 
-  internal_processor = (in1 : attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  internal_processor = (in1 : gui_attacher) , in2 : voices : _ , _ , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
 };
