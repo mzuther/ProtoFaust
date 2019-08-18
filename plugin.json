@@ -1,22 +1,24 @@
 {
-  "slug": "Prototype",
+  "slug": "MartinZuther-Prototype",
   "name": "Prototype",
   "version": "1.0.0",
-  "license": "proprietary",
+  "license": "GPL-3.0-or-later",
   "brand": "",
-  "author": "Prototype",
+  "author": "Martin Zuther",
   "authorEmail": "",
-  "authorUrl": "",
-  "pluginUrl": "",
-  "manualUrl": "",
-  "sourceUrl": "",
+  "authorUrl": "http://code.mzuther.de/",
+  "pluginUrl": "https://github.com/mzuther/ProtoFaust",
+  "manualUrl": "https://github.com/mzuther/ProtoFaust",
+  "sourceUrl": "https://github.com/mzuther/ProtoFaust",
   "donateUrl": "",
   "modules": [
     {
-      "slug": "Prototype",
-      "name": "Prototype",
-      "description": "Simple sine oscillator",
-      "tags": []
+      "slug": "ProtoFaust",
+      "name": "ProtoFaust",
+      "description": "DSP prototyping in Faust for VCV Rack",
+        "tags": [
+          "Prototype",
+          "Utility"]
     }
   ]
 }

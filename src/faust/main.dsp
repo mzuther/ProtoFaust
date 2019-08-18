@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Prototype
-   =========
-   Faust prototyping for VCV Rack
+   ProtoFaust
+   ==========
+   DSP prototyping in Faust for VCV Rack
 
    Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -25,7 +25,7 @@
 
 
 import("stdfaust.lib");
-import("prototype_gui.dsp");
+import("gui.dsp");
 
 rack = component("rack.dsp");
 

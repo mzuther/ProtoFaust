@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Prototype
-   =========
-   Faust prototyping for VCV Rack
+   ProtoFaust
+   ==========
+   DSP prototyping in Faust for VCV Rack
 
    Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -26,7 +26,7 @@
 import("stdfaust.lib");
 
 
-main_group(x) = vgroup("Prototype", x);
+main_group(x) = vgroup("ProtoFaust", x);
 
 button_group(x) = main_group(hgroup("[2] Buttons", x));
 

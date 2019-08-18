@@ -50,7 +50,7 @@ src/faust/main-svg/process.svg:
 
 src/faust_generated.cpp: $(wildcard src/faust/*.dsp) src/faust/architecture_rack.cpp
 	@echo "Compiling Faust files..."
-	faust -a src/faust/architecture_rack.cpp -o src/faust_generated.cpp -os -cn PrototypeDSP src/faust/main.dsp
+	faust -a src/faust/architecture_rack.cpp -o src/faust_generated.cpp -os -cn FaustDSP src/faust/main.dsp
 	@echo
 
 

@@ -15,9 +15,9 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="Prototype.svg">
+   sodipodi:docname="ProtoFaust.svg">
   <title
-     id="title2474">VCV Prototype</title>
+     id="title2474">ProtoFaust</title>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -96,7 +96,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>VCV Prototype</dc:title>
+        <dc:title>ProtoFaust</dc:title>
         <dc:creator>
           <cc:Agent>
             <dc:title>Martin Zuther</dc:title>

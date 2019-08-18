@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Prototype
-   =========
-   Faust prototyping for VCV Rack
+   ProtoFaust
+   ==========
+   DSP prototyping in Faust for VCV Rack
 
    Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -33,4 +33,4 @@ using namespace rack;
 extern Plugin *pluginInstance;
 
 // Declare each Model, defined in each module source file
-extern Model *modelPrototype;
+extern Model *modelProtoFaust;

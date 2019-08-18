@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Prototype
-   =========
-   Faust prototyping for VCV Rack
+   ProtoFaust
+   ==========
+   DSP prototyping in Faust for VCV Rack
 
    Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -34,7 +34,7 @@ void init(Plugin *p) {
     pluginInstance = p;
 
     // Add modules here
-    p->addModel(modelPrototype);
+    p->addModel(modelProtoFaust);
 
     // Any other plugin initialization may go here.
     // As an alternative, consider lazy-loading assets and lookup tables when your module is created to reduce startup times of Rack.

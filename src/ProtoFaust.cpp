@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Prototype
-   =========
-   Faust prototyping for VCV Rack
+   ProtoFaust
+   ==========
+   DSP prototyping in Faust for VCV Rack
 
    Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -31,7 +31,7 @@ namespace faust {
 }
 
 
-struct Prototype : Module {
+struct ProtoFaust : Module {
     enum ParamIds {
         BUTTON_1_PARAM,
         BUTTON_2_PARAM,
@@ -117,7 +117,7 @@ struct Prototype : Module {
     };
 
 
-    faust::PrototypeDSP FaustDSP;
+    faust::FaustDSP FaustDSP;
     faust::APIUI FaustUI;
 
     // variables for storing GUI IDs
@@ -174,11 +174,11 @@ struct Prototype : Module {
     const int numberOfChannels = 8;
     const FAUSTFLOAT voltageScaling = 5.0f;
 
-    Prototype() {
+    ProtoFaust() {
         config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 
         // three-way switches
-        // values:  0.0, 0.5, 1.0; see Prototype::process()
+        // values:  0.0, 0.5, 1.0; see ProtoFaust::process()
         // default: 0.0 (off)
         configParam(BUTTON_1_PARAM, 0.0f, 2.0f, 0.0f, "");
         configParam(BUTTON_2_PARAM, 0.0f, 2.0f, 0.0f, "");
@@ -216,55 +216,55 @@ struct Prototype : Module {
         FaustDSP.buildUserInterface(&FaustUI);
 
         // store GUI IDs to save time during processing
-        paramButton_1 = FaustUI.getParamIndex("/Prototype/Buttons/1");
-        paramButton_2 = FaustUI.getParamIndex("/Prototype/Buttons/2");
-        paramButton_3 = FaustUI.getParamIndex("/Prototype/Buttons/3");
-        paramButton_4 = FaustUI.getParamIndex("/Prototype/Buttons/4");
-        paramButton_5 = FaustUI.getParamIndex("/Prototype/Buttons/5");
-        paramButton_6 = FaustUI.getParamIndex("/Prototype/Buttons/6");
-        paramButton_7 = FaustUI.getParamIndex("/Prototype/Buttons/7");
-        paramButton_8 = FaustUI.getParamIndex("/Prototype/Buttons/8");
+        paramButton_1 = FaustUI.getParamIndex("/ProtoFaust/Buttons/1");
+        paramButton_2 = FaustUI.getParamIndex("/ProtoFaust/Buttons/2");
+        paramButton_3 = FaustUI.getParamIndex("/ProtoFaust/Buttons/3");
+        paramButton_4 = FaustUI.getParamIndex("/ProtoFaust/Buttons/4");
+        paramButton_5 = FaustUI.getParamIndex("/ProtoFaust/Buttons/5");
+        paramButton_6 = FaustUI.getParamIndex("/ProtoFaust/Buttons/6");
+        paramButton_7 = FaustUI.getParamIndex("/ProtoFaust/Buttons/7");
+        paramButton_8 = FaustUI.getParamIndex("/ProtoFaust/Buttons/8");
 
-        paramKnob_1 = FaustUI.getParamIndex("/Prototype/Knobs/1");
-        paramKnob_2 = FaustUI.getParamIndex("/Prototype/Knobs/2");
-        paramKnob_3 = FaustUI.getParamIndex("/Prototype/Knobs/3");
-        paramKnob_4 = FaustUI.getParamIndex("/Prototype/Knobs/4");
-        paramKnob_5 = FaustUI.getParamIndex("/Prototype/Knobs/5");
-        paramKnob_6 = FaustUI.getParamIndex("/Prototype/Knobs/6");
-        paramKnob_7 = FaustUI.getParamIndex("/Prototype/Knobs/7");
-        paramKnob_8 = FaustUI.getParamIndex("/Prototype/Knobs/8");
+        paramKnob_1 = FaustUI.getParamIndex("/ProtoFaust/Knobs/1");
+        paramKnob_2 = FaustUI.getParamIndex("/ProtoFaust/Knobs/2");
+        paramKnob_3 = FaustUI.getParamIndex("/ProtoFaust/Knobs/3");
+        paramKnob_4 = FaustUI.getParamIndex("/ProtoFaust/Knobs/4");
+        paramKnob_5 = FaustUI.getParamIndex("/ProtoFaust/Knobs/5");
+        paramKnob_6 = FaustUI.getParamIndex("/ProtoFaust/Knobs/6");
+        paramKnob_7 = FaustUI.getParamIndex("/ProtoFaust/Knobs/7");
+        paramKnob_8 = FaustUI.getParamIndex("/ProtoFaust/Knobs/8");
 
-        paramLight_1_r = FaustUI.getParamIndex("/Prototype/Lights/1_R");
-        paramLight_1_g = FaustUI.getParamIndex("/Prototype/Lights/1_G");
-        paramLight_1_b = FaustUI.getParamIndex("/Prototype/Lights/1_B");
+        paramLight_1_r = FaustUI.getParamIndex("/ProtoFaust/Lights/1_R");
+        paramLight_1_g = FaustUI.getParamIndex("/ProtoFaust/Lights/1_G");
+        paramLight_1_b = FaustUI.getParamIndex("/ProtoFaust/Lights/1_B");
 
-        paramLight_2_r = FaustUI.getParamIndex("/Prototype/Lights/2_R");
-        paramLight_2_g = FaustUI.getParamIndex("/Prototype/Lights/2_G");
-        paramLight_2_b = FaustUI.getParamIndex("/Prototype/Lights/2_B");
+        paramLight_2_r = FaustUI.getParamIndex("/ProtoFaust/Lights/2_R");
+        paramLight_2_g = FaustUI.getParamIndex("/ProtoFaust/Lights/2_G");
+        paramLight_2_b = FaustUI.getParamIndex("/ProtoFaust/Lights/2_B");
 
-        paramLight_3_r = FaustUI.getParamIndex("/Prototype/Lights/3_R");
-        paramLight_3_g = FaustUI.getParamIndex("/Prototype/Lights/3_G");
-        paramLight_3_b = FaustUI.getParamIndex("/Prototype/Lights/3_B");
+        paramLight_3_r = FaustUI.getParamIndex("/ProtoFaust/Lights/3_R");
+        paramLight_3_g = FaustUI.getParamIndex("/ProtoFaust/Lights/3_G");
+        paramLight_3_b = FaustUI.getParamIndex("/ProtoFaust/Lights/3_B");
 
-        paramLight_4_r = FaustUI.getParamIndex("/Prototype/Lights/4_R");
-        paramLight_4_g = FaustUI.getParamIndex("/Prototype/Lights/4_G");
-        paramLight_4_b = FaustUI.getParamIndex("/Prototype/Lights/4_B");
+        paramLight_4_r = FaustUI.getParamIndex("/ProtoFaust/Lights/4_R");
+        paramLight_4_g = FaustUI.getParamIndex("/ProtoFaust/Lights/4_G");
+        paramLight_4_b = FaustUI.getParamIndex("/ProtoFaust/Lights/4_B");
 
-        paramLight_5_r = FaustUI.getParamIndex("/Prototype/Lights/5_R");
-        paramLight_5_g = FaustUI.getParamIndex("/Prototype/Lights/5_G");
-        paramLight_5_b = FaustUI.getParamIndex("/Prototype/Lights/5_B");
+        paramLight_5_r = FaustUI.getParamIndex("/ProtoFaust/Lights/5_R");
+        paramLight_5_g = FaustUI.getParamIndex("/ProtoFaust/Lights/5_G");
+        paramLight_5_b = FaustUI.getParamIndex("/ProtoFaust/Lights/5_B");
 
-        paramLight_6_r = FaustUI.getParamIndex("/Prototype/Lights/6_R");
-        paramLight_6_g = FaustUI.getParamIndex("/Prototype/Lights/6_G");
-        paramLight_6_b = FaustUI.getParamIndex("/Prototype/Lights/6_B");
+        paramLight_6_r = FaustUI.getParamIndex("/ProtoFaust/Lights/6_R");
+        paramLight_6_g = FaustUI.getParamIndex("/ProtoFaust/Lights/6_G");
+        paramLight_6_b = FaustUI.getParamIndex("/ProtoFaust/Lights/6_B");
 
-        paramLight_7_r = FaustUI.getParamIndex("/Prototype/Lights/7_R");
-        paramLight_7_g = FaustUI.getParamIndex("/Prototype/Lights/7_G");
-        paramLight_7_b = FaustUI.getParamIndex("/Prototype/Lights/7_B");
+        paramLight_7_r = FaustUI.getParamIndex("/ProtoFaust/Lights/7_R");
+        paramLight_7_g = FaustUI.getParamIndex("/ProtoFaust/Lights/7_G");
+        paramLight_7_b = FaustUI.getParamIndex("/ProtoFaust/Lights/7_B");
 
-        paramLight_8_r = FaustUI.getParamIndex("/Prototype/Lights/8_R");
-        paramLight_8_g = FaustUI.getParamIndex("/Prototype/Lights/8_G");
-        paramLight_8_b = FaustUI.getParamIndex("/Prototype/Lights/8_B");
+        paramLight_8_r = FaustUI.getParamIndex("/ProtoFaust/Lights/8_R");
+        paramLight_8_g = FaustUI.getParamIndex("/ProtoFaust/Lights/8_G");
+        paramLight_8_b = FaustUI.getParamIndex("/ProtoFaust/Lights/8_B");
 
         // initialize sample rate in Faust
         int sampleRate = APP->engine->getSampleRate();
@@ -404,11 +404,11 @@ struct Prototype : Module {
 };
 
 
-struct PrototypeWidget : ModuleWidget {
-    PrototypeWidget(Prototype *module) {
+struct ProtoFaustWidget : ModuleWidget {
+    ProtoFaustWidget(ProtoFaust *module) {
         setModule(module);
         setPanel(APP->window->loadSvg(
-                     asset::plugin(pluginInstance, "res/Prototype.svg")));
+                     asset::plugin(pluginInstance, "res/ProtoFaust.svg")));
 
         // screws
         addChild(createWidget<ScrewBlack>(
@@ -422,94 +422,94 @@ struct PrototypeWidget : ModuleWidget {
 
         // buttons & switches
         addParam(createParamCentered<CKSSThree>(
-                     mm2px(Vec(31.75, 21.82)), module, Prototype::BUTTON_1_PARAM));
+                     mm2px(Vec(31.75, 21.82)), module, ProtoFaust::BUTTON_1_PARAM));
         addParam(createParamCentered<CKSSThree>(
-                     mm2px(Vec(31.75, 34.52)), module, Prototype::BUTTON_2_PARAM));
+                     mm2px(Vec(31.75, 34.52)), module, ProtoFaust::BUTTON_2_PARAM));
         addParam(createParamCentered<CKSS>(
-                     mm2px(Vec(31.75, 49.76)), module, Prototype::BUTTON_3_PARAM));
+                     mm2px(Vec(31.75, 49.76)), module, ProtoFaust::BUTTON_3_PARAM));
         addParam(createParamCentered<CKSS>(
-                     mm2px(Vec(31.75, 62.46)), module, Prototype::BUTTON_4_PARAM));
+                     mm2px(Vec(31.75, 62.46)), module, ProtoFaust::BUTTON_4_PARAM));
         addParam(createParamCentered<BefacoPush>(
-                     mm2px(Vec(31.75, 77.7)), module, Prototype::BUTTON_5_PARAM));
+                     mm2px(Vec(31.75, 77.7)), module, ProtoFaust::BUTTON_5_PARAM));
         addParam(createParamCentered<BefacoPush>(
-                     mm2px(Vec(31.75, 90.4)), module, Prototype::BUTTON_6_PARAM));
+                     mm2px(Vec(31.75, 90.4)), module, ProtoFaust::BUTTON_6_PARAM));
         addParam(createParamCentered<BefacoPush>(
-                     mm2px(Vec(31.75, 105.64)), module, Prototype::BUTTON_7_PARAM));
+                     mm2px(Vec(31.75, 105.64)), module, ProtoFaust::BUTTON_7_PARAM));
         addParam(createParamCentered<BefacoPush>(
-                     mm2px(Vec(31.75, 118.34)), module, Prototype::BUTTON_8_PARAM));
+                     mm2px(Vec(31.75, 118.34)), module, ProtoFaust::BUTTON_8_PARAM));
 
         // big knobs
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(53.34, 28.17)), module, Prototype::KNOB_1_PARAM));
+                     mm2px(Vec(53.34, 28.17)), module, ProtoFaust::KNOB_1_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(78.74, 28.17)), module, Prototype::KNOB_2_PARAM));
+                     mm2px(Vec(78.74, 28.17)), module, ProtoFaust::KNOB_2_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(53.34, 56.11)), module, Prototype::KNOB_3_PARAM));
+                     mm2px(Vec(53.34, 56.11)), module, ProtoFaust::KNOB_3_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(78.74, 56.11)), module, Prototype::KNOB_4_PARAM));
+                     mm2px(Vec(78.74, 56.11)), module, ProtoFaust::KNOB_4_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(53.34, 84.05)), module, Prototype::KNOB_5_PARAM));
+                     mm2px(Vec(53.34, 84.05)), module, ProtoFaust::KNOB_5_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(78.74, 84.05)), module, Prototype::KNOB_6_PARAM));
+                     mm2px(Vec(78.74, 84.05)), module, ProtoFaust::KNOB_6_PARAM));
         addParam(createParamCentered<Davies1900hLargeWhiteKnob>(
-                     mm2px(Vec(53.34, 111.99)), module, Prototype::KNOB_7_PARAM));
+                     mm2px(Vec(53.34, 111.99)), module, ProtoFaust::KNOB_7_PARAM));
         addParam(createParamCentered<Davies1900hLargeRedKnob>(
-                     mm2px(Vec(78.74, 111.99)), module, Prototype::KNOB_8_PARAM));
+                     mm2px(Vec(78.74, 111.99)), module, ProtoFaust::KNOB_8_PARAM));
 
         // input ports
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 21.82)), module, Prototype::IN_1_INPUT));
+                     mm2px(Vec(17.78, 21.82)), module, ProtoFaust::IN_1_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 34.52)), module, Prototype::IN_2_INPUT));
+                     mm2px(Vec(17.78, 34.52)), module, ProtoFaust::IN_2_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 49.76)), module, Prototype::IN_3_INPUT));
+                     mm2px(Vec(17.78, 49.76)), module, ProtoFaust::IN_3_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 62.46)), module, Prototype::IN_4_INPUT));
+                     mm2px(Vec(17.78, 62.46)), module, ProtoFaust::IN_4_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 77.7)), module, Prototype::IN_5_INPUT));
+                     mm2px(Vec(17.78, 77.7)), module, ProtoFaust::IN_5_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 90.4)), module, Prototype::IN_6_INPUT));
+                     mm2px(Vec(17.78, 90.4)), module, ProtoFaust::IN_6_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 105.64)), module, Prototype::IN_7_INPUT));
+                     mm2px(Vec(17.78, 105.64)), module, ProtoFaust::IN_7_INPUT));
         addInput(createInputCentered<CL1362Port>(
-                     mm2px(Vec(17.78, 118.34)), module, Prototype::IN_8_INPUT));
+                     mm2px(Vec(17.78, 118.34)), module, ProtoFaust::IN_8_INPUT));
 
         // output ports
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 21.82)), module, Prototype::OUT_1_OUTPUT));
+                      mm2px(Vec(114.3, 21.82)), module, ProtoFaust::OUT_1_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 34.52)), module, Prototype::OUT_2_OUTPUT));
+                      mm2px(Vec(114.3, 34.52)), module, ProtoFaust::OUT_2_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 49.76)), module, Prototype::OUT_3_OUTPUT));
+                      mm2px(Vec(114.3, 49.76)), module, ProtoFaust::OUT_3_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 62.46)), module, Prototype::OUT_4_OUTPUT));
+                      mm2px(Vec(114.3, 62.46)), module, ProtoFaust::OUT_4_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 77.7)), module, Prototype::OUT_5_OUTPUT));
+                      mm2px(Vec(114.3, 77.7)), module, ProtoFaust::OUT_5_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 90.4)), module, Prototype::OUT_6_OUTPUT));
+                      mm2px(Vec(114.3, 90.4)), module, ProtoFaust::OUT_6_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 105.64)), module, Prototype::OUT_7_OUTPUT));
+                      mm2px(Vec(114.3, 105.64)), module, ProtoFaust::OUT_7_OUTPUT));
         addOutput(createOutputCentered<CL1362Port>(
-                      mm2px(Vec(114.3, 118.34)), module, Prototype::OUT_8_OUTPUT));
+                      mm2px(Vec(114.3, 118.34)), module, ProtoFaust::OUT_8_OUTPUT));
 
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 21.82)), module, Prototype::LED_1_LIGHT_R));
+                     mm2px(Vec(99.06, 21.82)), module, ProtoFaust::LED_1_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 34.52)), module, Prototype::LED_2_LIGHT_R));
+                     mm2px(Vec(99.06, 34.52)), module, ProtoFaust::LED_2_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 49.76)), module, Prototype::LED_3_LIGHT_R));
+                     mm2px(Vec(99.06, 49.76)), module, ProtoFaust::LED_3_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 62.46)), module, Prototype::LED_4_LIGHT_R));
+                     mm2px(Vec(99.06, 62.46)), module, ProtoFaust::LED_4_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 77.7)), module, Prototype::LED_5_LIGHT_R));
+                     mm2px(Vec(99.06, 77.7)), module, ProtoFaust::LED_5_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 90.4)), module, Prototype::LED_6_LIGHT_R));
+                     mm2px(Vec(99.06, 90.4)), module, ProtoFaust::LED_6_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 105.64)), module, Prototype::LED_7_LIGHT_R));
+                     mm2px(Vec(99.06, 105.64)), module, ProtoFaust::LED_7_LIGHT_R));
         addChild(createLightCentered<MediumLight<RedGreenBlueLight>>(
-                     mm2px(Vec(99.06, 118.34)), module, Prototype::LED_8_LIGHT_R));
+                     mm2px(Vec(99.06, 118.34)), module, ProtoFaust::LED_8_LIGHT_R));
     }
 };
 
 
-Model *modelPrototype = createModel<Prototype, PrototypeWidget>("Prototype");
+Model *modelProtoFaust = createModel<ProtoFaust, ProtoFaustWidget>("ProtoFaust");
