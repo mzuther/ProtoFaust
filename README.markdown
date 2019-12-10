@@ -4,6 +4,7 @@ ProtoFaust
 DSP prototyping in Faust for VCV Rack  
 Copyright (c) 2019 [Martin Zuther][1]
 
+![Screenshot of ProtoFaust](images/screenshot_1.png?raw=true "Screenshot")
 
 Installation
 ------------
