@@ -1,25 +1,21 @@
-ProtoFaust
-==========
+# ProtoFaust
 
 DSP prototyping in Faust for VCV Rack  
 Copyright (c) 2019 [Martin Zuther][1]
 
 ![Screenshot of ProtoFaust](images/screenshot_1.png?raw=true "Screenshot")
 
-Installation
-------------
+## Installation
 
 These are the instructions for Linux, but it should be relatively
 simple to modify them for use on Windows or MacOS:
 
 1. clone this repository: `git clone https://github.com/mzuther/ProtoFaust.git`
-1. [download and install][2] the latest VCV Rack SDK
-1. install Faust (I recommend using a [recent version][3])
+1. [download and install][SDK Rack] the latest VCV Rack SDK
+1. install Faust (I recommend using a [recent version][Faust compiler])
 1. `make run` will compile and install your module; Rack is run if it is found in your path
 
-
-Prototype your own DSP
-----------------------
+## Prototype your own DSP
 
 The default Faust process is a simple three-oscillator synth with
 resonant filter.  Simply edit `src/faust/main.dsp` to change this.
@@ -58,14 +54,37 @@ superfluous and optimized out) and probably crash.
 
 Enjoy!
 
-
-Ideas and bug fixes
--------------------
+## Ideas and bug fixes
 
 This module is very new and experimental.  So please send problems,
 bug reports, fixes and any ideas that come to your mind.  Thanks!
 
+## Code of conduct
 
-[1]: http://www.mzuther.de/
-[2]: https://vcvrack.com/manual/PluginDevelopmentTutorial.html
-[3]: http://faust.grame.fr/doc/manual/index.html#compiling-and-installing-the-faust-compiler
+Please read the [code of conduct][COC] before asking for help, filing
+bug reports or contributing to this project.  Thanks!
+
+## License
+
+Copyright (c) 2013-2019 [Martin Zuther][]
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Thank you for using free software!
+
+
+[Martin Zuther]:  http://www.mzuther.de/
+[COC]:            https://github.com/mzuther/ProtoFaust/tree/master/CODE_OF_CONDUCT.markdown
+[Faust compiler]: http://faust.grame.fr/doc/manual/index.html#compiling-and-installing-the-faust-compiler
+[SDK Rack]:       https://vcvrack.com/manual/PluginDevelopmentTutorial.html
