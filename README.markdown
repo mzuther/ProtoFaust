@@ -1,7 +1,6 @@
 # ProtoFaust
 
 DSP prototyping in Faust for VCV Rack  
-Copyright (c) 2019 [Martin Zuther][1]
 
 ![Screenshot of ProtoFaust](images/screenshot_1.png?raw=true "Screenshot")
 
@@ -66,7 +65,7 @@ bug reports or contributing to this project.  Thanks!
 
 ## License
 
-Copyright (c) 2013-2019 [Martin Zuther][]
+Copyright (c) 2019 [Martin Zuther][]
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
