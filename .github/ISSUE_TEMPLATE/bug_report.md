@@ -43,7 +43,7 @@ If applicable, add screenshots to help explain your problem.
 
 You only need to add the tools you actually used:
 
-- Compiler: [ g++ Ubuntu v7.5.0 ]
+- Compiler: [ gcc Ubuntu v7.5.0 ]
 - SDK: [ VCV Rack SDK v1.1.6 ]
 - Faust: [ v2.20.2, master-dev, ... ]
 - ...
