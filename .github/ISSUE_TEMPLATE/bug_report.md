@@ -36,9 +36,7 @@ If applicable, add screenshots to help explain your problem.
 
  - OS: [ Windows 10 (64-bit), Linux AV v2020.4.10 (32-bit) ]
  - VCV Rack: [ v1.1.6 (64-bit) ]
- - Proto Faust: [ v1.0.0 (64-bit) ]
-
-Which version do you use? [v1.0.0, commit master/2e4dbe3]
+ - Proto Faust: [ v1.0.0 (64-bit), commit master/2e4dbe3 (64-bit)]
 
 
 ### Tool set
