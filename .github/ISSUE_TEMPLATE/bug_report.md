@@ -38,6 +38,8 @@ If applicable, add screenshots to help explain your problem.
  - VCV Rack: [ v1.1.6 (64-bit) ]
  - Proto Faust: [ v1.0.0 (64-bit) ]
 
+Which version do you use? [v1.0.0, commit master/2e4dbe3]
+
 
 ### Tool set
 
