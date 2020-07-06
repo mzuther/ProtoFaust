@@ -22,6 +22,7 @@ The main process is
 
 ```
 process(in1 , in2 , in3 , in4 , in5 , in6 , in7 , in8) = internal_processor
+with
 {
      internal_processor = ... ;
 };
