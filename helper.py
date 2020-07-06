@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# this file has been copied and adapted from VCV Rack SDK:
+#
+# - change tabs to spaces (PEP 8)
+# - sort components by name
+# - this comment :)
+
 import sys
 import os
 import re
@@ -93,7 +99,8 @@ include $(RACK_DIR)/plugin.mk
         f.write(makefile)
 
     # Create plugin.hpp
-    plugin_hpp = """#include <rack.hpp>
+    plugin_hpp = """#pragma once
+#include <rack.hpp>
 
 
 using namespace rack;
@@ -199,7 +206,7 @@ def create_module(slug, panel_filename=None, source_filename=None):
         module_manifest['slug'] = slug
         module_manifest['name'] = input_default("Module name", slug)
         module_manifest['description'] = input_default("One-line description (optional)")
-        tags = input_default("Tags (comma-separated, case-insensitive, see https://github.com/VCVRack/Rack/blob/v1/src/plugin.cpp#L511-L571 for list)")
+        tags = input_default("Tags (comma-separated, case-insensitive, see https://github.com/VCVRack/Rack/blob/v1/src/tag.cpp for list)")
         tags = tags.split(",")
         tags = [tag.strip() for tag in tags]
         if len(tags) == 1 and tags[0] == "":
