@@ -4,6 +4,7 @@ DSP prototyping in Faust for VCV Rack
 
 ![Screenshot of ProtoFaust](images/screenshot_1.png?raw=true "Screenshot")
 
+
 ## Installation
 
 These are the instructions for Linux, but it should be relatively
@@ -18,6 +19,7 @@ simple to modify them for use on Windows or MacOS:
    compiler])
 1. `make run` will compile and install your module; Rack is run if it
    is found in your path
+
 
 ## Prototype your own DSP
 
@@ -59,10 +61,12 @@ superfluous and optimized out) and probably crash.
 
 Enjoy!
 
+
 ## Ideas and bug fixes
 
 This module is very new and experimental.  So please send problems,
 bug reports, fixes and any ideas that come to your mind.  Thanks!
+
 
 ## Contributors
 
@@ -71,10 +75,12 @@ bug reports, fixes and any ideas that come to your mind.  Thanks!
 - [Stéphane Letz](https://github.com/sletz): improved readability of
   Faust code (`src/faust/rack.dsp`)
 
+
 ## Code of conduct
 
 Please read the [code of conduct][COC] before asking for help, filing
 bug reports or contributing to this project.  Thanks!
+
 
 ## License
 
