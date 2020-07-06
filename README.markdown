@@ -1,6 +1,6 @@
 # ProtoFaust
 
-DSP prototyping in Faust for VCV Rack  
+DSP prototyping in Faust for VCV Rack
 
 ![Screenshot of ProtoFaust](images/screenshot_1.png?raw=true "Screenshot")
 
@@ -58,6 +58,13 @@ Enjoy!
 
 This module is very new and experimental.  So please send problems,
 bug reports, fixes and any ideas that come to your mind.  Thanks!
+
+## Contributors
+
+- [Martin Zuther][]: maintainer
+
+- [Stéphane Letz](https://github.com/sletz): improved readability of
+  Faust code (`src/faust/rack.dsp`)
 
 ## Code of conduct
 
