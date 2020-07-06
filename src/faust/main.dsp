@@ -4,7 +4,8 @@
    ==========
    DSP prototyping in Faust for VCV Rack
 
-   Copyright (c) 2019 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2019-2020 Martin Zuther (http://www.mzuther.de/) and
+   contributors
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
