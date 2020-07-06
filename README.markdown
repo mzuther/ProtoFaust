@@ -9,10 +9,15 @@ DSP prototyping in Faust for VCV Rack
 These are the instructions for Linux, but it should be relatively
 simple to modify them for use on Windows or MacOS:
 
-1. clone this repository: `git clone https://github.com/mzuther/ProtoFaust.git`
-1. [download and install][SDK Rack] the latest VCV Rack SDK
-1. install Faust (I recommend using a [recent version][Faust compiler])
-1. `make run` will compile and install your module; Rack is run if it is found in your path
+1. clone this repository: `git clone
+   https://github.com/mzuther/ProtoFaust.git`
+1. [download and install][SDK Rack] the latest VCV Rack SDK – the
+   Makefile defaults to `../Rack-SDK` but respects the `RACK_DIR`
+   shell variable
+1. install Faust (I recommend using a [recent version][Faust
+   compiler])
+1. `make run` will compile and install your module; Rack is run if it
+   is found in your path
 
 ## Prototype your own DSP
 
