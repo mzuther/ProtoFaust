@@ -198,6 +198,27 @@ private:
 
 struct ProtoFaustWidget : ModuleWidget {
    explicit ProtoFaustWidget( ProtoFaust* module );
+
+private:
+   void placeScrew( float x, float y );
+
+   void placeSwitch( engine::Module* module, int parameterId,
+                     bool isThreeWay,
+                     float x, float y );
+
+   void placePushButton( engine::Module* module, int parameterId,
+                         float x, float y );
+
+   void placeKnob( engine::Module* module, int parameterId,
+                   bool isPrimaryColor,
+                   float x, float y );
+
+   void placePort( engine::Module* module, int parameterId,
+                   bool isInputPort,
+                   float x, float y );
+
+   void placeRgbLed( engine::Module* module, int parameterId,
+                     float x, float y );
 };
 
 

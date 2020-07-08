@@ -214,10 +214,10 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
    updateKnob( KNOB_7_PARAM, paramKnob_7 );
    updateKnob( KNOB_8_PARAM, paramKnob_8 );
 
+   // update Faust controls
    int int_control[FaustDSP.getNumIntControls()];
    FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
 
-   // update Faust controls
    FaustDSP.control( int_control, real_control );
 
    // compute one sample in Faust
@@ -311,227 +311,255 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module )
 
    // ------ screws ------
 
-   addChild( createWidget<ScrewBlack>(
-                Vec( RACK_GRID_WIDTH, 0 ) ) );
+   placeScrew( RACK_GRID_WIDTH,
+               0 );
 
-   addChild( createWidget<ScrewBlack>(
-                Vec( box.size.x - 2 * RACK_GRID_WIDTH, 0 ) ) );
+   placeScrew( box.size.x - 2 * RACK_GRID_WIDTH,
+               0 );
 
-   addChild( createWidget<ScrewBlack>(
-                Vec( RACK_GRID_WIDTH,
-                     RACK_GRID_HEIGHT - RACK_GRID_WIDTH ) ) );
+   placeScrew( RACK_GRID_WIDTH,
+               RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
-   addChild( createWidget<ScrewBlack>(
-                Vec( box.size.x - 2 * RACK_GRID_WIDTH,
-                     RACK_GRID_HEIGHT - RACK_GRID_WIDTH ) ) );
+   placeScrew( box.size.x - 2 * RACK_GRID_WIDTH,
+               RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
-   // ------ buttons & switches ------
+   // ------ switches ------
 
-   addParam( createParamCentered<CKSSThree>(
-                mm2px( Vec( 31.75, 21.82 ) ),
-                module,
-                ProtoFaust::BUTTON_1_PARAM ) );
+   placeSwitch( module, ProtoFaust::BUTTON_1_PARAM,
+                true,
+                31.75, 21.82 );
 
-   addParam( createParamCentered<CKSSThree>(
-                mm2px( Vec( 31.75, 34.52 ) ),
-                module,
-                ProtoFaust::BUTTON_2_PARAM ) );
+   placeSwitch( module, ProtoFaust::BUTTON_2_PARAM,
+                true,
+                31.75, 34.52 );
 
-   addParam( createParamCentered<CKSS>(
-                mm2px( Vec( 31.75, 49.76 ) ),
-                module,
-                ProtoFaust::BUTTON_3_PARAM ) );
+   placeSwitch( module, ProtoFaust::BUTTON_3_PARAM,
+                false,
+                31.75, 49.76 );
 
-   addParam( createParamCentered<CKSS>(
-                mm2px( Vec( 31.75, 62.46 ) ),
-                module,
-                ProtoFaust::BUTTON_4_PARAM ) );
+   placeSwitch( module, ProtoFaust::BUTTON_4_PARAM,
+                false,
+                31.75, 62.46 );
 
-   addParam( createParamCentered<BefacoPush>(
-                mm2px( Vec( 31.75, 77.7 ) ),
-                module,
-                ProtoFaust::BUTTON_5_PARAM ) );
+   // ------ buttons ------
 
-   addParam( createParamCentered<BefacoPush>(
-                mm2px( Vec( 31.75, 90.4 ) ),
-                module,
-                ProtoFaust::BUTTON_6_PARAM ) );
+   placePushButton( module, ProtoFaust::BUTTON_5_PARAM,
+                    31.75, 77.7 );
 
-   addParam( createParamCentered<BefacoPush>(
-                mm2px( Vec( 31.75, 105.64 ) ),
-                module,
-                ProtoFaust::BUTTON_7_PARAM ) );
+   placePushButton( module, ProtoFaust::BUTTON_6_PARAM,
+                    31.75, 90.4 );
 
-   addParam( createParamCentered<BefacoPush>(
-                mm2px( Vec( 31.75, 118.34 ) ),
-                module,
-                ProtoFaust::BUTTON_8_PARAM ) );
+   placePushButton( module, ProtoFaust::BUTTON_7_PARAM,
+                    31.75, 105.64 );
+
+   placePushButton( module, ProtoFaust::BUTTON_8_PARAM,
+                    31.75, 118.34 );
 
    // ------ knobs ------
 
-   addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                mm2px( Vec( 53.34, 28.17 ) ),
-                module,
-                ProtoFaust::KNOB_1_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_1_PARAM,
+              true,
+              53.34, 28.17 );
 
-   addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                mm2px( Vec( 78.74, 28.17 ) ),
-                module,
-                ProtoFaust::KNOB_2_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_2_PARAM,
+              false,
+              78.74, 28.17 );
 
-   addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                mm2px( Vec( 53.34, 56.11 ) ),
-                module,
-                ProtoFaust::KNOB_3_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_3_PARAM,
+              true,
+              53.34, 56.11 );
 
-   addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                mm2px( Vec( 78.74, 56.11 ) ),
-                module,
-                ProtoFaust::KNOB_4_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_4_PARAM,
+              false,
+              78.74, 56.11 );
 
-   addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                mm2px( Vec( 53.34, 84.05 ) ),
-                module,
-                ProtoFaust::KNOB_5_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_5_PARAM,
+              true,
+              53.34, 84.05 );
 
-   addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                mm2px( Vec( 78.74, 84.05 ) ),
-                module,
-                ProtoFaust::KNOB_6_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_6_PARAM,
+              false,
+              78.74, 84.05 );
 
-   addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                mm2px( Vec( 53.34, 111.99 ) ),
-                module,
-                ProtoFaust::KNOB_7_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_7_PARAM,
+              true,
+              53.34, 111.99 );
 
-   addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                mm2px( Vec( 78.74, 111.99 ) ),
-                module,
-                ProtoFaust::KNOB_8_PARAM ) );
+   placeKnob( module, ProtoFaust::KNOB_8_PARAM,
+              false,
+              78.74, 111.99 );
 
    // ------ input ports ------
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 21.82 ) ),
-                module,
-                ProtoFaust::IN_1_INPUT ) );
+   placePort( module, ProtoFaust::IN_1_INPUT,
+              true,
+              17.78, 21.82 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 34.52 ) ),
-                module,
-                ProtoFaust::IN_2_INPUT ) );
+   placePort( module, ProtoFaust::IN_2_INPUT,
+              true,
+              17.78, 34.52 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 49.76 ) ),
-                module,
-                ProtoFaust::IN_3_INPUT ) );
+   placePort( module, ProtoFaust::IN_3_INPUT,
+              true,
+              17.78, 49.76 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 62.46 ) ),
-                module,
-                ProtoFaust::IN_4_INPUT ) );
+   placePort( module, ProtoFaust::IN_4_INPUT,
+              true,
+              17.78, 62.46 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 77.7 ) ),
-                module,
-                ProtoFaust::IN_5_INPUT ) );
+   placePort( module, ProtoFaust::IN_5_INPUT,
+              true,
+              17.78, 77.7 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 90.4 ) ),
-                module,
-                ProtoFaust::IN_6_INPUT ) );
+   placePort( module, ProtoFaust::IN_6_INPUT,
+              true,
+              17.78, 90.4 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 105.64 ) ),
-                module,
-                ProtoFaust::IN_7_INPUT ) );
+   placePort( module, ProtoFaust::IN_7_INPUT,
+              true,
+              17.78, 105.64 );
 
-   addInput( createInputCentered<CL1362Port>(
-                mm2px( Vec( 17.78, 118.34 ) ),
-                module,
-                ProtoFaust::IN_8_INPUT ) );
+   placePort( module, ProtoFaust::IN_8_INPUT,
+              true,
+              17.78, 118.34 );
 
    // ------ output ports ------
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 21.82 ) ),
-                 module,
-                 ProtoFaust::OUT_1_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_1_OUTPUT,
+              false,
+              114.3, 21.82 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 34.52 ) ),
-                 module,
-                 ProtoFaust::OUT_2_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_2_OUTPUT,
+              false,
+              114.3, 34.52 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 49.76 ) ),
-                 module,
-                 ProtoFaust::OUT_3_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_3_OUTPUT,
+              false,
+              114.3, 49.76 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 62.46 ) ),
-                 module,
-                 ProtoFaust::OUT_4_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_4_OUTPUT,
+              false,
+              114.3, 62.46 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 77.7 ) ),
-                 module,
-                 ProtoFaust::OUT_5_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_5_OUTPUT,
+              false,
+              114.3, 77.7 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 90.4 ) ),
-                 module,
-                 ProtoFaust::OUT_6_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_6_OUTPUT,
+              false,
+              114.3, 90.4 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 105.64 ) ),
-                 module,
-                 ProtoFaust::OUT_7_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_7_OUTPUT,
+              false,
+              114.3, 105.64 );
 
-   addOutput( createOutputCentered<CL1362Port>(
-                 mm2px( Vec( 114.3, 118.34 ) ),
-                 module,
-                 ProtoFaust::OUT_8_OUTPUT ) );
+   placePort( module, ProtoFaust::OUT_8_OUTPUT,
+              false,
+              114.3, 118.34 );
 
    // ------ RGB LEDs ------
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 21.82 ) ),
-                module,
-                ProtoFaust::LED_1_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_1_LIGHT_R,
+                99.06, 21.82 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 34.52 ) ),
-                module,
-                ProtoFaust::LED_2_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_2_LIGHT_R,
+                99.06, 34.52 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 49.76 ) ),
-                module,
-                ProtoFaust::LED_3_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_3_LIGHT_R,
+                99.06, 49.76 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 62.46 ) ),
-                module,
-                ProtoFaust::LED_4_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_4_LIGHT_R,
+                99.06, 62.46 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 77.7 ) ),
-                module,
-                ProtoFaust::LED_5_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_5_LIGHT_R,
+                99.06, 77.7 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 90.4 ) ),
-                module,
-                ProtoFaust::LED_6_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_6_LIGHT_R,
+                99.06, 90.4 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 105.64 ) ),
-                module,
-                ProtoFaust::LED_7_LIGHT_R ) );
+   placeRgbLed( module, ProtoFaust::LED_7_LIGHT_R,
+                99.06, 105.64 );
 
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( Vec( 99.06, 118.34 ) ),
+   placeRgbLed( module, ProtoFaust::LED_8_LIGHT_R,
+                99.06, 118.34 );
+}
+
+
+void ProtoFaustWidget::placeScrew( float x, float y )
+{
+   addChild( createWidget<ScrewBlack>(
+                math::Vec( x, y ) ) );
+}
+
+void ProtoFaustWidget::placeSwitch( engine::Module* module, int parameterId,
+                                    bool isThreeWay,
+                                    float x, float y )
+{
+   if ( isThreeWay ) {
+      addParam( createParamCentered<CKSSThree>(
+                   mm2px( math::Vec( x, y ) ),
+                   module,
+                   parameterId ) );
+   } else {
+      addParam( createParamCentered<CKSS>(
+                   mm2px( math::Vec( x, y ) ),
+                   module,
+                   parameterId ) );
+   }
+}
+
+
+void ProtoFaustWidget::placePushButton( engine::Module* module, int parameterId,
+                                        float x, float y )
+{
+   addParam( createParamCentered<BefacoPush>(
+                mm2px( math::Vec( x, y ) ),
                 module,
-                ProtoFaust::LED_8_LIGHT_R ) );
+                parameterId ) );
+}
+
+
+void ProtoFaustWidget::placeKnob( engine::Module* module, int parameterId,
+                                  bool isPrimaryColor,
+                                  float x, float y )
+{
+   if ( isPrimaryColor ) {
+      addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
+                   mm2px( math::Vec( x, y ) ),
+                   module,
+                   parameterId ) );
+   } else {
+      addParam( createParamCentered<Davies1900hLargeRedKnob>(
+                   mm2px( math::Vec( x, y ) ),
+                   module,
+                   parameterId ) );
+   }
+}
+
+
+void ProtoFaustWidget::placePort( engine::Module* module, int parameterId,
+                                  bool isInputPort,
+                                  float x, float y )
+{
+   if ( isInputPort ) {
+      addInput( createInputCentered<CL1362Port>(
+                   mm2px( Vec( x, y ) ),
+                   module,
+                   parameterId ) );
+   } else {
+      addOutput( createOutputCentered<CL1362Port>(
+                    mm2px( Vec( x, y ) ),
+                    module,
+                    parameterId ) );
+   }
+}
+
+
+void ProtoFaustWidget::placeRgbLed( engine::Module* module, int parameterId,
+                                    float x, float y )
+{
+   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
+                mm2px( math::Vec( x, y ) ),
+                module,
+                parameterId ) );
 }
