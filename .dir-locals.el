@@ -44,6 +44,6 @@
                    (setq-local flycheck-gcc-include-path include-path)
                    (setq-local flycheck-gcc-includes includes)))))
  (c-mode . ((mode . c++)
-            ( c-basic-offset . 4)))
- (c++-mode (c-basic-offset . 4))
+            ( c-basic-offset . 3)))
+ (c++-mode (c-basic-offset . 3))
  )
