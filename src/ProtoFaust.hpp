@@ -182,6 +182,12 @@ struct ProtoFaust : Module {
    void onSampleRateChange() override;
 
    void process( const ProcessArgs& args ) override;
+
+private:
+   void configToggleSwitch( int parameterId );
+   void configThreeWaySwitch( int parameterId );
+   void configMomentaryButton( int parameterId );
+   void configKnob( int parameterId );
 };
 
 

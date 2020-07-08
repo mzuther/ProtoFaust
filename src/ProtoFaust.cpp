@@ -30,39 +30,78 @@
 
 ProtoFaust::ProtoFaust()
 {
-   config( NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHT_PINS );
+   config( NUM_PARAMS,
+           NUM_INPUTS,
+           NUM_OUTPUTS,
+           NUM_LIGHT_PINS );
 
-   // three-way switches
+   configThreeWaySwitch( BUTTON_1_PARAM );
+   configThreeWaySwitch( BUTTON_2_PARAM );
+
+   configToggleSwitch( BUTTON_3_PARAM );
+   configToggleSwitch( BUTTON_4_PARAM );
+
+   configMomentaryButton( BUTTON_5_PARAM );
+   configMomentaryButton( BUTTON_6_PARAM );
+   configMomentaryButton( BUTTON_7_PARAM );
+   configMomentaryButton( BUTTON_8_PARAM );
+
+   configKnob( KNOB_1_PARAM );
+   configKnob( KNOB_2_PARAM );
+   configKnob( KNOB_3_PARAM );
+   configKnob( KNOB_4_PARAM );
+   configKnob( KNOB_5_PARAM );
+   configKnob( KNOB_6_PARAM );
+   configKnob( KNOB_7_PARAM );
+   configKnob( KNOB_8_PARAM );
+}
+
+
+void ProtoFaust::configToggleSwitch( int parameterId )
+{
+   // values:  0.0, 1.0
+   // default: 0.0 (off)
+   configParam( parameterId,
+                0.0f,
+                1.0f,
+                0.0f,
+                "" );
+}
+
+
+void ProtoFaust::configThreeWaySwitch( int parameterId )
+{
    // values:  0.0, 0.5, 1.0; see ProtoFaust::process()
    // default: 0.0 (off)
-   configParam( BUTTON_1_PARAM, 0.0f, 2.0f, 0.0f, "" );
-   configParam( BUTTON_2_PARAM, 0.0f, 2.0f, 0.0f, "" );
+   configParam( parameterId,
+                0.0f,
+                1.0f,
+                0.5f,
+                "" );
+}
 
-   // two-way switches
+
+void ProtoFaust::configMomentaryButton( int parameterId )
+{
    // values:  0.0, 1.0
    // default: 0.0 (off)
-   configParam( BUTTON_3_PARAM, 0.0f, 1.0f, 0.0f, "" );
-   configParam( BUTTON_4_PARAM, 0.0f, 1.0f, 0.0f, "" );
+   configParam( parameterId,
+                0.0f,
+                1.0f,
+                0.0f,
+                "" );
+}
 
-   // momentary push buttons
-   // values:  0.0, 1.0
-   // default: 0.0 (off)
-   configParam( BUTTON_5_PARAM, 0.0f, 1.0f, 0.0f, "" );
-   configParam( BUTTON_6_PARAM, 0.0f, 1.0f, 0.0f, "" );
-   configParam( BUTTON_7_PARAM, 0.0f, 1.0f, 0.0f, "" );
-   configParam( BUTTON_8_PARAM, 0.0f, 1.0f, 0.0f, "" );
 
-   // big knobs
+void ProtoFaust::configKnob( int parameterId )
+{
    // range:   0.0 to 1.0
    // default: 0.5 (centered)
-   configParam( KNOB_1_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_2_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_3_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_4_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_5_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_6_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_7_PARAM, 0.0f, 1.0f, 0.5f, "" );
-   configParam( KNOB_8_PARAM, 0.0f, 1.0f, 0.5f, "" );
+   configParam( parameterId,
+                0.0f,
+                1.0f,
+                0.5f,
+                "" );
 }
 
 
@@ -331,7 +370,7 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module )
                 module,
                 ProtoFaust::BUTTON_8_PARAM ) );
 
-   // ------ big knobs ------
+   // ------ knobs ------
 
    addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
                 mm2px( Vec( 53.34, 28.17 ) ),
