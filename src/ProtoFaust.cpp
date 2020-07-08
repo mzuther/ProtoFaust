@@ -25,158 +25,10 @@
 ---------------------------------------------------------------------------- */
 
 
-#include "plugin.hpp"
-
-namespace faust
-{
-#include "faust_generated.cpp"
-}
+#include "ProtoFaust.hpp"
 
 
-struct ProtoFaust : Module {
-   enum ParamIds {
-      BUTTON_1_PARAM,
-      BUTTON_2_PARAM,
-      BUTTON_3_PARAM,
-      BUTTON_4_PARAM,
-      BUTTON_5_PARAM,
-      BUTTON_6_PARAM,
-      BUTTON_7_PARAM,
-      BUTTON_8_PARAM,
-
-      KNOB_1_PARAM,
-      KNOB_2_PARAM,
-      KNOB_3_PARAM,
-      KNOB_4_PARAM,
-      KNOB_5_PARAM,
-      KNOB_6_PARAM,
-      KNOB_7_PARAM,
-      KNOB_8_PARAM,
-
-      NUM_PARAMS
-   };
-
-   enum InputIds {
-      IN_1_INPUT,
-      IN_2_INPUT,
-      IN_3_INPUT,
-      IN_4_INPUT,
-      IN_5_INPUT,
-      IN_6_INPUT,
-      IN_7_INPUT,
-      IN_8_INPUT,
-
-      NUM_INPUTS
-   };
-
-   enum OutputIds {
-      OUT_1_OUTPUT,
-      OUT_2_OUTPUT,
-      OUT_3_OUTPUT,
-      OUT_4_OUTPUT,
-      OUT_5_OUTPUT,
-      OUT_6_OUTPUT,
-      OUT_7_OUTPUT,
-      OUT_8_OUTPUT,
-
-      NUM_OUTPUTS
-   };
-
-   enum LightIds {
-      LED_1_LIGHT_R,
-      LED_1_LIGHT_G,
-      LED_1_LIGHT_B,
-
-      LED_2_LIGHT_R,
-      LED_2_LIGHT_G,
-      LED_2_LIGHT_B,
-
-      LED_3_LIGHT_R,
-      LED_3_LIGHT_G,
-      LED_3_LIGHT_B,
-
-      LED_4_LIGHT_R,
-      LED_4_LIGHT_G,
-      LED_4_LIGHT_B,
-
-      LED_5_LIGHT_R,
-      LED_5_LIGHT_G,
-      LED_5_LIGHT_B,
-
-      LED_6_LIGHT_R,
-      LED_6_LIGHT_G,
-      LED_6_LIGHT_B,
-
-      LED_7_LIGHT_R,
-      LED_7_LIGHT_G,
-      LED_7_LIGHT_B,
-
-      LED_8_LIGHT_R,
-      LED_8_LIGHT_G,
-      LED_8_LIGHT_B,
-
-      NUM_LIGHTS
-   };
-
-
-   faust::FaustDSP FaustDSP;
-   faust::APIUI FaustUI;
-
-   // variables for storing GUI IDs
-   int paramButton_1 = -1;
-   int paramButton_2 = -1;
-   int paramButton_3 = -1;
-   int paramButton_4 = -1;
-   int paramButton_5 = -1;
-   int paramButton_6 = -1;
-   int paramButton_7 = -1;
-   int paramButton_8 = -1;
-
-   int paramKnob_1 = -1;
-   int paramKnob_2 = -1;
-   int paramKnob_3 = -1;
-   int paramKnob_4 = -1;
-   int paramKnob_5 = -1;
-   int paramKnob_6 = -1;
-   int paramKnob_7 = -1;
-   int paramKnob_8 = -1;
-
-   int paramLight_1_r = -1;
-   int paramLight_1_g = -1;
-   int paramLight_1_b = -1;
-
-   int paramLight_2_r = -1;
-   int paramLight_2_g = -1;
-   int paramLight_2_b = -1;
-
-   int paramLight_3_r = -1;
-   int paramLight_3_g = -1;
-   int paramLight_3_b = -1;
-
-   int paramLight_4_r = -1;
-   int paramLight_4_g = -1;
-   int paramLight_4_b = -1;
-
-   int paramLight_5_r = -1;
-   int paramLight_5_g = -1;
-   int paramLight_5_b = -1;
-
-   int paramLight_6_r = -1;
-   int paramLight_6_g = -1;
-   int paramLight_6_b = -1;
-
-   int paramLight_7_r = -1;
-   int paramLight_7_g = -1;
-   int paramLight_7_b = -1;
-
-   int paramLight_8_r = -1;
-   int paramLight_8_g = -1;
-   int paramLight_8_b = -1;
-
-   const int numberOfChannels = 8;
-   const FAUSTFLOAT voltageScaling = 5.0f;
-
-   ProtoFaust()
+ProtoFaust::ProtoFaust()
    {
       config( NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS );
 
@@ -214,7 +66,7 @@ struct ProtoFaust : Module {
    }
 
 
-   void onAdd() override
+   void ProtoFaust::onAdd()
    {
       // Activate the UI
       FaustDSP.buildUserInterface( &FaustUI );
@@ -276,7 +128,7 @@ struct ProtoFaust : Module {
    }
 
 
-   void onSampleRateChange() override
+   void ProtoFaust::onSampleRateChange()
    {
       int sampleRate = APP->engine->getSampleRate();
       // update sample rate in Faust
@@ -284,7 +136,7 @@ struct ProtoFaust : Module {
    }
 
 
-   void process( const ProcessArgs& /* args */ ) override
+   void ProtoFaust::process( const ProcessArgs& /* args */ )
    {
       std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
       std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
@@ -407,11 +259,9 @@ struct ProtoFaust : Module {
       lights[LED_8_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_8_g ) );
       lights[LED_8_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_8_b ) );
    }
-};
 
 
-struct ProtoFaustWidget : ModuleWidget {
-   explicit ProtoFaustWidget( ProtoFaust* module )
+   ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module )
    {
       setModule( module );
       setPanel( APP->window->loadSvg(
@@ -516,7 +366,3 @@ struct ProtoFaustWidget : ModuleWidget {
       addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
                    mm2px( Vec( 99.06, 118.34 ) ), module, ProtoFaust::LED_8_LIGHT_R ) );
    }
-};
-
-
-Model* modelProtoFaust = createModel<ProtoFaust, ProtoFaustWidget>( "ProtoFaust" );
