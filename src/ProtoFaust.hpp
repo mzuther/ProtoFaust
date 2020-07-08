@@ -115,7 +115,7 @@ struct ProtoFaust : Module {
       LED_8_LIGHT_G,
       LED_8_LIGHT_B,
 
-      NUM_LIGHTS
+      NUM_LIGHT_PINS
    };
 
 
@@ -180,7 +180,8 @@ struct ProtoFaust : Module {
 
    void onAdd() override;
    void onSampleRateChange() override;
-   void process( const ProcessArgs& /* args */ ) override;
+
+   void process( const ProcessArgs& args ) override;
 };
 
 
