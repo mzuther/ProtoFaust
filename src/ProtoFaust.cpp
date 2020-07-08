@@ -162,7 +162,7 @@ void ProtoFaust::onAdd()
    paramLight_8_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_B" );
 
    // initialize sample rate in Faust
-   int sampleRate = APP->engine->getSampleRate();
+   auto sampleRate = APP->engine->getSampleRate();
    FaustDSP.init( sampleRate );
 }
 
@@ -170,7 +170,7 @@ void ProtoFaust::onAdd()
 void ProtoFaust::onSampleRateChange()
 {
    // update sample rate in Faust
-   int sampleRate = APP->engine->getSampleRate();
+   auto sampleRate = APP->engine->getSampleRate();
    FaustDSP.instanceConstants( sampleRate );
 }
 
@@ -181,7 +181,7 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
    std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
 
    // initialize inputs and outputs
-   for ( int channel = 0; channel < numberOfChannels; channel++ ) {
+   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       // get input voltages from Rack
       FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
 
@@ -262,7 +262,7 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
                      real_control );
 
    // update inputs and outputs
-   for ( int channel = 0; channel < numberOfChannels; channel++ ) {
+   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       // update output voltages
       FAUSTFLOAT output = temporaryOutputs[channel];
 
