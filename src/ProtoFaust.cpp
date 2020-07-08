@@ -280,7 +280,7 @@ struct ProtoFaust : Module {
     }
 
 
-    void process(const ProcessArgs &args) override {
+    void process(const ProcessArgs & /* args */) override {
         std::vector<FAUSTFLOAT> temporaryInputs(numberOfChannels);
         std::vector<FAUSTFLOAT> temporaryOutputs(numberOfChannels);
 
@@ -406,7 +406,7 @@ struct ProtoFaust : Module {
 
 
 struct ProtoFaustWidget : ModuleWidget {
-    ProtoFaustWidget(ProtoFaust *module) {
+    explicit ProtoFaustWidget(ProtoFaust *module) {
         setModule(module);
         setPanel(APP->window->loadSvg(
                      asset::plugin(pluginInstance, "res/ProtoFaust.svg")));
