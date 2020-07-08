@@ -188,6 +188,11 @@ private:
    void configThreeWaySwitch( int parameterId );
    void configMomentaryButton( int parameterId );
    void configKnob( int parameterId );
+
+   void updateButton( int parameterId, int guiId );
+   void updateThreeWaySwitch( int parameterId, int guiId );
+   void updateKnob( int parameterId, int guiId );
+   void updateLedPin( int parameterId, int guiId );
 };
 
 

@@ -71,7 +71,7 @@ void ProtoFaust::configToggleSwitch( int parameterId )
 
 void ProtoFaust::configThreeWaySwitch( int parameterId )
 {
-   // values:  0.0, 0.5, 1.0; see ProtoFaust::process()
+   // values:  0.0, 0.5, 1.0; see ProtoFaust::updateThreeWaySwitch()
    // default: 0.0 (off)
    configParam( parameterId,
                 0.0f,
@@ -194,60 +194,25 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
       temporaryOutputs[channel] = 0.0;
    }
 
-   FAUSTFLOAT value;
-
    // copy parameter values from Rack to Faust
-   value = params[BUTTON_1_PARAM].getValue();
-   // scale range to (0 .. 1)
-   value /= 2.0f;
-   FaustUI.setParamValue( paramButton_1, value );
+   updateThreeWaySwitch( BUTTON_1_PARAM, paramButton_1 );
+   updateThreeWaySwitch( BUTTON_2_PARAM, paramButton_2 );
 
-   value = params[BUTTON_2_PARAM].getValue();
-   // scale range to (0 .. 1)
-   value /= 2.0f;
-   FaustUI.setParamValue( paramButton_2, value );
+   updateButton( BUTTON_3_PARAM, paramButton_3 );
+   updateButton( BUTTON_4_PARAM, paramButton_4 );
+   updateButton( BUTTON_5_PARAM, paramButton_5 );
+   updateButton( BUTTON_6_PARAM, paramButton_6 );
+   updateButton( BUTTON_7_PARAM, paramButton_7 );
+   updateButton( BUTTON_8_PARAM, paramButton_8 );
 
-   value = params[BUTTON_3_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_3, value );
-
-   value = params[BUTTON_4_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_4, value );
-
-   value = params[BUTTON_5_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_5, value );
-
-   value = params[BUTTON_6_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_6, value );
-
-   value = params[BUTTON_7_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_7, value );
-
-   value = params[BUTTON_8_PARAM].getValue();
-   FaustUI.setParamValue( paramButton_8, value );
-
-   value = params[KNOB_1_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_1, value );
-
-   value = params[KNOB_2_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_2, value );
-
-   value = params[KNOB_3_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_3, value );
-
-   value = params[KNOB_4_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_4, value );
-
-   value = params[KNOB_5_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_5, value );
-
-   value = params[KNOB_6_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_6, value );
-
-   value = params[KNOB_7_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_7, value );
-
-   value = params[KNOB_8_PARAM].getValue();
-   FaustUI.setParamValue( paramKnob_8, value );
+   updateKnob( KNOB_1_PARAM, paramKnob_1 );
+   updateKnob( KNOB_2_PARAM, paramKnob_2 );
+   updateKnob( KNOB_3_PARAM, paramKnob_3 );
+   updateKnob( KNOB_4_PARAM, paramKnob_4 );
+   updateKnob( KNOB_5_PARAM, paramKnob_5 );
+   updateKnob( KNOB_6_PARAM, paramKnob_6 );
+   updateKnob( KNOB_7_PARAM, paramKnob_7 );
+   updateKnob( KNOB_8_PARAM, paramKnob_8 );
 
    int int_control[FaustDSP.getNumIntControls()];
    FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
@@ -272,37 +237,69 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
    }
 
    // update RGB LEDs
-   lights[LED_1_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_1_r ) );
-   lights[LED_1_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_1_g ) );
-   lights[LED_1_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_1_b ) );
+   updateLedPin( LED_1_LIGHT_R, paramLight_1_r );
+   updateLedPin( LED_1_LIGHT_G, paramLight_1_g );
+   updateLedPin( LED_1_LIGHT_B, paramLight_1_b );
 
-   lights[LED_2_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_2_r ) );
-   lights[LED_2_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_2_g ) );
-   lights[LED_2_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_2_b ) );
+   updateLedPin( LED_2_LIGHT_R, paramLight_2_r );
+   updateLedPin( LED_2_LIGHT_G, paramLight_2_g );
+   updateLedPin( LED_2_LIGHT_B, paramLight_2_b );
 
-   lights[LED_3_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_3_r ) );
-   lights[LED_3_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_3_g ) );
-   lights[LED_3_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_3_b ) );
+   updateLedPin( LED_3_LIGHT_R, paramLight_3_r );
+   updateLedPin( LED_3_LIGHT_G, paramLight_3_g );
+   updateLedPin( LED_3_LIGHT_B, paramLight_3_b );
 
-   lights[LED_4_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_4_r ) );
-   lights[LED_4_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_4_g ) );
-   lights[LED_4_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_4_b ) );
+   updateLedPin( LED_4_LIGHT_R, paramLight_4_r );
+   updateLedPin( LED_4_LIGHT_G, paramLight_4_g );
+   updateLedPin( LED_4_LIGHT_B, paramLight_4_b );
 
-   lights[LED_5_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_5_r ) );
-   lights[LED_5_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_5_g ) );
-   lights[LED_5_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_5_b ) );
+   updateLedPin( LED_5_LIGHT_R, paramLight_5_r );
+   updateLedPin( LED_5_LIGHT_G, paramLight_5_g );
+   updateLedPin( LED_5_LIGHT_B, paramLight_5_b );
 
-   lights[LED_6_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_6_r ) );
-   lights[LED_6_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_6_g ) );
-   lights[LED_6_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_6_b ) );
+   updateLedPin( LED_6_LIGHT_R, paramLight_6_r );
+   updateLedPin( LED_6_LIGHT_G, paramLight_6_g );
+   updateLedPin( LED_6_LIGHT_B, paramLight_6_b );
 
-   lights[LED_7_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_7_r ) );
-   lights[LED_7_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_7_g ) );
-   lights[LED_7_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_7_b ) );
+   updateLedPin( LED_7_LIGHT_R, paramLight_7_r );
+   updateLedPin( LED_7_LIGHT_G, paramLight_7_g );
+   updateLedPin( LED_7_LIGHT_B, paramLight_7_b );
 
-   lights[LED_8_LIGHT_R].setBrightness( FaustUI.getParamValue( paramLight_8_r ) );
-   lights[LED_8_LIGHT_G].setBrightness( FaustUI.getParamValue( paramLight_8_g ) );
-   lights[LED_8_LIGHT_B].setBrightness( FaustUI.getParamValue( paramLight_8_b ) );
+   updateLedPin( LED_8_LIGHT_R, paramLight_8_r );
+   updateLedPin( LED_8_LIGHT_G, paramLight_8_g );
+   updateLedPin( LED_8_LIGHT_B, paramLight_8_b );
+}
+
+
+void ProtoFaust::updateButton( int parameterId, int guiId )
+{
+   FAUSTFLOAT value = params[parameterId].getValue();
+   FaustUI.setParamValue( guiId, value );
+}
+
+
+void ProtoFaust::updateThreeWaySwitch( int parameterId, int guiId )
+{
+   // copy parameter values from Rack to Faust
+   FAUSTFLOAT value = params[parameterId].getValue();
+
+   // scale range to (0 .. 1)
+   value /= 2.0f;
+
+   FaustUI.setParamValue( guiId, value );
+}
+
+
+void ProtoFaust::updateKnob( int parameterId, int guiId )
+{
+   FAUSTFLOAT value = params[parameterId].getValue();
+   FaustUI.setParamValue( guiId, value );
+}
+
+
+void ProtoFaust::updateLedPin( int parameterId, int guiId )
+{
+   lights[parameterId].setBrightness( FaustUI.getParamValue( guiId ) );
 }
 
 
