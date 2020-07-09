@@ -24,13 +24,8 @@
 
 ---------------------------------------------------------------------------- */
 
-
-#include "plugin.hpp"
-
-namespace faust
-{
-#include "faust_generated.cpp"
-}
+#ifndef PROTO_FAUST_HPP
+#define PROTO_FAUST_HPP
 
 
 struct ProtoFaust : Module {
@@ -200,32 +195,4 @@ private:
    void updateLedPin( int parameterId, int guiId );
 };
 
-
-struct ProtoFaustWidget : ModuleWidget {
-   enum WidgetTypes {
-      TOGGLE_SWITCH,
-      THREE_WAY_SWITCH,
-      PUSH_BUTTON,
-      KNOB_WHITE,
-      KNOB_RED,
-      PORT_INPUT,
-      PORT_OUTPUT,
-      LED_RGB,
-      SCREW,
-
-      NUM_WIDGET_TYPES
-   };
-
-   explicit ProtoFaustWidget( ProtoFaust* module );
-
-private:
-   void placeWidget( int parameterId,
-                     int widgetType,
-                     float x,
-                     float y );
-
-   engine::Module* _module = nullptr;
-};
-
-
-Model* modelProtoFaust = createModel<ProtoFaust, ProtoFaustWidget>( "ProtoFaust" );
+#endif // PROTO_FAUST_HPP

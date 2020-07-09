@@ -34,6 +34,7 @@
                                        (concat root "../Rack-SDK/include")
                                        ))
                         (includes (list
+                                   (concat root "src/Amalgamated.hpp")
                                    )))
 
                    (setq-local flycheck-clang-language-standard language-standard)
