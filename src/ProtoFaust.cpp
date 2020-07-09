@@ -34,73 +34,98 @@ ProtoFaust::ProtoFaust()
            NUM_OUTPUTS,
            NUM_LIGHT_PINS );
 
-   configThreeWaySwitch( BUTTON_1_PARAM );
-   configThreeWaySwitch( BUTTON_2_PARAM );
+   // ------ switches ------
 
-   configToggleSwitch( BUTTON_3_PARAM );
-   configToggleSwitch( BUTTON_4_PARAM );
+   configParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+                    BUTTON_1_PARAM );
 
-   configMomentaryButton( BUTTON_5_PARAM );
-   configMomentaryButton( BUTTON_6_PARAM );
-   configMomentaryButton( BUTTON_7_PARAM );
-   configMomentaryButton( BUTTON_8_PARAM );
+   configParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+                    BUTTON_2_PARAM );
 
-   configKnob( KNOB_1_PARAM );
-   configKnob( KNOB_2_PARAM );
-   configKnob( KNOB_3_PARAM );
-   configKnob( KNOB_4_PARAM );
-   configKnob( KNOB_5_PARAM );
-   configKnob( KNOB_6_PARAM );
-   configKnob( KNOB_7_PARAM );
-   configKnob( KNOB_8_PARAM );
+   configParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+                    BUTTON_3_PARAM );
+
+   configParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+                    BUTTON_4_PARAM );
+
+   // ------ buttons ------
+
+   configParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_5_PARAM );
+
+   configParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_6_PARAM );
+
+   configParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_7_PARAM );
+
+   configParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_8_PARAM );
+
+   // ------ knobs ------
+
+   configParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_1_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_2_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_3_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_4_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_5_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_6_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_7_PARAM );
+
+   configParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_8_PARAM );
 }
 
 
-void ProtoFaust::configToggleSwitch( int parameterId )
+void ProtoFaust::configParameter( int widgetType,
+                                  int parameterId )
 {
-   // values:  0.0, 1.0
-   // default: 0.0 (off)
-   configParam( parameterId,
-                0.0f,
-                1.0f,
-                0.0f,
-                "" );
-}
+   switch ( widgetType ) {
+      case ProtoFaustWidget::TOGGLE_SWITCH:
+      case ProtoFaustWidget::PUSH_BUTTON:
 
+         // values:  0.0, 1.0
+         // default: 0.0 (off)
+         configParam( parameterId,
+                      0.0f,
+                      1.0f,
+                      0.0f,
+                      "" );
 
-void ProtoFaust::configThreeWaySwitch( int parameterId )
-{
-   // values:  0.0, 0.5, 1.0; see ProtoFaust::updateThreeWaySwitch()
-   // default: 0.0 (off)
-   configParam( parameterId,
-                0.0f,
-                1.0f,
-                0.5f,
-                "" );
-}
+         break;
 
+      case ProtoFaustWidget::THREE_WAY_SWITCH:
+      case ProtoFaustWidget::KNOB_WHITE:
+      case ProtoFaustWidget::KNOB_RED:
 
-void ProtoFaust::configMomentaryButton( int parameterId )
-{
-   // values:  0.0, 1.0
-   // default: 0.0 (off)
-   configParam( parameterId,
-                0.0f,
-                1.0f,
-                0.0f,
-                "" );
-}
+         // three-way-switch:
+         //   values:  0.0, 0.5, 1.0; see ProtoFaust::updateParameter()
+         //   default: 0.5 (center)
+         //
+         // knob:
+         //   range:   0.0 to 1.0
+         //   default: 0.5 (centered)
+         configParam( parameterId,
+                      0.0f,
+                      1.0f,
+                      0.5f,
+                      "" );
 
-
-void ProtoFaust::configKnob( int parameterId )
-{
-   // range:   0.0 to 1.0
-   // default: 0.5 (centered)
-   configParam( parameterId,
-                0.0f,
-                1.0f,
-                0.5f,
-                "" );
+         break;
+   }
 }
 
 
@@ -128,37 +153,37 @@ void ProtoFaust::onAdd()
    paramKnob_7 = FaustUI.getParamIndex( "/ProtoFaust/Knobs/7" );
    paramKnob_8 = FaustUI.getParamIndex( "/ProtoFaust/Knobs/8" );
 
-   paramLight_1_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_R" );
-   paramLight_1_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_G" );
-   paramLight_1_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_B" );
+   paramLight_1_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_R" );
+   paramLight_1_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_G" );
+   paramLight_1_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/1_B" );
 
-   paramLight_2_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_R" );
-   paramLight_2_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_G" );
-   paramLight_2_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_B" );
+   paramLight_2_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_R" );
+   paramLight_2_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_G" );
+   paramLight_2_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/2_B" );
 
-   paramLight_3_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_R" );
-   paramLight_3_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_G" );
-   paramLight_3_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_B" );
+   paramLight_3_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_R" );
+   paramLight_3_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_G" );
+   paramLight_3_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/3_B" );
 
-   paramLight_4_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_R" );
-   paramLight_4_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_G" );
-   paramLight_4_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_B" );
+   paramLight_4_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_R" );
+   paramLight_4_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_G" );
+   paramLight_4_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/4_B" );
 
-   paramLight_5_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_R" );
-   paramLight_5_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_G" );
-   paramLight_5_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_B" );
+   paramLight_5_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_R" );
+   paramLight_5_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_G" );
+   paramLight_5_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/5_B" );
 
-   paramLight_6_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_R" );
-   paramLight_6_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_G" );
-   paramLight_6_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_B" );
+   paramLight_6_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_R" );
+   paramLight_6_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_G" );
+   paramLight_6_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/6_B" );
 
-   paramLight_7_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_R" );
-   paramLight_7_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_G" );
-   paramLight_7_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_B" );
+   paramLight_7_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_R" );
+   paramLight_7_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_G" );
+   paramLight_7_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/7_B" );
 
-   paramLight_8_r = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_R" );
-   paramLight_8_g = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_G" );
-   paramLight_8_b = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_B" );
+   paramLight_8_R = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_R" );
+   paramLight_8_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_G" );
+   paramLight_8_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_B" );
 
    // initialize sample rate in Faust
    auto sampleRate = APP->engine->getSampleRate();
@@ -193,25 +218,75 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
       temporaryOutputs[channel] = 0.0;
    }
 
-   // copy parameter values from Rack to Faust
-   updateThreeWaySwitch( BUTTON_1_PARAM, paramButton_1 );
-   updateThreeWaySwitch( BUTTON_2_PARAM, paramButton_2 );
+   // ------ switches ------
 
-   updateButton( BUTTON_3_PARAM, paramButton_3 );
-   updateButton( BUTTON_4_PARAM, paramButton_4 );
-   updateButton( BUTTON_5_PARAM, paramButton_5 );
-   updateButton( BUTTON_6_PARAM, paramButton_6 );
-   updateButton( BUTTON_7_PARAM, paramButton_7 );
-   updateButton( BUTTON_8_PARAM, paramButton_8 );
+   updateParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+                    BUTTON_1_PARAM,
+                    paramButton_1 );
 
-   updateKnob( KNOB_1_PARAM, paramKnob_1 );
-   updateKnob( KNOB_2_PARAM, paramKnob_2 );
-   updateKnob( KNOB_3_PARAM, paramKnob_3 );
-   updateKnob( KNOB_4_PARAM, paramKnob_4 );
-   updateKnob( KNOB_5_PARAM, paramKnob_5 );
-   updateKnob( KNOB_6_PARAM, paramKnob_6 );
-   updateKnob( KNOB_7_PARAM, paramKnob_7 );
-   updateKnob( KNOB_8_PARAM, paramKnob_8 );
+   updateParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+                    BUTTON_2_PARAM,
+                    paramButton_2 );
+
+   updateParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+                    BUTTON_3_PARAM,
+                    paramButton_3 );
+
+   updateParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+                    BUTTON_4_PARAM,
+                    paramButton_4 );
+
+   // ------ buttons ------
+
+   updateParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_5_PARAM,
+                    paramButton_5 );
+
+   updateParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_6_PARAM,
+                    paramButton_6 );
+
+   updateParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_7_PARAM,
+                    paramButton_7 );
+
+   updateParameter( ProtoFaustWidget::PUSH_BUTTON,
+                    BUTTON_8_PARAM,
+                    paramButton_8 );
+
+   // ------ knobs ------
+
+   updateParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_1_PARAM,
+                    paramKnob_1 );
+
+   updateParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_2_PARAM,
+                    paramKnob_2 );
+
+   updateParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_3_PARAM,
+                    paramKnob_3 );
+
+   updateParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_4_PARAM,
+                    paramKnob_4 );
+
+   updateParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_5_PARAM,
+                    paramKnob_5 );
+
+   updateParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_6_PARAM,
+                    paramKnob_6 );
+
+   updateParameter( ProtoFaustWidget::KNOB_WHITE,
+                    KNOB_7_PARAM,
+                    paramKnob_7 );
+
+   updateParameter( ProtoFaustWidget::KNOB_RED,
+                    KNOB_8_PARAM,
+                    paramKnob_8 );
 
    // update Faust controls
    int int_control[FaustDSP.getNumIntControls()];
@@ -225,7 +300,8 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
                      int_control,
                      real_control );
 
-   // update inputs and outputs
+   // ------ inputs & outputs ------
+
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       // update output voltages
       FAUSTFLOAT output = temporaryOutputs[channel];
@@ -235,70 +311,126 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
       outputs[OUT_1_OUTPUT + channel].setVoltage( output * voltageScaling );
    }
 
-   // update RGB LEDs
-   updateLedPin( LED_1_LIGHT_R, paramLight_1_r );
-   updateLedPin( LED_1_LIGHT_G, paramLight_1_g );
-   updateLedPin( LED_1_LIGHT_B, paramLight_1_b );
+   // ------ RGB LEDs ------
 
-   updateLedPin( LED_2_LIGHT_R, paramLight_2_r );
-   updateLedPin( LED_2_LIGHT_G, paramLight_2_g );
-   updateLedPin( LED_2_LIGHT_B, paramLight_2_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_1_LIGHT_R,
+                    paramLight_1_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_1_LIGHT_G,
+                    paramLight_1_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_1_LIGHT_B,
+                    paramLight_1_B );
 
-   updateLedPin( LED_3_LIGHT_R, paramLight_3_r );
-   updateLedPin( LED_3_LIGHT_G, paramLight_3_g );
-   updateLedPin( LED_3_LIGHT_B, paramLight_3_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_2_LIGHT_R,
+                    paramLight_2_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_2_LIGHT_G,
+                    paramLight_2_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_2_LIGHT_B,
+                    paramLight_2_B );
 
-   updateLedPin( LED_4_LIGHT_R, paramLight_4_r );
-   updateLedPin( LED_4_LIGHT_G, paramLight_4_g );
-   updateLedPin( LED_4_LIGHT_B, paramLight_4_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_3_LIGHT_R,
+                    paramLight_3_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_3_LIGHT_G,
+                    paramLight_3_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_3_LIGHT_B,
+                    paramLight_3_B );
 
-   updateLedPin( LED_5_LIGHT_R, paramLight_5_r );
-   updateLedPin( LED_5_LIGHT_G, paramLight_5_g );
-   updateLedPin( LED_5_LIGHT_B, paramLight_5_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_4_LIGHT_R,
+                    paramLight_4_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_4_LIGHT_G,
+                    paramLight_4_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_4_LIGHT_B,
+                    paramLight_4_B );
 
-   updateLedPin( LED_6_LIGHT_R, paramLight_6_r );
-   updateLedPin( LED_6_LIGHT_G, paramLight_6_g );
-   updateLedPin( LED_6_LIGHT_B, paramLight_6_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_5_LIGHT_R,
+                    paramLight_5_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_5_LIGHT_G,
+                    paramLight_5_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_5_LIGHT_B,
+                    paramLight_5_B );
 
-   updateLedPin( LED_7_LIGHT_R, paramLight_7_r );
-   updateLedPin( LED_7_LIGHT_G, paramLight_7_g );
-   updateLedPin( LED_7_LIGHT_B, paramLight_7_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_6_LIGHT_R,
+                    paramLight_6_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_6_LIGHT_G,
+                    paramLight_6_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_6_LIGHT_B,
+                    paramLight_6_B );
 
-   updateLedPin( LED_8_LIGHT_R, paramLight_8_r );
-   updateLedPin( LED_8_LIGHT_G, paramLight_8_g );
-   updateLedPin( LED_8_LIGHT_B, paramLight_8_b );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_7_LIGHT_R,
+                    paramLight_7_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_7_LIGHT_G,
+                    paramLight_7_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_7_LIGHT_B,
+                    paramLight_7_B );
+
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_8_LIGHT_R,
+                    paramLight_8_R );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_8_LIGHT_G,
+                    paramLight_8_G );
+   updateParameter( ProtoFaustWidget::LED_RGB,
+                    LED_8_LIGHT_B,
+                    paramLight_8_B );
 }
 
 
-void ProtoFaust::updateButton( int parameterId, int guiId )
+void ProtoFaust::updateParameter( int widgetType,
+                                  int parameterId,
+                                  int guiId )
 {
-   FAUSTFLOAT value = params[parameterId].getValue();
-   FaustUI.setParamValue( guiId, value );
-}
+   switch ( widgetType ) {
+      case ProtoFaustWidget::TOGGLE_SWITCH:
+      case ProtoFaustWidget::PUSH_BUTTON:
+      case ProtoFaustWidget::KNOB_WHITE:
+      case ProtoFaustWidget::KNOB_RED:
 
+      {
+         // copy parameter values from Rack to Faust
+         FAUSTFLOAT value = params[parameterId].getValue();
+         FaustUI.setParamValue( guiId, value );
 
-void ProtoFaust::updateThreeWaySwitch( int parameterId, int guiId )
-{
-   // copy parameter values from Rack to Faust
-   FAUSTFLOAT value = params[parameterId].getValue();
+         break;
+      }
 
-   // scale range to (0 .. 1)
-   value /= 2.0f;
+      case ProtoFaustWidget::THREE_WAY_SWITCH: {
+         // copy parameter values from Rack to Faust
+         FAUSTFLOAT value = params[parameterId].getValue();
 
-   FaustUI.setParamValue( guiId, value );
-}
+         // scale range to (0 .. 1)
+         value /= 2.0f;
 
+         FaustUI.setParamValue( guiId, value );
 
-void ProtoFaust::updateKnob( int parameterId, int guiId )
-{
-   FAUSTFLOAT value = params[parameterId].getValue();
-   FaustUI.setParamValue( guiId, value );
-}
+         break;
+      }
 
+      case ProtoFaustWidget::LED_RGB:
 
-void ProtoFaust::updateLedPin( int parameterId, int guiId )
-{
-   lights[parameterId].setBrightness( FaustUI.getParamValue( guiId ) );
+         lights[parameterId].setBrightness( FaustUI.getParamValue( guiId ) );
+
+         break;
+   }
 }
 
 

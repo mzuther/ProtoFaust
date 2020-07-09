@@ -141,37 +141,37 @@ struct ProtoFaust : Module {
    int paramKnob_7 = -1;
    int paramKnob_8 = -1;
 
-   int paramLight_1_r = -1;
-   int paramLight_1_g = -1;
-   int paramLight_1_b = -1;
+   int paramLight_1_R = -1;
+   int paramLight_1_G = -1;
+   int paramLight_1_B = -1;
 
-   int paramLight_2_r = -1;
-   int paramLight_2_g = -1;
-   int paramLight_2_b = -1;
+   int paramLight_2_R = -1;
+   int paramLight_2_G = -1;
+   int paramLight_2_B = -1;
 
-   int paramLight_3_r = -1;
-   int paramLight_3_g = -1;
-   int paramLight_3_b = -1;
+   int paramLight_3_R = -1;
+   int paramLight_3_G = -1;
+   int paramLight_3_B = -1;
 
-   int paramLight_4_r = -1;
-   int paramLight_4_g = -1;
-   int paramLight_4_b = -1;
+   int paramLight_4_R = -1;
+   int paramLight_4_G = -1;
+   int paramLight_4_B = -1;
 
-   int paramLight_5_r = -1;
-   int paramLight_5_g = -1;
-   int paramLight_5_b = -1;
+   int paramLight_5_R = -1;
+   int paramLight_5_G = -1;
+   int paramLight_5_B = -1;
 
-   int paramLight_6_r = -1;
-   int paramLight_6_g = -1;
-   int paramLight_6_b = -1;
+   int paramLight_6_R = -1;
+   int paramLight_6_G = -1;
+   int paramLight_6_B = -1;
 
-   int paramLight_7_r = -1;
-   int paramLight_7_g = -1;
-   int paramLight_7_b = -1;
+   int paramLight_7_R = -1;
+   int paramLight_7_G = -1;
+   int paramLight_7_B = -1;
 
-   int paramLight_8_r = -1;
-   int paramLight_8_g = -1;
-   int paramLight_8_b = -1;
+   int paramLight_8_R = -1;
+   int paramLight_8_G = -1;
+   int paramLight_8_B = -1;
 
    const int numberOfChannels = 8;
    const FAUSTFLOAT voltageScaling = 5.0f;
@@ -184,15 +184,12 @@ struct ProtoFaust : Module {
    void process( const ProcessArgs& args ) override;
 
 private:
-   void configToggleSwitch( int parameterId );
-   void configThreeWaySwitch( int parameterId );
-   void configMomentaryButton( int parameterId );
-   void configKnob( int parameterId );
+   void configParameter( int widgetType,
+                         int parameterId );
 
-   void updateButton( int parameterId, int guiId );
-   void updateThreeWaySwitch( int parameterId, int guiId );
-   void updateKnob( int parameterId, int guiId );
-   void updateLedPin( int parameterId, int guiId );
+   void updateParameter( int widgetType,
+                         int parameterId,
+                         int guiId );
 };
 
 #endif // PROTO_FAUST_HPP
