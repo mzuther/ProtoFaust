@@ -131,7 +131,6 @@ void ProtoFaust::configParameter( int widgetType,
 
 void ProtoFaust::onAdd()
 {
-   // Activate the UI
    FaustDSP.buildUserInterface( &FaustUI );
 
    // store GUI IDs to save time during processing
@@ -185,17 +184,15 @@ void ProtoFaust::onAdd()
    paramLight_8_G = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_G" );
    paramLight_8_B = FaustUI.getParamIndex( "/ProtoFaust/Lights/8_B" );
 
-   // initialize sample rate in Faust
-   auto sampleRate = APP->engine->getSampleRate();
-   FaustDSP.init( sampleRate );
+   FaustDSP.init(
+      APP->engine->getSampleRate() );
 }
 
 
 void ProtoFaust::onSampleRateChange()
 {
-   // update sample rate in Faust
-   auto sampleRate = APP->engine->getSampleRate();
-   FaustDSP.instanceConstants( sampleRate );
+   FaustDSP.instanceConstants(
+      APP->engine->getSampleRate() );
 }
 
 
@@ -204,17 +201,16 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
    std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
    std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
 
-   // initialize inputs and outputs
+   // ------ inputs ------
+
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
-      // get input voltages from Rack
       FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
 
-      // scale voltages from Rack to value range of Faust (-1.0 to
-      // +1.0)
+      // scale voltages from Rack to usual range in DSP processing
+      // (-1.0 to +1.0)
       temporaryInputs[channel] = input / voltageScaling;
 
-      // silence temporary outputs (might protect your ears in case of
-      // misbehaviour)
+      // protect your ears in case of misbehaviour
       temporaryOutputs[channel] = 0.0;
    }
 
@@ -294,20 +290,19 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
 
    FaustDSP.control( int_control, real_control );
 
-   // compute one sample in Faust
+   // process one sample in Faust
    FaustDSP.compute( temporaryInputs.data(),
                      temporaryOutputs.data(),
                      int_control,
                      real_control );
 
-   // ------ inputs & outputs ------
+   // ------ outputs ------
 
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
-      // update output voltages
       FAUSTFLOAT output = temporaryOutputs[channel];
 
-      // scale voltages from Faust back to value range of Rack (-5.0
-      // to +5.0)
+      // scale voltages from DSP processing back to Rack voltages
+      // (-5.0 to +5.0)
       outputs[OUT_1_OUTPUT + channel].setVoltage( output * voltageScaling );
    }
 
@@ -406,7 +401,6 @@ void ProtoFaust::updateParameter( int widgetType,
       case ProtoFaustWidget::KNOB_RED:
 
       {
-         // copy parameter values from Rack to Faust
          FAUSTFLOAT value = params[parameterId].getValue();
          FaustUI.setParamValue( guiId, value );
 
@@ -414,10 +408,9 @@ void ProtoFaust::updateParameter( int widgetType,
       }
 
       case ProtoFaustWidget::THREE_WAY_SWITCH: {
-         // copy parameter values from Rack to Faust
          FAUSTFLOAT value = params[parameterId].getValue();
 
-         // scale range to (0 .. 1)
+         // scale range from (0 .. 2) to (0 .. 1)
          value /= 2.0f;
 
          FaustUI.setParamValue( guiId, value );
