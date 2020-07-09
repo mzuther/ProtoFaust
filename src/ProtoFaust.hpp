@@ -118,6 +118,11 @@ struct ProtoFaust : Module {
       NUM_LIGHT_PINS
    };
 
+   enum GenericIds {
+      GENERIC_SCREW,
+
+      NUM_GENERIC_IDS
+   };
 
    faust::FaustDSP FaustDSP;
    faust::APIUI FaustUI;
@@ -197,28 +202,29 @@ private:
 
 
 struct ProtoFaustWidget : ModuleWidget {
+   enum WidgetTypes {
+      TOGGLE_SWITCH,
+      THREE_WAY_SWITCH,
+      PUSH_BUTTON,
+      KNOB_WHITE,
+      KNOB_RED,
+      PORT_INPUT,
+      PORT_OUTPUT,
+      LED_RGB,
+      SCREW,
+
+      NUM_WIDGET_TYPES
+   };
+
    explicit ProtoFaustWidget( ProtoFaust* module );
 
 private:
-   void placeScrew( float x, float y );
+   void placeWidget( int parameterId,
+                     int widgetType,
+                     float x,
+                     float y );
 
-   void placeSwitch( engine::Module* module, int parameterId,
-                     bool isThreeWay,
-                     float x, float y );
-
-   void placePushButton( engine::Module* module, int parameterId,
-                         float x, float y );
-
-   void placeKnob( engine::Module* module, int parameterId,
-                   bool isPrimaryColor,
-                   float x, float y );
-
-   void placePort( engine::Module* module, int parameterId,
-                   bool isInputPort,
-                   float x, float y );
-
-   void placeRgbLed( engine::Module* module, int parameterId,
-                     float x, float y );
+   engine::Module* _module = nullptr;
 };
 
 

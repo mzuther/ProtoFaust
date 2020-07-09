@@ -303,7 +303,8 @@ void ProtoFaust::updateLedPin( int parameterId, int guiId )
 }
 
 
-ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module )
+ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
+   _module( module )
 {
    setModule( module );
    setPanel( APP->window->loadSvg(
@@ -311,255 +312,301 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module )
 
    // ------ screws ------
 
-   placeScrew( RACK_GRID_WIDTH,
-               0 );
+   placeWidget( ProtoFaustWidget::SCREW,
+                ProtoFaust::GENERIC_SCREW,
+                RACK_GRID_WIDTH,
+                0 );
 
-   placeScrew( box.size.x - 2 * RACK_GRID_WIDTH,
-               0 );
+   placeWidget( ProtoFaustWidget::SCREW,
+                ProtoFaust::GENERIC_SCREW,
+                box.size.x - 2 * RACK_GRID_WIDTH,
+                0 );
 
-   placeScrew( RACK_GRID_WIDTH,
-               RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
+   placeWidget( ProtoFaustWidget::SCREW,
+                ProtoFaust::GENERIC_SCREW,
+                RACK_GRID_WIDTH,
+                RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
-   placeScrew( box.size.x - 2 * RACK_GRID_WIDTH,
-               RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
+   placeWidget( ProtoFaustWidget::SCREW,
+                ProtoFaust::GENERIC_SCREW,
+                box.size.x - 2 * RACK_GRID_WIDTH,
+                RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
    // ------ switches ------
 
-   placeSwitch( module, ProtoFaust::BUTTON_1_PARAM,
-                true,
-                31.75, 21.82 );
+   placeWidget( ProtoFaustWidget::THREE_WAY_SWITCH,
+                ProtoFaust::BUTTON_1_PARAM,
+                31.75,
+                21.82 );
 
-   placeSwitch( module, ProtoFaust::BUTTON_2_PARAM,
-                true,
-                31.75, 34.52 );
+   placeWidget( ProtoFaustWidget::THREE_WAY_SWITCH,
+                ProtoFaust::BUTTON_2_PARAM,
+                31.75,
+                34.52 );
 
-   placeSwitch( module, ProtoFaust::BUTTON_3_PARAM,
-                false,
-                31.75, 49.76 );
+   placeWidget( ProtoFaustWidget::TOGGLE_SWITCH,
+                ProtoFaust::BUTTON_3_PARAM,
+                31.75,
+                49.76 );
 
-   placeSwitch( module, ProtoFaust::BUTTON_4_PARAM,
-                false,
-                31.75, 62.46 );
+   placeWidget( ProtoFaustWidget::TOGGLE_SWITCH,
+                ProtoFaust::BUTTON_4_PARAM,
+                31.75,
+                62.46 );
 
    // ------ buttons ------
 
-   placePushButton( module, ProtoFaust::BUTTON_5_PARAM,
-                    31.75, 77.7 );
+   placeWidget( ProtoFaustWidget::PUSH_BUTTON,
+                ProtoFaust::BUTTON_5_PARAM,
+                31.75,
+                77.7 );
 
-   placePushButton( module, ProtoFaust::BUTTON_6_PARAM,
-                    31.75, 90.4 );
+   placeWidget( ProtoFaustWidget::PUSH_BUTTON,
+                ProtoFaust::BUTTON_6_PARAM,
+                31.75,
+                90.4 );
 
-   placePushButton( module, ProtoFaust::BUTTON_7_PARAM,
-                    31.75, 105.64 );
+   placeWidget( ProtoFaustWidget::PUSH_BUTTON,
+                ProtoFaust::BUTTON_7_PARAM,
+                31.75,
+                105.64 );
 
-   placePushButton( module, ProtoFaust::BUTTON_8_PARAM,
-                    31.75, 118.34 );
+   placeWidget( ProtoFaustWidget::PUSH_BUTTON,
+                ProtoFaust::BUTTON_8_PARAM,
+                31.75,
+                118.34 );
 
    // ------ knobs ------
 
-   placeKnob( module, ProtoFaust::KNOB_1_PARAM,
-              true,
-              53.34, 28.17 );
+   placeWidget( ProtoFaustWidget::KNOB_WHITE,
+                ProtoFaust::KNOB_1_PARAM,
+                53.34,
+                28.17 );
 
-   placeKnob( module, ProtoFaust::KNOB_2_PARAM,
-              false,
-              78.74, 28.17 );
+   placeWidget( ProtoFaustWidget::KNOB_RED,
+                ProtoFaust::KNOB_2_PARAM,
+                78.74,
+                28.17 );
 
-   placeKnob( module, ProtoFaust::KNOB_3_PARAM,
-              true,
-              53.34, 56.11 );
+   placeWidget( ProtoFaustWidget::KNOB_WHITE,
+                ProtoFaust::KNOB_3_PARAM,
+                53.34,
+                56.11 );
 
-   placeKnob( module, ProtoFaust::KNOB_4_PARAM,
-              false,
-              78.74, 56.11 );
+   placeWidget( ProtoFaustWidget::KNOB_RED,
+                ProtoFaust::KNOB_4_PARAM,
+                78.74,
+                56.11 );
 
-   placeKnob( module, ProtoFaust::KNOB_5_PARAM,
-              true,
-              53.34, 84.05 );
+   placeWidget( ProtoFaustWidget::KNOB_WHITE,
+                ProtoFaust::KNOB_5_PARAM,
+                53.34,
+                84.05 );
 
-   placeKnob( module, ProtoFaust::KNOB_6_PARAM,
-              false,
-              78.74, 84.05 );
+   placeWidget( ProtoFaustWidget::KNOB_RED,
+                ProtoFaust::KNOB_6_PARAM,
+                78.74,
+                84.05 );
 
-   placeKnob( module, ProtoFaust::KNOB_7_PARAM,
-              true,
-              53.34, 111.99 );
+   placeWidget( ProtoFaustWidget::KNOB_WHITE,
+                ProtoFaust::KNOB_7_PARAM,
+                53.34,
+                111.99 );
 
-   placeKnob( module, ProtoFaust::KNOB_8_PARAM,
-              false,
-              78.74, 111.99 );
+   placeWidget( ProtoFaustWidget::KNOB_RED,
+                ProtoFaust::KNOB_8_PARAM,
+                78.74,
+                111.99 );
 
    // ------ input ports ------
 
-   placePort( module, ProtoFaust::IN_1_INPUT,
-              true,
-              17.78, 21.82 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_1_INPUT,
+                17.78,
+                21.82 );
 
-   placePort( module, ProtoFaust::IN_2_INPUT,
-              true,
-              17.78, 34.52 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_2_INPUT,
+                17.78,
+                34.52 );
 
-   placePort( module, ProtoFaust::IN_3_INPUT,
-              true,
-              17.78, 49.76 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_3_INPUT,
+                17.78,
+                49.76 );
 
-   placePort( module, ProtoFaust::IN_4_INPUT,
-              true,
-              17.78, 62.46 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_4_INPUT,
+                17.78,
+                62.46 );
 
-   placePort( module, ProtoFaust::IN_5_INPUT,
-              true,
-              17.78, 77.7 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_5_INPUT,
+                17.78,
+                77.7 );
 
-   placePort( module, ProtoFaust::IN_6_INPUT,
-              true,
-              17.78, 90.4 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_6_INPUT,
+                17.78,
+                90.4 );
 
-   placePort( module, ProtoFaust::IN_7_INPUT,
-              true,
-              17.78, 105.64 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_7_INPUT,
+                17.78,
+                105.64 );
 
-   placePort( module, ProtoFaust::IN_8_INPUT,
-              true,
-              17.78, 118.34 );
+   placeWidget( ProtoFaustWidget::PORT_INPUT,
+                ProtoFaust::IN_8_INPUT,
+                17.78,
+                118.34 );
 
    // ------ output ports ------
 
-   placePort( module, ProtoFaust::OUT_1_OUTPUT,
-              false,
-              114.3, 21.82 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_1_OUTPUT,
+                114.3,
+                21.82 );
 
-   placePort( module, ProtoFaust::OUT_2_OUTPUT,
-              false,
-              114.3, 34.52 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_2_OUTPUT,
+                114.3,
+                34.52 );
 
-   placePort( module, ProtoFaust::OUT_3_OUTPUT,
-              false,
-              114.3, 49.76 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_3_OUTPUT,
+                114.3,
+                49.76 );
 
-   placePort( module, ProtoFaust::OUT_4_OUTPUT,
-              false,
-              114.3, 62.46 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_4_OUTPUT,
+                114.3,
+                62.46 );
 
-   placePort( module, ProtoFaust::OUT_5_OUTPUT,
-              false,
-              114.3, 77.7 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_5_OUTPUT,
+                114.3,
+                77.7 );
 
-   placePort( module, ProtoFaust::OUT_6_OUTPUT,
-              false,
-              114.3, 90.4 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_6_OUTPUT,
+                114.3,
+                90.4 );
 
-   placePort( module, ProtoFaust::OUT_7_OUTPUT,
-              false,
-              114.3, 105.64 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_7_OUTPUT,
+                114.3,
+                105.64 );
 
-   placePort( module, ProtoFaust::OUT_8_OUTPUT,
-              false,
-              114.3, 118.34 );
+   placeWidget( ProtoFaustWidget::PORT_OUTPUT,
+                ProtoFaust::OUT_8_OUTPUT,
+                114.3,
+                118.34 );
 
    // ------ RGB LEDs ------
 
-   placeRgbLed( module, ProtoFaust::LED_1_LIGHT_R,
-                99.06, 21.82 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_1_LIGHT_R,
+                99.06,
+                21.82 );
 
-   placeRgbLed( module, ProtoFaust::LED_2_LIGHT_R,
-                99.06, 34.52 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_2_LIGHT_R,
+                99.06,
+                34.52 );
 
-   placeRgbLed( module, ProtoFaust::LED_3_LIGHT_R,
-                99.06, 49.76 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_3_LIGHT_R,
+                99.06,
+                49.76 );
 
-   placeRgbLed( module, ProtoFaust::LED_4_LIGHT_R,
-                99.06, 62.46 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_4_LIGHT_R,
+                99.06,
+                62.46 );
 
-   placeRgbLed( module, ProtoFaust::LED_5_LIGHT_R,
-                99.06, 77.7 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_5_LIGHT_R,
+                99.06,
+                77.7 );
 
-   placeRgbLed( module, ProtoFaust::LED_6_LIGHT_R,
-                99.06, 90.4 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_6_LIGHT_R,
+                99.06,
+                90.4 );
 
-   placeRgbLed( module, ProtoFaust::LED_7_LIGHT_R,
-                99.06, 105.64 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_7_LIGHT_R,
+                99.06,
+                105.64 );
 
-   placeRgbLed( module, ProtoFaust::LED_8_LIGHT_R,
-                99.06, 118.34 );
+   placeWidget( ProtoFaustWidget::LED_RGB,
+                ProtoFaust::LED_8_LIGHT_R,
+                99.06,
+                118.34 );
 }
 
 
-void ProtoFaustWidget::placeScrew( float x, float y )
+void ProtoFaustWidget::placeWidget( int widgetType,
+                                    int parameterId,
+                                    float x,
+                                    float y )
 {
-   addChild( createWidget<ScrewBlack>(
-                math::Vec( x, y ) ) );
-}
+   math::Vec pos = math::Vec( x, y );
+   math::Vec pos_converted = mm2px( pos );
 
-void ProtoFaustWidget::placeSwitch( engine::Module* module, int parameterId,
-                                    bool isThreeWay,
-                                    float x, float y )
-{
-   if ( isThreeWay ) {
-      addParam( createParamCentered<CKSSThree>(
-                   mm2px( math::Vec( x, y ) ),
-                   module,
-                   parameterId ) );
-   } else {
-      addParam( createParamCentered<CKSS>(
-                   mm2px( math::Vec( x, y ) ),
-                   module,
-                   parameterId ) );
+   switch ( widgetType ) {
+      case TOGGLE_SWITCH:
+
+         addParam( createParamCentered<CKSS>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case THREE_WAY_SWITCH:
+
+         addParam( createParamCentered<CKSSThree>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case PUSH_BUTTON:
+
+         addParam( createParamCentered<BefacoPush>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case KNOB_WHITE:
+
+         addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case KNOB_RED:
+
+         addParam( createParamCentered<Davies1900hLargeRedKnob>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case PORT_INPUT:
+
+         addInput( createInputCentered<CL1362Port>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case PORT_OUTPUT:
+
+         addOutput( createOutputCentered<CL1362Port>(
+                       pos_converted, module, parameterId ) );
+         break;
+
+      case LED_RGB:
+
+         addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
+                      pos_converted, module, parameterId ) );
+         break;
+
+      case SCREW:
+
+         addChild( createWidget<ScrewBlack>(
+                      pos ) );
+         break;
    }
-}
-
-
-void ProtoFaustWidget::placePushButton( engine::Module* module, int parameterId,
-                                        float x, float y )
-{
-   addParam( createParamCentered<BefacoPush>(
-                mm2px( math::Vec( x, y ) ),
-                module,
-                parameterId ) );
-}
-
-
-void ProtoFaustWidget::placeKnob( engine::Module* module, int parameterId,
-                                  bool isPrimaryColor,
-                                  float x, float y )
-{
-   if ( isPrimaryColor ) {
-      addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                   mm2px( math::Vec( x, y ) ),
-                   module,
-                   parameterId ) );
-   } else {
-      addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                   mm2px( math::Vec( x, y ) ),
-                   module,
-                   parameterId ) );
-   }
-}
-
-
-void ProtoFaustWidget::placePort( engine::Module* module, int parameterId,
-                                  bool isInputPort,
-                                  float x, float y )
-{
-   if ( isInputPort ) {
-      addInput( createInputCentered<CL1362Port>(
-                   mm2px( Vec( x, y ) ),
-                   module,
-                   parameterId ) );
-   } else {
-      addOutput( createOutputCentered<CL1362Port>(
-                    mm2px( Vec( x, y ) ),
-                    module,
-                    parameterId ) );
-   }
-}
-
-
-void ProtoFaustWidget::placeRgbLed( engine::Module* module, int parameterId,
-                                    float x, float y )
-{
-   addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                mm2px( math::Vec( x, y ) ),
-                module,
-                parameterId ) );
 }
