@@ -104,26 +104,29 @@ void ProtoFaust::configParameter( int widgetType,
                       1.0f,
                       0.0f,
                       "" );
-
          break;
 
       case ProtoFaustWidget::THREE_WAY_SWITCH:
-      case ProtoFaustWidget::KNOB_WHITE:
+
+         // values:  0.0, 1.0, 2.0; scaled in ProtoFaust::updateParameter()
+         // default: 0.0 (bottom)
+         configParam( parameterId,
+                      0.0f,
+                      2.0f,
+                      0.0f,
+                      "" );
+         break;
+
+   case ProtoFaustWidget::KNOB_WHITE:
       case ProtoFaustWidget::KNOB_RED:
 
-         // three-way-switch:
-         //   values:  0.0, 0.5, 1.0; see ProtoFaust::updateParameter()
-         //   default: 0.5 (center)
-         //
-         // knob:
-         //   range:   0.0 to 1.0
-         //   default: 0.5 (centered)
+         // range:   0.0 to 1.0
+         // default: 0.5 (centered)
          configParam( parameterId,
                       0.0f,
                       1.0f,
                       0.5f,
                       "" );
-
          break;
    }
 }
