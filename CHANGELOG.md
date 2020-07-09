@@ -10,6 +10,14 @@ file. This change log follows the conventions of
 
 
 
+## [1.0.2] - 2020-07-09
+### Changed
+
+- re-factor code
+
+- beautify output of Makefile
+
+
 ## [1.0.1] - 2020-07-06
 ### Added
 
@@ -33,3 +41,4 @@ file. This change log follows the conventions of
 
 [1.0.0]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.0
 [1.0.1]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.1
+[1.0.2]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.2
