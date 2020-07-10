@@ -218,7 +218,8 @@ void ProtoFaust::addParameterLed( std::vector<WidgetAccess>& widgets,
                                   int parameterId,
                                   const std::string& faustStringId )
 {
-   // add a parameter for each virtual LED pin (red, green and blue)
+   // add a parameter for each virtual LED pin
+   // (red, green and blue)
 
    addParameter( widgets,
                  widgetType,
@@ -243,7 +244,6 @@ void ProtoFaust::onAdd()
    FaustDSP.buildUserInterface( &FaustUI );
 
    // store GUI IDs to save time during processing
-
    for ( auto& widget : activeWidgets ) {
       attachFaustParameter( widget );
    }
@@ -276,19 +276,20 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
    std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
    std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
 
-   // ------ inputs ------
-
+   // read from module's inputs
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
 
       // scale voltages from Rack to usual range in DSP processing
-      // (-1.0 to +1.0)
+      // (-1.0 to +1.0) so you don't have to adjust algorithms when
+      // porting them to VCV Rack
       temporaryInputs[channel] = input / voltageScaling;
 
       // protect your ears in case of misbehaviour
       temporaryOutputs[channel] = 0.0;
    }
 
+   // get widget values and update Faust parameters
    for ( auto& widget : activeWidgets ) {
       updateParameter( widget );
    }
@@ -305,16 +306,17 @@ void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
                      int_control,
                      real_control );
 
-   // ------ outputs ------
-
+   // write to module's outputs
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       FAUSTFLOAT output = temporaryOutputs[channel];
 
       // scale voltages from DSP processing back to Rack voltages
       // (-5.0 to +5.0)
-      outputs[OUT_1_OUTPUT + channel].setVoltage( output * voltageScaling );
+      outputs[OUT_1_OUTPUT + channel].setVoltage(
+         output * voltageScaling );
    }
 
+   // get widget values and update Faust parameters
    for ( auto& widget : passiveWidgets ) {
       updateParameter( widget );
    }
@@ -339,9 +341,9 @@ void ProtoFaust::updateParameter( WidgetAccess& widget )
       case ProtoFaustWidget::THREE_WAY_SWITCH: {
          FAUSTFLOAT value = params[widget.parameterId].getValue();
 
-         // scale range from (0 .. 2) to (0 .. 1)
+         // three-way switches only work with integer-like values,
+         // so scale range from (0 .. 2) to (0 .. 1)
          value /= 2.0f;
-
          FaustUI.setParamValue( widget.faustId, value );
 
          break;
