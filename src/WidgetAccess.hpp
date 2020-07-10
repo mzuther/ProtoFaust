@@ -24,35 +24,27 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef PROTO_FAUST_WIDGET_HPP
-#define PROTO_FAUST_WIDGET_HPP
+#ifndef WIDGET_ACCESS_HPP
+#define WIDGET_ACCESS_HPP
 
 
-struct ProtoFaustWidget : ModuleWidget {
+struct WidgetAccess {
 public:
-   enum WidgetTypes {
-      TOGGLE_SWITCH,
-      THREE_WAY_SWITCH,
-      PUSH_BUTTON,
-      KNOB_WHITE,
-      KNOB_RED,
-      PORT_INPUT,
-      PORT_OUTPUT,
-      LED_RGB,
-      SCREW,
+   int widgetType;
+   int parameterId;
+   int faustId;
+   std::string faustStringId;
 
-      NUM_WIDGET_TYPES
+   WidgetAccess( int widget_type,
+                 int parameter_id,
+                 const std::string& faust_string_id ) :
+      widgetType( widget_type ),
+      parameterId( parameter_id ),
+      faustStringId( faust_string_id )
+   {
+      // set in ProtoFaust::attachFaustParameter()
+      faustId = -1;
    };
-
-   explicit ProtoFaustWidget( ProtoFaust* module );
-
-private:
-   void placeWidget( int parameterId,
-                     int widgetType,
-                     float x,
-                     float y );
-
-   engine::Module* _module = nullptr;
 };
 
-#endif // PROTO_FAUST_WIDGET_HPP
+#endif // WIDGET_ACCESS_HPP

@@ -29,6 +29,7 @@
 
 
 struct ProtoFaust : Module {
+public:
    enum ParamIds {
       BUTTON_1_PARAM,
       BUTTON_2_PARAM,
@@ -77,40 +78,40 @@ struct ProtoFaust : Module {
       NUM_OUTPUTS
    };
 
-   enum LightIds {
-      LED_1_LIGHT_R,
-      LED_1_LIGHT_G,
-      LED_1_LIGHT_B,
+   enum LedIds {
+      LED_1_R,
+      LED_1_G,
+      LED_1_B,
 
-      LED_2_LIGHT_R,
-      LED_2_LIGHT_G,
-      LED_2_LIGHT_B,
+      LED_2_R,
+      LED_2_G,
+      LED_2_B,
 
-      LED_3_LIGHT_R,
-      LED_3_LIGHT_G,
-      LED_3_LIGHT_B,
+      LED_3_R,
+      LED_3_G,
+      LED_3_B,
 
-      LED_4_LIGHT_R,
-      LED_4_LIGHT_G,
-      LED_4_LIGHT_B,
+      LED_4_R,
+      LED_4_G,
+      LED_4_B,
 
-      LED_5_LIGHT_R,
-      LED_5_LIGHT_G,
-      LED_5_LIGHT_B,
+      LED_5_R,
+      LED_5_G,
+      LED_5_B,
 
-      LED_6_LIGHT_R,
-      LED_6_LIGHT_G,
-      LED_6_LIGHT_B,
+      LED_6_R,
+      LED_6_G,
+      LED_6_B,
 
-      LED_7_LIGHT_R,
-      LED_7_LIGHT_G,
-      LED_7_LIGHT_B,
+      LED_7_R,
+      LED_7_G,
+      LED_7_B,
 
-      LED_8_LIGHT_R,
-      LED_8_LIGHT_G,
-      LED_8_LIGHT_B,
+      LED_8_R,
+      LED_8_G,
+      LED_8_B,
 
-      NUM_LIGHT_PINS
+      NUM_LED_PINS
    };
 
    enum GenericIds {
@@ -119,62 +120,11 @@ struct ProtoFaust : Module {
       NUM_GENERIC_IDS
    };
 
-   faust::FaustDSP FaustDSP;
-   faust::APIUI FaustUI;
-
-   // variables for storing GUI IDs
-   int paramButton_1 = -1;
-   int paramButton_2 = -1;
-   int paramButton_3 = -1;
-   int paramButton_4 = -1;
-   int paramButton_5 = -1;
-   int paramButton_6 = -1;
-   int paramButton_7 = -1;
-   int paramButton_8 = -1;
-
-   int paramKnob_1 = -1;
-   int paramKnob_2 = -1;
-   int paramKnob_3 = -1;
-   int paramKnob_4 = -1;
-   int paramKnob_5 = -1;
-   int paramKnob_6 = -1;
-   int paramKnob_7 = -1;
-   int paramKnob_8 = -1;
-
-   int paramLight_1_R = -1;
-   int paramLight_1_G = -1;
-   int paramLight_1_B = -1;
-
-   int paramLight_2_R = -1;
-   int paramLight_2_G = -1;
-   int paramLight_2_B = -1;
-
-   int paramLight_3_R = -1;
-   int paramLight_3_G = -1;
-   int paramLight_3_B = -1;
-
-   int paramLight_4_R = -1;
-   int paramLight_4_G = -1;
-   int paramLight_4_B = -1;
-
-   int paramLight_5_R = -1;
-   int paramLight_5_G = -1;
-   int paramLight_5_B = -1;
-
-   int paramLight_6_R = -1;
-   int paramLight_6_G = -1;
-   int paramLight_6_B = -1;
-
-   int paramLight_7_R = -1;
-   int paramLight_7_G = -1;
-   int paramLight_7_B = -1;
-
-   int paramLight_8_R = -1;
-   int paramLight_8_G = -1;
-   int paramLight_8_B = -1;
-
    const int numberOfChannels = 8;
    const FAUSTFLOAT voltageScaling = 5.0f;
+
+   faust::FaustDSP FaustDSP;
+   faust::APIUI FaustUI;
 
    ProtoFaust();
 
@@ -184,12 +134,16 @@ struct ProtoFaust : Module {
    void process( const ProcessArgs& args ) override;
 
 private:
-   void configParameter( int widgetType,
-                         int parameterId );
+   std::vector<WidgetAccess> activeWidgets;
+   std::vector<WidgetAccess> passiveWidgets;
 
-   void updateParameter( int widgetType,
-                         int parameterId,
-                         int guiId );
+   void addParameter( std::vector<WidgetAccess>& widgets,
+                      int widgetType,
+                      int parameterId,
+                      const std::string& faustStringId );
+
+   void attachFaustParameter( WidgetAccess& widget );
+   void updateParameter( WidgetAccess& widget );
 };
 
 #endif // PROTO_FAUST_HPP

@@ -37,6 +37,9 @@ namespace faust
 }
 
 
+// pre includes
+#include "WidgetAccess.hpp"
+
 // normal includes
 #include "ProtoFaust.hpp"
 #include "ProtoFaustWidget.hpp"

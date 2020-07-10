@@ -229,42 +229,42 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
    // ------ RGB LEDs ------
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_1_LIGHT_R,
+                ProtoFaust::LED_1_R,
                 99.06,
                 21.82 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_2_LIGHT_R,
+                ProtoFaust::LED_2_R,
                 99.06,
                 34.52 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_3_LIGHT_R,
+                ProtoFaust::LED_3_R,
                 99.06,
                 49.76 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_4_LIGHT_R,
+                ProtoFaust::LED_4_R,
                 99.06,
                 62.46 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_5_LIGHT_R,
+                ProtoFaust::LED_5_R,
                 99.06,
                 77.7 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_6_LIGHT_R,
+                ProtoFaust::LED_6_R,
                 99.06,
                 90.4 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_7_LIGHT_R,
+                ProtoFaust::LED_7_R,
                 99.06,
                 105.64 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_8_LIGHT_R,
+                ProtoFaust::LED_8_R,
                 99.06,
                 118.34 );
 }
