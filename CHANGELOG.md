@@ -10,12 +10,26 @@ file. This change log follows the conventions of
 
 
 
+## [1.0.3] - 2020-07-10
+### Changed
+
+- re-factor code
+
+- change IDs of RGB LED in Faust code
+
+### Fixed
+
+- fix wrong scaling of three-way switches
+
+
+
 ## [1.0.2] - 2020-07-09
 ### Changed
 
 - re-factor code
 
 - beautify output of Makefile
+
 
 
 ## [1.0.1] - 2020-07-06
@@ -42,3 +56,4 @@ file. This change log follows the conventions of
 [1.0.0]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.0
 [1.0.1]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.1
 [1.0.2]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.2
+[1.0.3]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.3
