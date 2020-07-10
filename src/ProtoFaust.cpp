@@ -165,6 +165,77 @@ ProtoFaust::ProtoFaust()
 }
 
 
+void ProtoFaust::onAdd()
+{
+   FaustDSP.buildUserInterface( &FaustUI );
+
+   // store GUI IDs to save time during processing
+   for ( auto& widget : activeWidgets ) {
+      attachFaustParameter( widget );
+   }
+
+   for ( auto& widget : passiveWidgets ) {
+      attachFaustParameter( widget );
+   }
+
+   FaustDSP.init(
+      APP->engine->getSampleRate() );
+}
+
+
+void ProtoFaust::onSampleRateChange()
+{
+   FaustDSP.instanceConstants(
+      APP->engine->getSampleRate() );
+}
+
+
+void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
+{
+   std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
+   std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
+
+   // read from module's inputs; scale voltages from Rack to usual
+   // range in DSP processing (-1.0 to +1.0) so you don't have to
+   // adjust algorithms when porting them to VCV Rack
+   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
+      FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
+      temporaryInputs[channel] = input / voltageScaling;
+
+      // protect your ears in case of misbehaviour
+      temporaryOutputs[channel] = 0.0;
+   }
+
+   // get widget values and update Faust parameters
+   for ( auto& widget : activeWidgets ) {
+      updateParameter( widget );
+   }
+
+   // update Faust controls
+   int int_control[FaustDSP.getNumIntControls()];
+   FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
+   FaustDSP.control( int_control, real_control );
+
+   // process one sample in Faust
+   FaustDSP.compute( temporaryInputs.data(),
+                     temporaryOutputs.data(),
+                     int_control,
+                     real_control );
+
+   // write to module's outputs; scale voltages from DSP processing
+   // back to Rack voltages (-5.0 to +5.0)
+   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
+      FAUSTFLOAT output = temporaryOutputs[channel];
+      outputs[OUT_1_OUTPUT + channel].setVoltage( output * voltageScaling );
+   }
+
+   // get widget values and update Faust parameters
+   for ( auto& widget : passiveWidgets ) {
+      updateParameter( widget );
+   }
+}
+
+
 void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                                int widgetType,
                                int parameterId,
@@ -239,90 +310,6 @@ void ProtoFaust::addParameterLed( std::vector<WidgetAccess>& widgets,
 }
 
 
-void ProtoFaust::onAdd()
-{
-   FaustDSP.buildUserInterface( &FaustUI );
-
-   // store GUI IDs to save time during processing
-   for ( auto& widget : activeWidgets ) {
-      attachFaustParameter( widget );
-   }
-
-   for ( auto& widget : passiveWidgets ) {
-      attachFaustParameter( widget );
-   }
-
-   FaustDSP.init(
-      APP->engine->getSampleRate() );
-}
-
-
-void ProtoFaust::attachFaustParameter( WidgetAccess& widget )
-{
-   widget.faustId = FaustUI.getParamIndex(
-                       widget.faustStringId.c_str() );
-}
-
-
-void ProtoFaust::onSampleRateChange()
-{
-   FaustDSP.instanceConstants(
-      APP->engine->getSampleRate() );
-}
-
-
-void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
-{
-   std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
-   std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
-
-   // read from module's inputs
-   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
-      FAUSTFLOAT input = inputs[IN_1_INPUT + channel].getVoltage();
-
-      // scale voltages from Rack to usual range in DSP processing
-      // (-1.0 to +1.0) so you don't have to adjust algorithms when
-      // porting them to VCV Rack
-      temporaryInputs[channel] = input / voltageScaling;
-
-      // protect your ears in case of misbehaviour
-      temporaryOutputs[channel] = 0.0;
-   }
-
-   // get widget values and update Faust parameters
-   for ( auto& widget : activeWidgets ) {
-      updateParameter( widget );
-   }
-
-   // update Faust controls
-   int int_control[FaustDSP.getNumIntControls()];
-   FAUSTFLOAT real_control[FaustDSP.getNumRealControls()];
-
-   FaustDSP.control( int_control, real_control );
-
-   // process one sample in Faust
-   FaustDSP.compute( temporaryInputs.data(),
-                     temporaryOutputs.data(),
-                     int_control,
-                     real_control );
-
-   // write to module's outputs
-   for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
-      FAUSTFLOAT output = temporaryOutputs[channel];
-
-      // scale voltages from DSP processing back to Rack voltages
-      // (-5.0 to +5.0)
-      outputs[OUT_1_OUTPUT + channel].setVoltage(
-         output * voltageScaling );
-   }
-
-   // get widget values and update Faust parameters
-   for ( auto& widget : passiveWidgets ) {
-      updateParameter( widget );
-   }
-}
-
-
 void ProtoFaust::updateParameter( WidgetAccess& widget )
 {
    switch ( widget.widgetType ) {
@@ -356,6 +343,13 @@ void ProtoFaust::updateParameter( WidgetAccess& widget )
 
          break;
    }
+}
+
+
+void ProtoFaust::attachFaustParameter( WidgetAccess& widget )
+{
+   widget.faustId = FaustUI.getParamIndex(
+                       widget.faustStringId.c_str() );
 }
 
 

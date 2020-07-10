@@ -27,14 +27,14 @@
 #include "Amalgamated.hpp"
 
 
+// "repetitive" takes on a whole new meaning in this file ...
+
 ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
    _module( module )
 {
    setModule( module );
    setPanel( APP->window->loadSvg(
                 asset::plugin( pluginInstance, "res/ProtoFaust.svg" ) ) );
-
-   // "repetitive" takes on a whole new meaning here
 
    // ------ screws ------
 
