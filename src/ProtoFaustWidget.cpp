@@ -34,6 +34,8 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
    setPanel( APP->window->loadSvg(
                 asset::plugin( pluginInstance, "res/ProtoFaust.svg" ) ) );
 
+   // "repetitive" takes on a whole new meaning here
+
    // ------ screws ------
 
    placeWidget( ProtoFaustWidget::SCREW,
@@ -229,42 +231,42 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
    // ------ RGB LEDs ------
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_1_R,
+                ProtoFaust::LED_1,
                 99.06,
                 21.82 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_2_R,
+                ProtoFaust::LED_2,
                 99.06,
                 34.52 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_3_R,
+                ProtoFaust::LED_3,
                 99.06,
                 49.76 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_4_R,
+                ProtoFaust::LED_4,
                 99.06,
                 62.46 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_5_R,
+                ProtoFaust::LED_5,
                 99.06,
                 77.7 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_6_R,
+                ProtoFaust::LED_6,
                 99.06,
                 90.4 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_7_R,
+                ProtoFaust::LED_7,
                 99.06,
                 105.64 );
 
    placeWidget( ProtoFaustWidget::LED_RGB,
-                ProtoFaust::LED_8_R,
+                ProtoFaust::LED_8,
                 99.06,
                 118.34 );
 }

@@ -123,139 +123,45 @@ ProtoFaust::ProtoFaust()
 
    // ------ RGB LEDs ------
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_1_R,
-                 "/ProtoFaust/Lights/1_R" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_1,
+                    "/ProtoFaust/Lights/1" );
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_1_G,
-                 "/ProtoFaust/Lights/1_G" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_2,
+                    "/ProtoFaust/Lights/2" );
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_1_B,
-                 "/ProtoFaust/Lights/1_B" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_3,
+                    "/ProtoFaust/Lights/3" );
 
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_4,
+                    "/ProtoFaust/Lights/4" );
 
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_5,
+                    "/ProtoFaust/Lights/5" );
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_2_R,
-                 "/ProtoFaust/Lights/2_R" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_6,
+                    "/ProtoFaust/Lights/6" );
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_2_G,
-                 "/ProtoFaust/Lights/2_G" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_7,
+                    "/ProtoFaust/Lights/7" );
 
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_2_B,
-                 "/ProtoFaust/Lights/2_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_3_R,
-                 "/ProtoFaust/Lights/3_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_3_G,
-                 "/ProtoFaust/Lights/3_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_3_B,
-                 "/ProtoFaust/Lights/3_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_4_R,
-                 "/ProtoFaust/Lights/4_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_4_G,
-                 "/ProtoFaust/Lights/4_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_4_B,
-                 "/ProtoFaust/Lights/4_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_5_R,
-                 "/ProtoFaust/Lights/5_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_5_G,
-                 "/ProtoFaust/Lights/5_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_5_B,
-                 "/ProtoFaust/Lights/5_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_6_R,
-                 "/ProtoFaust/Lights/6_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_6_G,
-                 "/ProtoFaust/Lights/6_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_6_B,
-                 "/ProtoFaust/Lights/6_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_7_R,
-                 "/ProtoFaust/Lights/7_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_7_G,
-                 "/ProtoFaust/Lights/7_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_7_B,
-                 "/ProtoFaust/Lights/7_B" );
-
-
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_8_R,
-                 "/ProtoFaust/Lights/8_R" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_8_G,
-                 "/ProtoFaust/Lights/8_G" );
-
-   addParameter( passiveWidgets,
-                 ProtoFaustWidget::LED_RGB,
-                 LED_8_B,
-                 "/ProtoFaust/Lights/8_B" );
+   addParameterLed( passiveWidgets,
+                    ProtoFaustWidget::LED_RGB,
+                    LED_8,
+                    "/ProtoFaust/Lights/8" );
 }
 
 
@@ -304,6 +210,31 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                       "" );
          break;
    }
+}
+
+
+void ProtoFaust::addParameterLed( std::vector<WidgetAccess>& widgets,
+                                  int widgetType,
+                                  int parameterId,
+                                  const std::string& faustStringId )
+{
+   // add a parameter for each virtual LED pin (red, green and blue)
+
+   addParameter( widgets,
+                 widgetType,
+                 parameterId,
+                 faustStringId + "_Red" );
+
+   addParameter( widgets,
+                 widgetType,
+                 parameterId + 1,
+                 faustStringId + "_Green" );
+
+   addParameter( widgets,
+                 widgetType,
+                 parameterId + 2,
+                 faustStringId + "_Blue" );
+
 }
 
 

@@ -79,37 +79,37 @@ public:
    };
 
    enum LedIds {
-      LED_1_R,
-      LED_1_G,
-      LED_1_B,
+      LED_1,
+      LED_1_GREEN_INTERNAL_USE_ONLY,
+      LED_1_BLUE_INTERNAL_USE_ONLY,
 
-      LED_2_R,
-      LED_2_G,
-      LED_2_B,
+      LED_2,
+      LED_2_GREEN_INTERNAL_USE_ONLY,
+      LED_2_BLUE_INTERNAL_USE_ONLY,
 
-      LED_3_R,
-      LED_3_G,
-      LED_3_B,
+      LED_3,
+      LED_3_GREEN_INTERNAL_USE_ONLY,
+      LED_3_BLUE_INTERNAL_USE_ONLY,
 
-      LED_4_R,
-      LED_4_G,
-      LED_4_B,
+      LED_4,
+      LED_4_GREEN_INTERNAL_USE_ONLY,
+      LED_4_BLUE_INTERNAL_USE_ONLY,
 
-      LED_5_R,
-      LED_5_G,
-      LED_5_B,
+      LED_5,
+      LED_5_GREEN_INTERNAL_USE_ONLY,
+      LED_5_BLUE_INTERNAL_USE_ONLY,
 
-      LED_6_R,
-      LED_6_G,
-      LED_6_B,
+      LED_6,
+      LED_6_GREEN_INTERNAL_USE_ONLY,
+      LED_6_BLUE_INTERNAL_USE_ONLY,
 
-      LED_7_R,
-      LED_7_G,
-      LED_7_B,
+      LED_7,
+      LED_7_GREEN_INTERNAL_USE_ONLY,
+      LED_7_BLUE_INTERNAL_USE_ONLY,
 
-      LED_8_R,
-      LED_8_G,
-      LED_8_B,
+      LED_8,
+      LED_8_GREEN_INTERNAL_USE_ONLY,
+      LED_8_BLUE_INTERNAL_USE_ONLY,
 
       NUM_LED_PINS
    };
@@ -141,6 +141,11 @@ private:
                       int widgetType,
                       int parameterId,
                       const std::string& faustStringId );
+
+   void addParameterLed( std::vector<WidgetAccess>& widgets,
+                         int widgetType,
+                         int parameterId,
+                         const std::string& faustStringId );
 
    void attachFaustParameter( WidgetAccess& widget );
    void updateParameter( WidgetAccess& widget );
