@@ -178,20 +178,18 @@ void ProtoFaust::onAdd()
       attachFaustParameter( widget );
    }
 
-   FaustDSP.init(
-      APP->engine->getSampleRate() );
+   // initialize Faust using default sample rate
+   FaustDSP.init( 44100 );
 }
 
 
-void ProtoFaust::onSampleRateChange()
+void ProtoFaust::process( const ProcessArgs& args )
 {
-   FaustDSP.instanceConstants(
-      APP->engine->getSampleRate() );
-}
+   // update Faust DSP on sample rate changes
+   if ( args.sampleRate != FaustDSP.getSampleRate() ) {
+      FaustDSP.init( args.sampleRate );
+   }
 
-
-void ProtoFaust::process( const ProcessArgs& /* args (unused) */ )
-{
    std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
    std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
 
