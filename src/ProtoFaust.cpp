@@ -178,7 +178,8 @@ void ProtoFaust::onAdd()
       attachFaustParameter( widget );
    }
 
-   // initialize Faust using default sample rate
+   // initialize Faust using default sample rate; see
+   // ProtoFaust::process()
    FaustDSP.init( 44100 );
 }
 
@@ -186,6 +187,11 @@ void ProtoFaust::onAdd()
 void ProtoFaust::process( const ProcessArgs& args )
 {
    // update Faust DSP on sample rate changes
+   //
+   // running this check in *every* module and for *every* single
+   // sample seems like a *huge* amount of overhead; however, this is
+   // the current expected behaviour of VCV Rack modules; see
+   // https://github.com/mzuther/ProtoFaust/pull/2
    if ( args.sampleRate != FaustDSP.getSampleRate() ) {
       FaustDSP.init( args.sampleRate );
    }
