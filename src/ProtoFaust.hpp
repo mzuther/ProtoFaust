@@ -129,8 +129,7 @@ public:
    ProtoFaust();
 
    void onAdd() override;
-   void onSampleRateChange() override;
-
+ 
    void process( const ProcessArgs& args ) override;
 
 private:
