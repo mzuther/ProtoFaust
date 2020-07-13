@@ -34,72 +34,73 @@ rack = component("rack.dsp");
 vca(i_cv , in) = internal_vca
 with
 {
-  gain = ba.if(i_cv > 0 , i_cv , 0) : _;
+  gain = max(0 , i_cv);
 
-  internal_vca = gain , in : * : _;
+  internal_vca = gain * in;
 };
 
 
 vco(i_cv_pitch , btn) = internal_vco
 with
 {
-  freq = i_cv_pitch : rack.i_cv_pitch2freq : _;
+  freq = i_cv_pitch : rack.i_cv_pitch2freq;
 
-  internal_vco = (freq : os.saw2) , (freq : os.square) , (freq : os.triangle) : ba.selectn(3 , btn) : _;
+  internal_vco = (freq : os.saw2) , (freq : os.square) , (freq : os.triangle) : ba.selectn(3 , btn);
 };
 
 
 vcf(i_cv_cutoff , i_cv_resonance , btn , in) = internal_vcf
 with
 {
-  cutoff = i_cv_cutoff , 1.5 : * , 0.5 : - : rack.i_cv_pitch2freq , (ma.SR / 2) : min : _;
-  resonance = i_cv_resonance , 5 : * , 0.1 : max : _;
+  cutoff = (i_cv_cutoff * 1.5) - 0.5 : rack.i_cv_pitch2freq;
+  cutoff_limited = min(cutoff , (ma.SR / 2));
+  resonance = max(i_cv_resonance * 5 , 0.1);
   gain = 1;
 
-  internal_vcf = (cutoff , resonance , gain , in : fi.resonhp) ,
-                 (cutoff , resonance , gain , in : fi.resonlp) :
-                 ba.selectn(2 , btn) : _;
+  internal_vcf = (cutoff_limited , resonance , gain , in : fi.resonhp) ,
+                 (cutoff_limited , resonance , gain , in : fi.resonlp) :
+                 ba.selectn(2 , btn);
 };
 
 
 voices(i_cv_pitch , i_cv_cutoff , i_cv_resonance) = internal_voices
 with
 {
-  i_cv_pitch_coarse_1 = knob_1 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
-  i_cv_pitch_fine_1 = knob_2 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_coarse_1 = int((knob_1 * 48) - 12) / 60 : si.smooth(1e-3);
+  i_cv_pitch_fine_1 = (knob_2 - 0.5) / 30 : si.smooth(1e-3);
 
-  i_cv_pitch_coarse_2 = knob_3 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
-  i_cv_pitch_fine_2 = knob_4 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_coarse_2 = int((knob_3 * 48) - 12) / 60 : si.smooth(1e-3);
+  i_cv_pitch_fine_2 = (knob_4 - 0.5) / 30 : si.smooth(1e-3);
 
-  i_cv_pitch_coarse_3 = knob_5 , 48 : * , 12 : - : int , 60 : / : si.smooth(1e-3) : _;
-  i_cv_pitch_fine_3 = knob_6 , 0.5 : - , 30 : / : si.smooth(1e-3) : _;
+  i_cv_pitch_coarse_3 = int((knob_5 * 48) - 12) / 60 : si.smooth(1e-3);
+  i_cv_pitch_fine_3 = (knob_6 - 0.5) / 30 : si.smooth(1e-3);
 
-  i_cv_pitch_final_1 = i_cv_pitch , i_cv_pitch_coarse_1 : + , i_cv_pitch_fine_1 : + : _;
-  i_cv_pitch_final_2 = i_cv_pitch , i_cv_pitch_coarse_2 : + , i_cv_pitch_fine_2 : + : _;
-  i_cv_pitch_final_3 = i_cv_pitch , i_cv_pitch_coarse_3 : + , i_cv_pitch_fine_3 : + : _;
+  i_cv_pitch_final_1 = i_cv_pitch + i_cv_pitch_coarse_1 + i_cv_pitch_fine_1;
+  i_cv_pitch_final_2 = i_cv_pitch + i_cv_pitch_coarse_2 + i_cv_pitch_fine_2;
+  i_cv_pitch_final_3 = i_cv_pitch + i_cv_pitch_coarse_3 + i_cv_pitch_fine_3;
 
-  i_cv_cutoff_knob = knob_7 : si.smooth(1e-3) : _;
-  i_cv_cutoff_final = i_cv_cutoff , i_cv_cutoff_knob : + : _;
+  i_cv_cutoff_knob = knob_7 : si.smooth(1e-3);
+  i_cv_cutoff_final = i_cv_cutoff + i_cv_cutoff_knob;
 
-  i_cv_resonance_knob = knob_8 : si.smooth(1e-3) : _;
-  i_cv_resonance_final = i_cv_resonance , i_cv_resonance_knob : + : _;
+  i_cv_resonance_knob = knob_8 : si.smooth(1e-3);
+  i_cv_resonance_final = i_cv_resonance + i_cv_resonance_knob;
 
-  voice(i_cv_pitch , btn) = i_cv_pitch , btn : (-18 : ba.db2linear) , vco : vca : _;
-  mix(a1 , a2 , a3) = a1 + a2 + a3 : _;
+  voice(i_cv_pitch , btn) = i_cv_pitch , btn : (-18 : ba.db2linear) , vco : vca;
+  mix(a1 , a2 , a3) = a1 + a2 + a3;
 
   internal_voices = (i_cv_pitch_final_1 , (button_1 , 2 : *) : voice),
                     (i_cv_pitch_final_2 , (button_2 , 2 : *) : voice) ,
                     (i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) : voice) : mix :
                     i_cv_cutoff_final , i_cv_resonance_final , (button_4 , 2 : *) , _ : vcf :
-                    0.3 , 0.1 , _ : ef.cubicnl : fi.dcblocker : _;
+                    0.3 , 0.1 , _ : ef.cubicnl : fi.dcblocker;
 };
 
 
 process(in1 , in2 , in3 , in4 , in5 , in6 , in7 , in8) = internal_processor
 with
 {
-  lfo_1 = 1 , os.osccos(0.5) : + , 2 : / : _;
-  lfo_2 = 1 - lfo_1 : _;
+  lfo_1 = (os.osccos(0.5) + 1) / 2;
+  lfo_2 = 1 - lfo_1;
 
   gui_attacher = _ :
                  attach(_ , button_1) :
