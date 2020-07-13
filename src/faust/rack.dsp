@@ -40,11 +40,11 @@ freq2cv_pitch(freq) = ma.log2(freq / 440) + 0.75;
 
 
 // Converts 200 mV/oct to frequency in Hertz.
-i_cv_pitch2freq(i_cv_pitch) = i_cv_pitch : internal2cv_pitch : cv_pitch2freq : _;
+i_cv_pitch2freq(i_cv_pitch) = i_cv_pitch : internal2cv_pitch : cv_pitch2freq;
 
 
 // Converts frequency in Hertz to 200 mV/oct.
-freq2i_cv_pitch(freq) = freq : freq2cv_pitch : cv_pitch2internal : _;
+freq2i_cv_pitch(freq) = freq : freq2cv_pitch : cv_pitch2internal;
 
 
 // Converts Eurorack's 1 V/oct to internal 200 mv/oct.
