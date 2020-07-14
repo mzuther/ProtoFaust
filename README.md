@@ -62,6 +62,20 @@ superfluous and optimized out) and probably crash.
 Enjoy!
 
 
+## Signal ranges
+
+Input signals from VCV Rack are divided by `5.0` and output signals
+are multiplied by `5.0` to bring them back in range.  This keeps
+values in the usual range of DSP processing (`-1.0 .. +1.0`) and
+should help when porting algorithms to VCV Rack.  All signals are
+full-range, so you have to apply any input or output saturation
+yourself.
+
+In Faust, the range of knobs is `0.0 .. 1.0` (center position: `0.5`).
+Normal switches toggle between values `0.0` and `1.0`, whereas
+three-way switches have values of `0.0`, `0.5` and `1.0`.
+
+
 ## Ideas and bug fixes
 
 This module is very new and experimental.  So please send problems,
@@ -70,7 +84,7 @@ bug reports, fixes and any ideas that come to your mind.  Thanks!
 
 ## Contributors
 
-- [Martin Zuther][]: maintainer
+- [Martin Zuther][]: maintainer; code and GUI design
 
 - [Stéphane Letz](https://github.com/sletz): improved readability of
   Faust code (`src/faust/rack.dsp`)
