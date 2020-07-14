@@ -124,7 +124,7 @@ public:
    const FAUSTFLOAT voltageScaling = 5.0f;
 
    faust::FaustDSP FaustDSP;
-   faust::APIUI FaustUI;
+   faust::VCVRACKUI FaustUI;
 
    ProtoFaust();
 

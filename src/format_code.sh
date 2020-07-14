@@ -27,10 +27,10 @@
 #  ----------------------------------------------------------------------------
 
 
-astyle --recursive --exclude="faust" --exclude="faust_generated.cpp" --options=./.astylerc \
+astyle --recursive --exclude="faust_generated.cpp" --options=./.astylerc \
        "*.cpp"
 
 printf "\n"
 
-astyle --recursive --exclude="faust" --options=./.astylerc \
+astyle --recursive --options=./.astylerc \
        "*.hpp"

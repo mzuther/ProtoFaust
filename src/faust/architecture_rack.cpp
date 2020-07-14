@@ -38,6 +38,8 @@
 #include "faust/gui/meta.h"
 #include "faust/dsp/one-sample-dsp.h"
 
+// *INDENT-OFF* --> make astyle behave ...
+
 /******************************************************************************
  *******************************************************************************
 
@@ -58,6 +60,30 @@
 
 /*******************BEGIN ARCHITECTURE SECTION (part 2/2)***************/
 
-// EMPTY !!!
+// *INDENT-ON* --> give astyle free reign ...
+
+      class VCVRACKUI : public APIUI
+{
+public:
+   VCVRACKUI() : APIUI() {}
+   virtual ~VCVRACKUI() {}
+
+   virtual void declare( FAUSTFLOAT* zone, const char* key, const char* val ) override
+   {
+      APIUI::declare( zone, key, val );
+   }
+
+
+   virtual void addParameter( const char* label,
+                              FAUSTFLOAT* zone,
+                              FAUSTFLOAT init,
+                              FAUSTFLOAT min,
+                              FAUSTFLOAT max,
+                              FAUSTFLOAT step,
+                              ItemType type ) override
+   {
+      APIUI::addParameter( label, zone, init, min, max, step, type );
+   }
+};
 
 /********************END ARCHITECTURE SECTION (part 2/2)****************/
