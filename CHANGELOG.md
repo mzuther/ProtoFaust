@@ -10,6 +10,24 @@ file. This change log follows the conventions of
 
 
 
+## [1.0.4] - 2020-07-14
+### Added
+
+- documentation: describe signal ranges
+
+### Changed
+
+- prevent filter from exploding
+
+- re-factor Faust scripts and improve readability
+
+### Fixed
+
+- APP->engine->getSampleRate() should not be used anymore (change
+  sample rate in process; thanks to Stéphane Letz)
+
+
+
 ## [1.0.3] - 2020-07-10
 ### Changed
 
@@ -57,3 +75,4 @@ file. This change log follows the conventions of
 [1.0.1]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.1
 [1.0.2]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.2
 [1.0.3]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.3
+[1.0.4]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.4

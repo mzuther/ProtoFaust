@@ -64,16 +64,16 @@ Enjoy!
 
 ## Signal ranges
 
-Input signals from VCV Rack are divided by `5.0` and output signals
-are multiplied by `5.0` to bring them back in range.  This keeps
-values in the usual range of DSP processing (`-1.0 .. +1.0`) and
+Input signals from VCV Rack are divided by `5.0`.  Conversely, output
+signals are multiplied by `5.0` to bring them back in range.  This
+keeps values in the usual range of DSP processing (`-1.0 .. +1.0`) and
 should help when porting algorithms to VCV Rack.  All signals are
 full-range, so you have to apply any input or output saturation
 yourself.
 
-In Faust, the range of knobs is `0.0 .. 1.0` (center position: `0.5`).
-Normal switches toggle between values `0.0` and `1.0`, whereas
-three-way switches have values of `0.0`, `0.5` and `1.0`.
+Knobs have a range of `0.0 .. 1.0`; the center position is located at
+`0.5`.  Toggle switches take on values of `0.0` and `1.0`, whereas
+three-way switches add a third state of `0.5`.
 
 
 ## Ideas and bug fixes
