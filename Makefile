@@ -49,7 +49,7 @@ run: install
 src/faust/main-svg/process.svg:
 	@echo
 	@echo "Generating Faust diagrams..."
-	faust2svg --simple-names --simplify-diagrams --fold-complexity 25 src/faust/main.dsp
+	faust2svg --simple-names --simplify-diagrams --fold-complexity 8 src/faust/main.dsp
 	@echo "Done."
 	@echo
 

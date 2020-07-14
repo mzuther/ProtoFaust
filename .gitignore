@@ -1,5 +1,6 @@
 /build
 /dist
+/faust
 /plugin.so
 /plugin.dylib
 /plugin.dll

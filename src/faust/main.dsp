@@ -43,56 +43,59 @@ with
 vco(i_cv_pitch , btn) = internal_vco
 with
 {
-  freq = i_cv_pitch : rack.i_cv_pitch2freq;
+  freq = i_cv_pitch :
+         rack.i_cv_pitch2freq;
 
-  internal_vco = (freq : os.saw2) , (freq : os.square) , (freq : os.triangle) : ba.selectn(3 , btn);
+  internal_vco = freq <:
+                 os.saw2 , os.square , os.triangle :
+                 ba.selectn(3 , btn);
 };
 
 
 vcf(i_cv_cutoff , i_cv_resonance , btn , in) = internal_vcf
 with
 {
-  cutoff = (i_cv_cutoff * 1.5) - 0.5 : rack.i_cv_pitch2freq;
-  cutoff_limited = min(cutoff , (ma.SR / 2));
+  cutoff = i_cv_cutoff * 1.5 - 0.5 :
+           rack.i_cv_pitch2freq;
+  cutoff_limited = min(cutoff , ma.SR / 2);
   resonance = max(i_cv_resonance * 5 , 0.1);
   gain = 1;
 
-  internal_vcf = (cutoff_limited , resonance , gain , in : fi.resonhp) ,
-                 (cutoff_limited , resonance , gain , in : fi.resonlp) :
+  internal_vcf = cutoff_limited , resonance , gain , in <:
+                 fi.resonhp , fi.resonlp :
                  ba.selectn(2 , btn);
+};
+
+
+voice(i_cv_pitch , volume, knob_coarse , knob_fine, btn_waveform) = internal_voice
+with
+{
+  i_cv_pitch_coarse = int(knob_coarse * 48 - 12) / 60;
+  i_cv_pitch_fine = (knob_fine - 0.5) / 30;
+  i_cv_pitch_final = i_cv_pitch + (i_cv_pitch_coarse + i_cv_pitch_fine : si.smooth(1e-3));
+
+  internal_voice = i_cv_pitch_final , btn_waveform :
+                   volume , vco :
+                   vca;
 };
 
 
 voices(i_cv_pitch , i_cv_cutoff , i_cv_resonance) = internal_voices
 with
 {
-  i_cv_pitch_coarse_1 = int((knob_1 * 48) - 12) / 60 : si.smooth(1e-3);
-  i_cv_pitch_fine_1 = (knob_2 - 0.5) / 30 : si.smooth(1e-3);
+  volume = -18 : ba.db2linear;
 
-  i_cv_pitch_coarse_2 = int((knob_3 * 48) - 12) / 60 : si.smooth(1e-3);
-  i_cv_pitch_fine_2 = (knob_4 - 0.5) / 30 : si.smooth(1e-3);
+  voice_1 = voice(i_cv_pitch , volume , knob_1 , knob_2 , button_1 * 2);
+  voice_2 = voice(i_cv_pitch , volume , knob_3 , knob_4 , button_2 * 2);
+  voice_3 = voice(i_cv_pitch , volume , knob_5 , knob_6 , button_3 * 2 + 1);
 
-  i_cv_pitch_coarse_3 = int((knob_5 * 48) - 12) / 60 : si.smooth(1e-3);
-  i_cv_pitch_fine_3 = (knob_6 - 0.5) / 30 : si.smooth(1e-3);
+  i_cv_cutoff_final = i_cv_cutoff + (knob_7 : si.smooth(1e-3));
+  i_cv_resonance_final = i_cv_resonance + (knob_8 : si.smooth(1e-3));
 
-  i_cv_pitch_final_1 = i_cv_pitch + i_cv_pitch_coarse_1 + i_cv_pitch_fine_1;
-  i_cv_pitch_final_2 = i_cv_pitch + i_cv_pitch_coarse_2 + i_cv_pitch_fine_2;
-  i_cv_pitch_final_3 = i_cv_pitch + i_cv_pitch_coarse_3 + i_cv_pitch_fine_3;
-
-  i_cv_cutoff_knob = knob_7 : si.smooth(1e-3);
-  i_cv_cutoff_final = i_cv_cutoff + i_cv_cutoff_knob;
-
-  i_cv_resonance_knob = knob_8 : si.smooth(1e-3);
-  i_cv_resonance_final = i_cv_resonance + i_cv_resonance_knob;
-
-  voice(i_cv_pitch , btn) = i_cv_pitch , btn : (-18 : ba.db2linear) , vco : vca;
-  mix(a1 , a2 , a3) = a1 + a2 + a3;
-
-  internal_voices = (i_cv_pitch_final_1 , (button_1 , 2 : *) : voice),
-                    (i_cv_pitch_final_2 , (button_2 , 2 : *) : voice) ,
-                    (i_cv_pitch_final_3 , (button_3 , 2 : * , 1 : +) : voice) : mix :
-                    i_cv_cutoff_final , i_cv_resonance_final , (button_4 , 2 : *) , _ : vcf :
-                    0.3 , 0.1 , _ : ef.cubicnl : fi.dcblocker;
+  internal_voices = voice_1 + voice_2 + voice_3 :
+                    i_cv_cutoff_final , i_cv_resonance_final , button_4 * 2 , _ : vcf :
+                    0.3 , 0.1 , _ : ef.cubicnl :
+                    fi.dcblocker;
 };
 
 
@@ -154,5 +157,8 @@ with
                  attach(_ , 0 : led_8_b) :
                  _;
 
-  internal_processor = (in1 : gui_attacher) , in2 , in3 : voices : _ , in2 , in3 , in4 , in5 , in6 , in7 , in8 : si.bus(8);
+  internal_processor = (in1 : gui_attacher) , in2 , in3 :
+                       voices :
+                       _ , in2 , in3 , in4 , in5 , in6 , in7 , in8 :
+                       si.bus(8);
 };

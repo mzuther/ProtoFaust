@@ -34,7 +34,8 @@ import subprocess
 class OnWriteHandler(pyinotify.ProcessEvent):
     def __init__(self, payload_command):
         print()
-        self.print_current_file('initial run')
+        print('==> initial run')
+        print()
 
         # initialise payload command
         self.payload_command = payload_command
@@ -69,7 +70,8 @@ class OnWriteHandler(pyinotify.ProcessEvent):
             filename = event.path
 
         # print name of changed file
-        self.print_current_file(filename)
+        print('==> ' + filename)
+        print()
 
         # run payload
         self.run_payload()
@@ -105,8 +107,7 @@ if __name__ == '__main__':
 
     # command to be run on payload.  "unbuffer" pretends a TTY, thus
     # keeping escape sequences
-    payload_command = \
-      'make faust-clean && make faust'
+    payload_command = 'make faust-clean && make faust'
 
     # create an instance of "pyinotify"
     watchmanager = pyinotify.WatchManager()
