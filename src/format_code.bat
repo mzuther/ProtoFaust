@@ -27,7 +27,7 @@ rem
 rem  ----------------------------------------------------------------------------
 
 
-@AStyle --recursive --exclude="faust" --options=./.astylerc "*.cpp"
+@AStyle --recursive --exclude="faust" --exclude="faust_generated.cpp" --options=./.astylerc "*.cpp"
 @echo.
 
 @AStyle --recursive --exclude="faust" --options=./.astylerc "*.hpp"
