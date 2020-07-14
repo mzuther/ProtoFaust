@@ -57,7 +57,7 @@ with
 {
   cutoff = i_cv_cutoff * 1.5 - 0.5 :
            rack.i_cv_pitch2freq;
-  cutoff_limited = min(cutoff , ma.SR / 2);
+  cutoff_limited = max(10 , min(cutoff , 20000));
   resonance = max(i_cv_resonance * 5 , 0.1);
   gain = 1;
 
