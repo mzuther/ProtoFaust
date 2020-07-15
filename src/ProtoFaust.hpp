@@ -27,7 +27,6 @@
 #ifndef PROTO_FAUST_HPP
 #define PROTO_FAUST_HPP
 
-
 struct ProtoFaust : Module {
 public:
    enum ParamIds {
@@ -124,7 +123,7 @@ public:
    const FAUSTFLOAT voltageScaling = 5.0f;
 
    faust::FaustDSP FaustDSP;
-   faust::APIUI FaustUI;
+   faust::MapUI FaustUI;
 
    ProtoFaust();
 
@@ -145,8 +144,8 @@ private:
                          int parameterId,
                          const std::string& faustStringId );
 
-   void attachFaustParameter( WidgetAccess& widget );
-   void updateParameter( WidgetAccess& widget );
+   void updateParameterIn( WidgetAccess& widget );
+   void updateParameterOut( WidgetAccess& widget );
 };
 
 #endif // PROTO_FAUST_HPP

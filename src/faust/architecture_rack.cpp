@@ -34,7 +34,7 @@
 
 #include <cstring>
 
-#include "faust/gui/APIUI.h"
+#include "faust/gui/MapUI.h"
 #include "faust/gui/meta.h"
 #include "faust/dsp/one-sample-dsp.h"
 
