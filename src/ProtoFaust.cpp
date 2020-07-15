@@ -187,8 +187,8 @@ void ProtoFaust::process( const ProcessArgs& args )
       FaustDSP.init( args.sampleRate );
    }
 
-   std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
-   std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
+   FAUSTFLOAT* temporaryInputs = ( FAUSTFLOAT* )alloca( numberOfChannels * sizeof( FAUSTFLOAT ) );
+   FAUSTFLOAT* temporaryOutputs = ( FAUSTFLOAT* )alloca( numberOfChannels * sizeof( FAUSTFLOAT ) );
 
    // read from module's inputs; scale voltages from Rack to usual
    // range in DSP processing (-1.0 to +1.0) so you don't have to
@@ -212,8 +212,8 @@ void ProtoFaust::process( const ProcessArgs& args )
    FaustDSP.control( int_control, real_control );
 
    // process one sample in Faust
-   FaustDSP.compute( temporaryInputs.data(),
-                     temporaryOutputs.data(),
+   FaustDSP.compute( temporaryInputs,
+                     temporaryOutputs,
                      int_control,
                      real_control );
 
@@ -286,7 +286,6 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                       0.5f,
                       "" );
          break;
-
    }
 
    widgets.push_back( WidgetAccess ( widgetType,
