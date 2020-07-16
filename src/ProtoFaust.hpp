@@ -131,10 +131,6 @@ public:
    void onAdd() override;
    void process( const ProcessArgs& args ) override;
 
-private:
-   std::vector<WidgetAccess> activeWidgets;
-   std::vector<WidgetAccess> passiveWidgets;
-
    void addParameter( int widgetType,
                       int parameterId,
                       const std::string& faustStringId );
@@ -142,6 +138,10 @@ private:
    void addParameterLed( int widgetType,
                          int parameterId,
                          const std::string& faustStringId );
+
+private:
+   std::vector<WidgetAccess> activeWidgets;
+   std::vector<WidgetAccess> passiveWidgets;
 
    void updateParameterIn( WidgetAccess& widget );
    void updateParameterOut( WidgetAccess& widget );

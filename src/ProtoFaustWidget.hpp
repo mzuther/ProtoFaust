@@ -47,10 +47,17 @@ public:
    explicit ProtoFaustWidget( ProtoFaust* module );
 
 private:
-   void placeWidget( int parameterId,
-                     int widgetType,
-                     float x,
-                     float y );
+   void addWidget( int parameterId,
+                   int widgetType,
+                   float x,
+                   float y );
+
+   void addWidgetAndParameter( ProtoFaust* module,
+                               int widgetType,
+                               int parameterId,
+                               const std::string& faustStringId,
+                               float x,
+                               float y );
 
    engine::Module* _module = nullptr;
 };
