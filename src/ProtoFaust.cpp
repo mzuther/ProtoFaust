@@ -41,127 +41,103 @@ ProtoFaust::ProtoFaust()
 
    // ------ switches & buttons ------
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::THREE_WAY_SWITCH,
+   addParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
                  BUTTON_1_PARAM,
                  "/ProtoFaust/Buttons/1" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::THREE_WAY_SWITCH,
+   addParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
                  BUTTON_2_PARAM,
                  "/ProtoFaust/Buttons/2" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::TOGGLE_SWITCH,
+   addParameter( ProtoFaustWidget::TOGGLE_SWITCH,
                  BUTTON_3_PARAM,
                  "/ProtoFaust/Buttons/3" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::TOGGLE_SWITCH,
+   addParameter( ProtoFaustWidget::TOGGLE_SWITCH,
                  BUTTON_4_PARAM,
                  "/ProtoFaust/Buttons/4" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::PUSH_BUTTON,
+   addParameter( ProtoFaustWidget::PUSH_BUTTON,
                  BUTTON_5_PARAM,
                  "/ProtoFaust/Buttons/5" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::PUSH_BUTTON,
+   addParameter( ProtoFaustWidget::PUSH_BUTTON,
                  BUTTON_6_PARAM,
                  "/ProtoFaust/Buttons/6" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::PUSH_BUTTON,
+   addParameter( ProtoFaustWidget::PUSH_BUTTON,
                  BUTTON_7_PARAM,
                  "/ProtoFaust/Buttons/7" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::PUSH_BUTTON,
+   addParameter( ProtoFaustWidget::PUSH_BUTTON,
                  BUTTON_8_PARAM,
                  "/ProtoFaust/Buttons/8" );
 
    // ------ knobs ------
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_WHITE,
+   addParameter( ProtoFaustWidget::KNOB_WHITE,
                  KNOB_1_PARAM,
                  "/ProtoFaust/Knobs/1" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_RED,
+   addParameter( ProtoFaustWidget::KNOB_RED,
                  KNOB_2_PARAM,
                  "/ProtoFaust/Knobs/2" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_WHITE,
+   addParameter( ProtoFaustWidget::KNOB_WHITE,
                  KNOB_3_PARAM,
                  "/ProtoFaust/Knobs/3" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_RED,
+   addParameter( ProtoFaustWidget::KNOB_RED,
                  KNOB_4_PARAM,
                  "/ProtoFaust/Knobs/4" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_WHITE,
+   addParameter( ProtoFaustWidget::KNOB_WHITE,
                  KNOB_5_PARAM,
                  "/ProtoFaust/Knobs/5" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_RED,
+   addParameter( ProtoFaustWidget::KNOB_RED,
                  KNOB_6_PARAM,
                  "/ProtoFaust/Knobs/6" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_WHITE,
+   addParameter( ProtoFaustWidget::KNOB_WHITE,
                  KNOB_7_PARAM,
                  "/ProtoFaust/Knobs/7" );
 
-   addParameter( activeWidgets,
-                 ProtoFaustWidget::KNOB_RED,
+   addParameter( ProtoFaustWidget::KNOB_RED,
                  KNOB_8_PARAM,
                  "/ProtoFaust/Knobs/8" );
 
    // ------ RGB LEDs ------
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_1,
                     "/ProtoFaust/Lights/1" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_2,
                     "/ProtoFaust/Lights/2" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_3,
                     "/ProtoFaust/Lights/3" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_4,
                     "/ProtoFaust/Lights/4" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_5,
                     "/ProtoFaust/Lights/5" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_6,
                     "/ProtoFaust/Lights/6" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_7,
                     "/ProtoFaust/Lights/7" );
 
-   addParameterLed( passiveWidgets,
-                    ProtoFaustWidget::LED_RGB,
+   addParameterLed( ProtoFaustWidget::LED_RGB,
                     LED_8,
                     "/ProtoFaust/Lights/8" );
 }
@@ -233,11 +209,18 @@ void ProtoFaust::process( const ProcessArgs& args )
 }
 
 
-void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
-                               int widgetType,
+void ProtoFaust::addParameter( int widgetType,
                                int parameterId,
                                const std::string& faustStringId )
 {
+   std::vector<WidgetAccess>* widgets;
+
+   if ( widgetType == ProtoFaustWidget::LED_RGB ) {
+      widgets = &passiveWidgets;
+   } else {
+      widgets = &activeWidgets;
+   }
+
    // prepare controller zone 'set' and 'get' functions
    FAUSTFLOAT* zone = FaustUI.getParamZone( faustStringId );
 
@@ -291,33 +274,29 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
          break;
    }
 
-   widgets.push_back( WidgetAccess ( widgetType,
-                                     parameterId,
-                                     setFun,
-                                     getFun ) );
+   widgets->push_back( WidgetAccess ( widgetType,
+                                      parameterId,
+                                      setFun,
+                                      getFun ) );
 }
 
 
-void ProtoFaust::addParameterLed( std::vector<WidgetAccess>& widgets,
-                                  int widgetType,
+void ProtoFaust::addParameterLed( int widgetType,
                                   int parameterId,
                                   const std::string& faustStringId )
 {
    // add a parameter for each virtual LED pin
    // (red, green and blue)
 
-   addParameter( widgets,
-                 widgetType,
+   addParameter( widgetType,
                  parameterId,
                  faustStringId + "_Red" );
 
-   addParameter( widgets,
-                 widgetType,
+   addParameter( widgetType,
                  parameterId + 1,
                  faustStringId + "_Green" );
 
-   addParameter( widgets,
-                 widgetType,
+   addParameter( widgetType,
                  parameterId + 2,
                  faustStringId + "_Blue" );
 
@@ -329,10 +308,12 @@ void ProtoFaust::updateParameterIn( WidgetAccess& widget )
    widget.faustSet( params[widget.parameterId].getValue() );
 }
 
+
 void ProtoFaust::updateParameterOut( WidgetAccess& widget )
 {
    lights[widget.parameterId].setBrightness( widget.faustGet() );
 }
+
 
 Model* modelProtoFaust = createModel<ProtoFaust, ProtoFaustWidget>(
                             "ProtoFaust" );

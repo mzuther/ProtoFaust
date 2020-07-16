@@ -135,13 +135,11 @@ private:
    std::vector<WidgetAccess> activeWidgets;
    std::vector<WidgetAccess> passiveWidgets;
 
-   void addParameter( std::vector<WidgetAccess>& widgets,
-                      int widgetType,
+   void addParameter( int widgetType,
                       int parameterId,
                       const std::string& faustStringId );
 
-   void addParameterLed( std::vector<WidgetAccess>& widgets,
-                         int widgetType,
+   void addParameterLed( int widgetType,
                          int parameterId,
                          const std::string& faustStringId );
 
