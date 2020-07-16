@@ -34,6 +34,8 @@ ProtoFaust::ProtoFaust()
            NUM_OUTPUTS,
            NUM_LED_PINS );
 
+   FaustDSP.buildUserInterface( &FaustUI );
+
    // sorry for the following cruft -- I'd give my right arm for
    // LISP-like macros in C++ ...
 
@@ -167,17 +169,6 @@ ProtoFaust::ProtoFaust()
 
 void ProtoFaust::onAdd()
 {
-   FaustDSP.buildUserInterface( &FaustUI );
-
-   // store GUI IDs to save time during processing
-   for ( auto& widget : activeWidgets ) {
-      attachFaustParameter( widget );
-   }
-
-   for ( auto& widget : passiveWidgets ) {
-      attachFaustParameter( widget );
-   }
-
    // initialize Faust using default sample rate; see
    // ProtoFaust::process()
    FaustDSP.init( 44100 );
@@ -196,8 +187,10 @@ void ProtoFaust::process( const ProcessArgs& args )
       FaustDSP.init( args.sampleRate );
    }
 
-   std::vector<FAUSTFLOAT> temporaryInputs( numberOfChannels );
-   std::vector<FAUSTFLOAT> temporaryOutputs( numberOfChannels );
+   FAUSTFLOAT* temporaryInputs = ( FAUSTFLOAT* ) alloca( numberOfChannels *
+                                                         sizeof( FAUSTFLOAT ) );
+   FAUSTFLOAT* temporaryOutputs = ( FAUSTFLOAT* ) alloca( numberOfChannels *
+                                                          sizeof( FAUSTFLOAT ) );
 
    // read from module's inputs; scale voltages from Rack to usual
    // range in DSP processing (-1.0 to +1.0) so you don't have to
@@ -212,7 +205,7 @@ void ProtoFaust::process( const ProcessArgs& args )
 
    // get widget values and update Faust parameters
    for ( auto& widget : activeWidgets ) {
-      updateParameter( widget );
+      updateParameterIn( widget );
    }
 
    // update Faust controls
@@ -221,8 +214,8 @@ void ProtoFaust::process( const ProcessArgs& args )
    FaustDSP.control( int_control, real_control );
 
    // process one sample in Faust
-   FaustDSP.compute( temporaryInputs.data(),
-                     temporaryOutputs.data(),
+   FaustDSP.compute( temporaryInputs,
+                     temporaryOutputs,
                      int_control,
                      real_control );
 
@@ -235,7 +228,7 @@ void ProtoFaust::process( const ProcessArgs& args )
 
    // get widget values and update Faust parameters
    for ( auto& widget : passiveWidgets ) {
-      updateParameter( widget );
+      updateParameterOut( widget );
    }
 }
 
@@ -245,9 +238,16 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                                int parameterId,
                                const std::string& faustStringId )
 {
-   widgets.push_back( WidgetAccess ( widgetType,
-                                     parameterId,
-                                     faustStringId ) );
+   // prepare controller zone 'set' and 'get' functions
+   FAUSTFLOAT* zone = FaustUI.getParamZone( faustStringId );
+
+   WidgetAccess::setFunction setFun = [ = ]( FAUSTFLOAT value ) {
+      *zone = value;
+   };
+
+   WidgetAccess::getFunction getFun = [ = ]() {
+      return *zone;
+   };
 
    switch ( widgetType ) {
       case ProtoFaustWidget::TOGGLE_SWITCH:
@@ -271,6 +271,11 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                       2.0f,
                       0.0f,
                       "" );
+
+         // special 'set' version
+         setFun = [ = ]( FAUSTFLOAT value ) {
+            *zone = value / FAUSTFLOAT( 2.0 );
+         };
          break;
 
       case ProtoFaustWidget::KNOB_WHITE:
@@ -285,6 +290,11 @@ void ProtoFaust::addParameter( std::vector<WidgetAccess>& widgets,
                       "" );
          break;
    }
+
+   widgets.push_back( WidgetAccess ( widgetType,
+                                     parameterId,
+                                     setFun,
+                                     getFun ) );
 }
 
 
@@ -314,48 +324,15 @@ void ProtoFaust::addParameterLed( std::vector<WidgetAccess>& widgets,
 }
 
 
-void ProtoFaust::updateParameter( WidgetAccess& widget )
+void ProtoFaust::updateParameterIn( WidgetAccess& widget )
 {
-   switch ( widget.widgetType ) {
-      case ProtoFaustWidget::TOGGLE_SWITCH:
-      case ProtoFaustWidget::PUSH_BUTTON:
-      case ProtoFaustWidget::KNOB_WHITE:
-      case ProtoFaustWidget::KNOB_RED:
-
-      {
-         FAUSTFLOAT value = params[widget.parameterId].getValue();
-         FaustUI.setParamValue( widget.faustId, value );
-
-         break;
-      }
-
-      case ProtoFaustWidget::THREE_WAY_SWITCH: {
-         FAUSTFLOAT value = params[widget.parameterId].getValue();
-
-         // three-way switches only work with integer-like values,
-         // so scale range from (0 .. 2) to (0 .. 1)
-         value /= 2.0f;
-         FaustUI.setParamValue( widget.faustId, value );
-
-         break;
-      }
-
-      case ProtoFaustWidget::LED_RGB:
-
-         lights[widget.parameterId].setBrightness(
-            FaustUI.getParamValue( widget.faustId ) );
-
-         break;
-   }
+   widget.faustSet( params[widget.parameterId].getValue() );
 }
 
-
-void ProtoFaust::attachFaustParameter( WidgetAccess& widget )
+void ProtoFaust::updateParameterOut( WidgetAccess& widget )
 {
-   widget.faustId = FaustUI.getParamIndex(
-                       widget.faustStringId.c_str() );
+   lights[widget.parameterId].setBrightness( widget.faustGet() );
 }
-
 
 Model* modelProtoFaust = createModel<ProtoFaust, ProtoFaustWidget>(
                             "ProtoFaust" );

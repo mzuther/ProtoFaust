@@ -124,7 +124,7 @@ public:
    const FAUSTFLOAT voltageScaling = 5.0f;
 
    faust::FaustDSP FaustDSP;
-   faust::VCVRACKUI FaustUI;
+   faust::MapUI FaustUI;
 
    ProtoFaust();
 
@@ -145,8 +145,8 @@ private:
                          int parameterId,
                          const std::string& faustStringId );
 
-   void attachFaustParameter( WidgetAccess& widget );
-   void updateParameter( WidgetAccess& widget );
+   void updateParameterIn( WidgetAccess& widget );
+   void updateParameterOut( WidgetAccess& widget );
 };
 
 #endif // PROTO_FAUST_HPP

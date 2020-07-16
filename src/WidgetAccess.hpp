@@ -27,24 +27,29 @@
 #ifndef WIDGET_ACCESS_HPP
 #define WIDGET_ACCESS_HPP
 
+#include <algorithm>
+#include <functional>
+
 
 struct WidgetAccess {
-public:
+   typedef std::function<void( FAUSTFLOAT )> setFunction;
+   typedef std::function<FAUSTFLOAT()> getFunction;
+
    int widgetType;
    int parameterId;
-   int faustId;
-   std::string faustStringId;
+
+   setFunction faustSet;
+   getFunction faustGet;
 
    WidgetAccess( int widget_type,
                  int parameter_id,
-                 const std::string& faust_string_id ) :
+                 setFunction set,
+                 getFunction get ) :
       widgetType( widget_type ),
       parameterId( parameter_id ),
-      faustStringId( faust_string_id )
-   {
-      // set in ProtoFaust::attachFaustParameter()
-      faustId = -1;
-   };
+      faustSet( set ),
+      faustGet( get )
+   {};
 };
 
 #endif // WIDGET_ACCESS_HPP

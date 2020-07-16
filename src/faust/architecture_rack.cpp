@@ -34,7 +34,7 @@
 
 #include <cstring>
 
-#include "faust/gui/APIUI.h"
+#include "faust/gui/MapUI.h"
 #include "faust/gui/meta.h"
 #include "faust/dsp/one-sample-dsp.h"
 
@@ -60,30 +60,8 @@
 
 /*******************BEGIN ARCHITECTURE SECTION (part 2/2)***************/
 
-// *INDENT-ON* --> give astyle free reign ...
-
-      class VCVRACKUI : public APIUI
-{
-public:
-   VCVRACKUI() : APIUI() {}
-   virtual ~VCVRACKUI() {}
-
-   virtual void declare( FAUSTFLOAT* zone, const char* key, const char* val ) override
-   {
-      APIUI::declare( zone, key, val );
-   }
-
-
-   virtual void addParameter( const char* label,
-                              FAUSTFLOAT* zone,
-                              FAUSTFLOAT init,
-                              FAUSTFLOAT min,
-                              FAUSTFLOAT max,
-                              FAUSTFLOAT step,
-                              ItemType type ) override
-   {
-      APIUI::addParameter( label, zone, init, min, max, step, type );
-   }
-};
+// EMPTY !!!
 
 /********************END ARCHITECTURE SECTION (part 2/2)****************/
+
+// *INDENT-ON* --> give astyle free reign ...
