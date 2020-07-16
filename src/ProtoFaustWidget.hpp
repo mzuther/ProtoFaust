@@ -142,14 +142,13 @@ private:
                    float x,
                    float y );
 
-   void addWidgetAndParameter( ProtoFaust* module,
-                               int widgetType,
+   void addWidgetAndParameter( int widgetType,
                                int parameterId,
                                const std::string& faustStringId,
                                float x,
                                float y );
 
-   engine::Module* _module = nullptr;
+   ProtoFaust* _module = nullptr;
 };
 
 #endif // PROTO_FAUST_WIDGET_HPP

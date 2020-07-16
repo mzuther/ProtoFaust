@@ -63,29 +63,25 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
 
    // ------ switches ------
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::THREE_WAY_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
                           ProtoFaustWidget::BUTTON_1_PARAM,
                           "/ProtoFaust/Buttons/1",
                           31.75,
                           21.82 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::THREE_WAY_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
                           ProtoFaustWidget::BUTTON_2_PARAM,
                           "/ProtoFaust/Buttons/2",
                           31.75,
                           34.52 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::TOGGLE_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::TOGGLE_SWITCH,
                           ProtoFaustWidget::BUTTON_3_PARAM,
                           "/ProtoFaust/Buttons/3",
                           31.75,
                           49.76 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::TOGGLE_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::TOGGLE_SWITCH,
                           ProtoFaustWidget::BUTTON_4_PARAM,
                           "/ProtoFaust/Buttons/4",
                           31.75,
@@ -93,29 +89,25 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
 
    // ------ buttons ------
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
                           ProtoFaustWidget::BUTTON_5_PARAM,
                           "/ProtoFaust/Buttons/5",
                           31.75,
                           77.7 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
                           ProtoFaustWidget::BUTTON_6_PARAM,
                           "/ProtoFaust/Buttons/6",
                           31.75,
                           90.4 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
                           ProtoFaustWidget::BUTTON_7_PARAM,
                           "/ProtoFaust/Buttons/7",
                           31.75,
                           105.64 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
                           ProtoFaustWidget::BUTTON_8_PARAM,
                           "/ProtoFaust/Buttons/8",
                           31.75,
@@ -123,57 +115,49 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
 
    // ------ knobs ------
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
                           ProtoFaustWidget::KNOB_1_PARAM,
                           "/ProtoFaust/Knobs/1",
                           53.34,
                           28.17 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
                           ProtoFaustWidget::KNOB_2_PARAM,
                           "/ProtoFaust/Knobs/2",
                           78.74,
                           28.17 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
                           ProtoFaustWidget::KNOB_3_PARAM,
                           "/ProtoFaust/Knobs/3",
                           53.34,
                           56.11 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
                           ProtoFaustWidget::KNOB_4_PARAM,
                           "/ProtoFaust/Knobs/4",
                           78.74,
                           56.11 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
                           ProtoFaustWidget::KNOB_5_PARAM,
                           "/ProtoFaust/Knobs/5",
                           53.34,
                           84.05 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
                           ProtoFaustWidget::KNOB_6_PARAM,
                           "/ProtoFaust/Knobs/6",
                           78.74,
                           84.05 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
                           ProtoFaustWidget::KNOB_7_PARAM,
                           "/ProtoFaust/Knobs/7",
                           53.34,
                           111.99 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
                           ProtoFaustWidget::KNOB_8_PARAM,
                           "/ProtoFaust/Knobs/8",
                           78.74,
@@ -265,57 +249,49 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
 
    // ------ RGB LEDs ------
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_1,
                           "/ProtoFaust/Lights/1",
                           99.06,
                           21.82 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_2,
                           "/ProtoFaust/Lights/2",
                           99.06,
                           34.52 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_3,
                           "/ProtoFaust/Lights/3",
                           99.06,
                           49.76 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_4,
                           "/ProtoFaust/Lights/4",
                           99.06,
                           62.46 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_5,
                           "/ProtoFaust/Lights/5",
                           99.06,
                           77.7 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_6,
                           "/ProtoFaust/Lights/6",
                           99.06,
                           90.4 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_7,
                           "/ProtoFaust/Lights/7",
                           99.06,
                           105.64 );
 
-   addWidgetAndParameter( module,
-                          ProtoFaustWidget::LED_RGB,
+   addWidgetAndParameter( ProtoFaustWidget::LED_RGB,
                           ProtoFaustWidget::LED_8,
                           "/ProtoFaust/Lights/8",
                           99.06,
@@ -389,17 +365,16 @@ void ProtoFaustWidget::addWidget( int widgetType,
 }
 
 
-void ProtoFaustWidget::addWidgetAndParameter( ProtoFaust* module,
-                                              int widgetType,
+void ProtoFaustWidget::addWidgetAndParameter( int widgetType,
                                               int parameterId,
                                               const std::string& faustStringId,
                                               float x,
                                               float y )
 {
    if ( widgetType == ProtoFaustWidget::LED_RGB ) {
-      module->addParameterLed( widgetType, parameterId, faustStringId );
+      _module->addParameterLed( widgetType, parameterId, faustStringId );
    } else {
-      module->addParameter( widgetType, parameterId, faustStringId );
+      _module->addParameter( widgetType, parameterId, faustStringId );
    }
 
    addWidget( widgetType, parameterId, x, y );
