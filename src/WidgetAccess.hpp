@@ -43,8 +43,8 @@ struct WidgetAccess {
 
    WidgetAccess( int widget_type,
                  int parameter_id,
-                 setFunction set,
-                 getFunction get ) :
+                 setFunction& set,
+                 getFunction& get ) :
       widgetType( widget_type ),
       parameterId( parameter_id ),
       faustSet( set ),

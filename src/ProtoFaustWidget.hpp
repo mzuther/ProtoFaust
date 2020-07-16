@@ -137,8 +137,8 @@ public:
    explicit ProtoFaustWidget( ProtoFaust* module );
 
 private:
-   void addWidget( int parameterId,
-                   int widgetType,
+   void addWidget( int widgetType,
+                   int parameterId,
                    float x,
                    float y );
 

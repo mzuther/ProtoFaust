@@ -58,8 +58,11 @@ void ProtoFaust::process( const ProcessArgs& args )
       FaustDSP.init( args.sampleRate );
    }
 
+   // cppcheck-suppress allocaCalled ; Stéphane knows what he is doing ...
    FAUSTFLOAT* temporaryInputs = ( FAUSTFLOAT* ) alloca( numberOfChannels *
                                                          sizeof( FAUSTFLOAT ) );
+
+   // cppcheck-suppress allocaCalled
    FAUSTFLOAT* temporaryOutputs = ( FAUSTFLOAT* ) alloca( numberOfChannels *
                                                           sizeof( FAUSTFLOAT ) );
 
