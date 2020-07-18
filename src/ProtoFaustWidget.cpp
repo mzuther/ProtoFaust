@@ -27,8 +27,6 @@
 #include "Amalgamated.hpp"
 
 
-// "repetitive" takes on a whole new meaning in this file ...
-
 ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    _module( currentModule )
 {

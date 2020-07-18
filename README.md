@@ -12,13 +12,20 @@ simple to modify them for use on Windows or MacOS:
 
 1. clone this repository: `git clone
    https://github.com/mzuther/ProtoFaust.git`
-1. [download and install][SDK Rack] the latest VCV Rack SDK – the
-   Makefile defaults to `../Rack-SDK` but respects the `RACK_DIR`
-   shell variable
-1. install Faust (I recommend using a [recent version][Faust
-   compiler])
-1. `make run` will compile and install your module; Rack is run if it
-   is found in your path
+
+1. [download and install][SDK Rack] VCV Rack SDK **1.1.6** or a
+   compatible version
+
+   - the Makefile defaults to `../Rack-SDK` but respects the
+     `RACK_DIR` shell variable
+
+1. install Faust version **2.27.1** or later
+
+   - I recommend using a [recent version][Faust compiler] of Faust
+
+1. `make run` will compile and install your module
+
+   - this will also run Rack if it is found in your path
 
 
 ## Prototype your own DSP
@@ -53,7 +60,7 @@ Or in stereo:
                          si.bus(8);
 ```
 
-Just make sure that you add `gui_attacher` somewhere -- this will
+Just make sure that you add `gui_attacher` somewhere – this will
 attach the GUI parameters and simply copy any mono input signal to its
 output.  If you fail to do so, the ` ProtoFaust` module will not find
 any of the knobs, buttons and LEDs (they will be thought as
@@ -86,8 +93,8 @@ bug reports, fixes and any ideas that come to your mind.  Thanks!
 
 - [Martin Zuther][]: maintainer; code and GUI design
 
-- [Stéphane Letz](https://github.com/sletz): improved readability of
-  Faust code (`src/faust/rack.dsp`)
+- [Stéphane Letz](https://github.com/sletz): optimization, improved
+  readability of Faust code (`src/faust/rack.dsp`)
 
 
 ## Code of conduct
