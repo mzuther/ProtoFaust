@@ -27,11 +27,14 @@
 #include "Amalgamated.hpp"
 
 
-// "repetitive" takes on a whole new meaning in this file ...
-
 ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    _module( currentModule )
 {
+   _parameterId = -1;
+   _inputId = -1;
+   _outputId = -1;
+   _lightId = -1;
+
    setModule( _module );
    setPanel( APP->window->loadSvg(
                 asset::plugin( pluginInstance, "res/ProtoFaust.svg" ) ) );
@@ -56,189 +59,203 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ screws ------
 
-   addWidget( faust::VCVRACKUI::SCREW,
-              ProtoFaustWidget::GENERIC_SCREW,
-              RACK_GRID_WIDTH,
-              0 );
+   addScrew( RACK_GRID_WIDTH,
+             0 );
 
-   addWidget( faust::VCVRACKUI::SCREW,
-              ProtoFaustWidget::GENERIC_SCREW,
-              box.size.x - 2 * RACK_GRID_WIDTH,
-              0 );
+   addScrew( box.size.x - 2 * RACK_GRID_WIDTH,
+             0 );
 
-   addWidget( faust::VCVRACKUI::SCREW,
-              ProtoFaustWidget::GENERIC_SCREW,
-              RACK_GRID_WIDTH,
-              RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
+   addScrew( RACK_GRID_WIDTH,
+             RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
-   addWidget( faust::VCVRACKUI::SCREW,
-              ProtoFaustWidget::GENERIC_SCREW,
-              box.size.x - 2 * RACK_GRID_WIDTH,
-              RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
-
-   // ------ switches ------
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_1_PARAM,
-                          "/ProtoFaust/Buttons/1" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_2_PARAM,
-                          "/ProtoFaust/Buttons/2" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_3_PARAM,
-                          "/ProtoFaust/Buttons/3" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_4_PARAM,
-                          "/ProtoFaust/Buttons/4" );
-
-   // ------ buttons ------
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_5_PARAM,
-                          "/ProtoFaust/Buttons/5" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_6_PARAM,
-                          "/ProtoFaust/Buttons/6" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_7_PARAM,
-                          "/ProtoFaust/Buttons/7" );
-
-   addWidgetAndParameter( ProtoFaustWidget::BUTTON_8_PARAM,
-                          "/ProtoFaust/Buttons/8" );
-
-   // ------ knobs ------
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_1_PARAM,
-                          "/ProtoFaust/Knobs/1" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_2_PARAM,
-                          "/ProtoFaust/Knobs/2" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_3_PARAM,
-                          "/ProtoFaust/Knobs/3" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_4_PARAM,
-                          "/ProtoFaust/Knobs/4" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_5_PARAM,
-                          "/ProtoFaust/Knobs/5" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_6_PARAM,
-                          "/ProtoFaust/Knobs/6" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_7_PARAM,
-                          "/ProtoFaust/Knobs/7" );
-
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_8_PARAM,
-                          "/ProtoFaust/Knobs/8" );
+   addScrew( box.size.x - 2 * RACK_GRID_WIDTH,
+             RACK_GRID_HEIGHT - RACK_GRID_WIDTH );
 
    // ------ input ports ------
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_1_INPUT,
-              17.78,
-              21.82 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            21.82 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_2_INPUT,
-              17.78,
-              34.52 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            34.52 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_3_INPUT,
-              17.78,
-              49.76 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            49.76 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_4_INPUT,
-              17.78,
-              62.46 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            62.46 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_5_INPUT,
-              17.78,
-              77.7 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            77.7 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_6_INPUT,
-              17.78,
-              90.4 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            90.4 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_7_INPUT,
-              17.78,
-              105.64 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            105.64 );
 
-   addWidget( faust::VCVRACKUI::PORT_INPUT,
-              ProtoFaustWidget::IN_8_INPUT,
-              17.78,
-              118.34 );
+   addPort( faust::VCVRACKUI::PORT_INPUT,
+            _inputId,
+            17.78,
+            118.34 );
 
    // ------ output ports ------
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_1_OUTPUT,
-              114.3,
-              21.82 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            21.82 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_2_OUTPUT,
-              114.3,
-              34.52 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            34.52 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_3_OUTPUT,
-              114.3,
-              49.76 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            49.76 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_4_OUTPUT,
-              114.3,
-              62.46 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            62.46 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_5_OUTPUT,
-              114.3,
-              77.7 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            77.7 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_6_OUTPUT,
-              114.3,
-              90.4 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            90.4 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_7_OUTPUT,
-              114.3,
-              105.64 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            105.64 );
 
-   addWidget( faust::VCVRACKUI::PORT_OUTPUT,
-              ProtoFaustWidget::OUT_8_OUTPUT,
-              114.3,
-              118.34 );
+   addPort( faust::VCVRACKUI::PORT_OUTPUT,
+            _outputId,
+            114.3,
+            118.34 );
+
+   // ------ switches ------
+
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/1" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/2" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/3" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/4" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/5" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/6" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/7" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Buttons/8" );
+
+   // ------ knobs ------
+
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/1" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/2" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/3" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/4" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/5" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/6" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/7" );
+   addWidgetAndParameter( _parameterId, "/ProtoFaust/Knobs/8" );
 
    // ------ RGB LEDs ------
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_1,
-                          "/ProtoFaust/Lights/1_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/1_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/1_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/1_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_2,
-                          "/ProtoFaust/Lights/2_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/2_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/2_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/2_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_3,
-                          "/ProtoFaust/Lights/3_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/3_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/3_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/3_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_4,
-                          "/ProtoFaust/Lights/4_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/4_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/4_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/4_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_5,
-                          "/ProtoFaust/Lights/5_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/5_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/5_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/5_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_6,
-                          "/ProtoFaust/Lights/6_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/6_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/6_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/6_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_7,
-                          "/ProtoFaust/Lights/7_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/7_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/7_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/7_Blue" );
 
-   addWidgetAndParameter( ProtoFaustWidget::LED_8,
-                          "/ProtoFaust/Lights/8_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/8_Red" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/8_Green" );
+   addWidgetAndParameter( _lightId, "/ProtoFaust/Lights/8_Blue" );
+}
+
+
+void ProtoFaustWidget::addWidgetAndParameter( int& parameterId,
+                                              const std::string& faustStringId )
+{
+   auto zone = currentUI->getParamZone( faustStringId );
+   auto widgetType = currentUI->getWidgetType( zone );
+
+   // create a new parameter ID
+   ++parameterId;
+
+   if ( _module ) {
+      _module->addParameter( widgetType, parameterId, zone );
+   }
+
+   // add light widget only once
+   if ( ( widgetType != faust::VCVRACKUI::LED_RGB ) ||
+        ( faustStringId.rfind( "_Red" ) != std::string::npos ) ) {
+      auto x = currentUI->getPositionX( zone );
+      auto y = currentUI->getPositionY( zone );
+
+      addWidget( widgetType, parameterId, x, y );
+   }
+}
+
+
+void ProtoFaustWidget::addPort( int widgetType,
+                                int& parameterId,
+                                float x,
+                                float y )
+{
+   // create a new parameter ID
+   ++parameterId;
+
+   addWidget( widgetType, parameterId, x, y );
+}
+
+
+void ProtoFaustWidget::addScrew( float x,
+                                 float y )
+{
+   addWidget( faust::VCVRACKUI::SCREW,
+              -1,
+              x,
+              y );
 }
 
 
@@ -329,41 +346,4 @@ void ProtoFaustWidget::addWidget( int widgetType,
                       pos ) );
          break;
    }
-}
-
-
-void ProtoFaustWidget::addWidgetAndParameter( int parameterId,
-                                              const std::string& faustStringId )
-{
-   auto zone = currentUI->getParamZone( faustStringId );
-   auto widgetType = currentUI->getWidgetType( zone );
-
-   if ( _module ) {
-      _module->addParameter( widgetType, parameterId, zone );
-   }
-
-   // zone might be changed below, so get values here
-   auto x = currentUI->getPositionX( zone );
-   auto y = currentUI->getPositionY( zone );
-
-   if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
-      auto index = faustStringId.rfind( "_Red" );
-      auto faustStringIdBase = faustStringId.substr( 0, index );
-
-      zone = currentUI->getParamZone( faustStringIdBase + "_Green" );
-      widgetType = currentUI->getWidgetType( zone );
-
-      if ( _module ) {
-         _module->addParameter( widgetType, parameterId + 1, zone );
-      }
-
-      zone = currentUI->getParamZone( faustStringIdBase + "_Blue" );
-      widgetType = currentUI->getWidgetType( zone );
-
-      if ( _module ) {
-         _module->addParameter( widgetType, parameterId + 2, zone );
-      }
-   }
-
-   addWidget( widgetType, parameterId, x, y );
 }

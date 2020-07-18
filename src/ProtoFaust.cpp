@@ -29,10 +29,15 @@
 
 ProtoFaust::ProtoFaust()
 {
-   config( ProtoFaustWidget::NUM_PARAMS,
-           ProtoFaustWidget::NUM_INPUTS,
-           ProtoFaustWidget::NUM_OUTPUTS,
-           ProtoFaustWidget::NUM_LED_PINS );
+   int numberOfParameters = numberOfChannels * 2;
+   int numberOfInputs = numberOfChannels;
+   int numberOfOutputs = numberOfChannels;
+   int numberOfLights = numberOfChannels * 3;
+
+   config( numberOfParameters,
+           numberOfInputs,
+           numberOfOutputs,
+           numberOfLights );
 
    FaustDSP.buildUserInterface( &FaustUI );
 }
@@ -70,7 +75,7 @@ void ProtoFaust::process( const ProcessArgs& args )
    // range in DSP processing (-1.0 to +1.0) so you don't have to
    // adjust algorithms when porting them to VCV Rack
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
-      FAUSTFLOAT input = inputs[ProtoFaustWidget::IN_1_INPUT + channel].getVoltage();
+      FAUSTFLOAT input = inputs[channel].getVoltage();
       temporaryInputs[channel] = input / voltageScaling;
 
       // protect your ears in case of misbehaviour
@@ -97,7 +102,7 @@ void ProtoFaust::process( const ProcessArgs& args )
    // back to Rack voltages (-5.0 to +5.0)
    for ( auto channel = 0; channel < numberOfChannels; channel++ ) {
       FAUSTFLOAT output = temporaryOutputs[channel];
-      outputs[ProtoFaustWidget::OUT_1_OUTPUT + channel].setVoltage( output * voltageScaling );
+      outputs[channel].setVoltage( output * voltageScaling );
    }
 
    // get widget values and update Faust parameters

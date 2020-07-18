@@ -32,112 +32,35 @@
 
 struct ProtoFaustWidget : ModuleWidget {
 public:
-   enum ParamIds {
-      BUTTON_1_PARAM,
-      BUTTON_2_PARAM,
-      BUTTON_3_PARAM,
-      BUTTON_4_PARAM,
-      BUTTON_5_PARAM,
-      BUTTON_6_PARAM,
-      BUTTON_7_PARAM,
-      BUTTON_8_PARAM,
-
-      KNOB_1_PARAM,
-      KNOB_2_PARAM,
-      KNOB_3_PARAM,
-      KNOB_4_PARAM,
-      KNOB_5_PARAM,
-      KNOB_6_PARAM,
-      KNOB_7_PARAM,
-      KNOB_8_PARAM,
-
-      NUM_PARAMS
-   };
-
-   enum InputIds {
-      IN_1_INPUT,
-      IN_2_INPUT,
-      IN_3_INPUT,
-      IN_4_INPUT,
-      IN_5_INPUT,
-      IN_6_INPUT,
-      IN_7_INPUT,
-      IN_8_INPUT,
-
-      NUM_INPUTS
-   };
-
-   enum OutputIds {
-      OUT_1_OUTPUT,
-      OUT_2_OUTPUT,
-      OUT_3_OUTPUT,
-      OUT_4_OUTPUT,
-      OUT_5_OUTPUT,
-      OUT_6_OUTPUT,
-      OUT_7_OUTPUT,
-      OUT_8_OUTPUT,
-
-      NUM_OUTPUTS
-   };
-
-   enum LedIds {
-      LED_1,
-      LED_1_GREEN_INTERNAL_USE_ONLY,
-      LED_1_BLUE_INTERNAL_USE_ONLY,
-
-      LED_2,
-      LED_2_GREEN_INTERNAL_USE_ONLY,
-      LED_2_BLUE_INTERNAL_USE_ONLY,
-
-      LED_3,
-      LED_3_GREEN_INTERNAL_USE_ONLY,
-      LED_3_BLUE_INTERNAL_USE_ONLY,
-
-      LED_4,
-      LED_4_GREEN_INTERNAL_USE_ONLY,
-      LED_4_BLUE_INTERNAL_USE_ONLY,
-
-      LED_5,
-      LED_5_GREEN_INTERNAL_USE_ONLY,
-      LED_5_BLUE_INTERNAL_USE_ONLY,
-
-      LED_6,
-      LED_6_GREEN_INTERNAL_USE_ONLY,
-      LED_6_BLUE_INTERNAL_USE_ONLY,
-
-      LED_7,
-      LED_7_GREEN_INTERNAL_USE_ONLY,
-      LED_7_BLUE_INTERNAL_USE_ONLY,
-
-      LED_8,
-      LED_8_GREEN_INTERNAL_USE_ONLY,
-      LED_8_BLUE_INTERNAL_USE_ONLY,
-
-      NUM_LED_PINS
-   };
-
-   enum GenericIds {
-      GENERIC_SCREW,
-
-      NUM_GENERIC_IDS
-   };
-
    explicit ProtoFaustWidget( ProtoFaust* currentModule );
 
 protected:
+   void addWidgetAndParameter( int& parameterId,
+                               const std::string& faustStringId );
+
+   void addPort( int widgetType,
+                 int& parameterId,
+                 float x,
+                 float y );
+
+   void addScrew( float x,
+                  float y );
+
    void addWidget( int widgetType,
                    int parameterId,
                    float x,
                    float y );
-
-   void addWidgetAndParameter( int parameterId,
-                               const std::string& faustStringId );
 
    ProtoFaust* _module = nullptr;
 
    std::unique_ptr<faust::FaustDSP> dummyFaustDSP;
    std::unique_ptr<faust::VCVRACKUI> dummyFaustUI;
    faust::VCVRACKUI* currentUI;
+
+   int _parameterId;
+   int _inputId;
+   int _outputId;
+   int _lightId;
 };
 
 #endif // PROTO_FAUST_WIDGET_HPP
