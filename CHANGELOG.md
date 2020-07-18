@@ -7,6 +7,13 @@ file. This change log follows the conventions of
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+
+
+
+## [1.0.5] - 2020-07-18
+### Added
 
 - add custom UI handler
 
@@ -100,3 +107,4 @@ file. This change log follows the conventions of
 [1.0.2]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.2
 [1.0.3]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.3
 [1.0.4]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.4
+[1.0.5]:  https://github.com/mzuther/ProtoFaust/commits/v1.0.5
