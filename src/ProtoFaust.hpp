@@ -27,6 +27,9 @@
 #ifndef PROTO_FAUST_HPP
 #define PROTO_FAUST_HPP
 
+#include <vector>
+#include <string>
+
 
 struct ProtoFaust : Module {
 public:
@@ -34,7 +37,7 @@ public:
    const FAUSTFLOAT voltageScaling = 5.0f;
 
    faust::FaustDSP FaustDSP;
-   faust::MapUI FaustUI;
+   faust::VCVRACKUI FaustUI;
 
    ProtoFaust();
 

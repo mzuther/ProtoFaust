@@ -8,6 +8,8 @@ file. This change log follows the conventions of
 ## [Unreleased]
 ### Added
 
+- add custom UI handler
+
 - add linter script and fix warnings
 
 ### Changed

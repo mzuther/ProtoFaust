@@ -60,8 +60,18 @@
 
 /*******************BEGIN ARCHITECTURE SECTION (part 2/2)***************/
 
-// EMPTY !!!
+// *INDENT-ON* --> give astyle free reign ...
+
+      class VCVRACKUI : public MapUI
+{
+public:
+   VCVRACKUI() : MapUI() {}
+   virtual ~VCVRACKUI() {}
+
+   virtual void declare( FAUSTFLOAT* zone, const char* key, const char* val ) override
+   {
+      MapUI::declare( zone, key, val );
+   }
+};
 
 /********************END ARCHITECTURE SECTION (part 2/2)****************/
-
-// *INDENT-ON* --> give astyle free reign ...

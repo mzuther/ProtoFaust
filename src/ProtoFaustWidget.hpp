@@ -27,6 +27,8 @@
 #ifndef PROTO_FAUST_WIDGET_HPP
 #define PROTO_FAUST_WIDGET_HPP
 
+#include <string>
+
 
 struct ProtoFaustWidget : ModuleWidget {
 public:
