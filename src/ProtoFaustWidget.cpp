@@ -41,13 +41,13 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    if ( _module ) {
       currentUI = &_module->FaustUI;
    } else {
-      dummyFaustDSP = std::unique_ptr<faust::FaustDSP>(
-                         new faust::FaustDSP() );
+      dummyFaustControls = std::unique_ptr<faust::FaustControls>(
+                              new faust::FaustControls() );
 
       dummyFaustUI = std::unique_ptr<faust::VCVRACKUI>(
                         new faust::VCVRACKUI() );
 
-      dummyFaustDSP->buildUserInterface( dummyFaustUI.get() );
+      dummyFaustControls->buildUserInterface( dummyFaustUI.get() );
       currentUI = dummyFaustUI.get();
    }
 

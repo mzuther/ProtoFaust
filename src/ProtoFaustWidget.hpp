@@ -135,7 +135,7 @@ protected:
 
    ProtoFaust* _module = nullptr;
 
-   std::unique_ptr<faust::FaustDSP> dummyFaustDSP;
+   std::unique_ptr<faust::FaustControls> dummyFaustControls;
    std::unique_ptr<faust::VCVRACKUI> dummyFaustUI;
    faust::VCVRACKUI* currentUI;
 };

@@ -147,21 +147,14 @@ static float FaustDSP_faustpower2_f(float value) {
 #define FAUST_INT_CONTROLS 16
 #define FAUST_REAL_CONTROLS 24
 
-class FaustDSP : public one_sample_dsp {
+class FaustControls {
 	
- private:
+ public:
 	
-	int iVec0[2];
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
-	int fSampleRate;
-	float fConst0;
-	float fConst1;
 	FAUSTFLOAT fVslider2;
 	FAUSTFLOAT fVslider3;
-	float fRec3[2];
-	float fConst2;
-	float fRec5[2];
 	FAUSTFLOAT fVbargraph0;
 	FAUSTFLOAT fVbargraph1;
 	FAUSTFLOAT fVbargraph2;
@@ -198,35 +191,6 @@ class FaustDSP : public one_sample_dsp {
 	FAUSTFLOAT fVslider13;
 	FAUSTFLOAT fVslider14;
 	FAUSTFLOAT fVslider15;
-	float fRec1[2];
-	float fConst3;
-	float fRec6[2];
-	float fVec1[2];
-	int IOTA;
-	float fVec2[4096];
-	float fConst4;
-	float fConst5;
-	float fRec7[2];
-	float fRec10[2];
-	float fRec8[2];
-	float fRec11[2];
-	float fVec3[2];
-	float fVec4[4096];
-	float fRec12[2];
-	float fRec15[2];
-	float fRec13[2];
-	float fRec16[2];
-	float fVec5[2];
-	float fVec6[4096];
-	float fRec17[2];
-	float fConst6;
-	float fRec19[2];
-	float fRec20[2];
-	float fRec18[3];
-	float fVec7[2];
-	float fRec0[2];
-	
- public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
@@ -280,113 +244,12 @@ class FaustDSP : public one_sample_dsp {
 	virtual int getNumInputs() {
 		return 8;
 	}
-	virtual int getNumOutputs() {
+
+   virtual int getNumOutputs() {
 		return 8;
 	}
-	virtual int getInputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			case 2: {
-				rate = 1;
-				break;
-			}
-			case 3: {
-				rate = 1;
-				break;
-			}
-			case 4: {
-				rate = 1;
-				break;
-			}
-			case 5: {
-				rate = 1;
-				break;
-			}
-			case 6: {
-				rate = 1;
-				break;
-			}
-			case 7: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	virtual int getOutputRate(int channel) {
-		int rate;
-		switch ((channel)) {
-			case 0: {
-				rate = 1;
-				break;
-			}
-			case 1: {
-				rate = 1;
-				break;
-			}
-			case 2: {
-				rate = 1;
-				break;
-			}
-			case 3: {
-				rate = 1;
-				break;
-			}
-			case 4: {
-				rate = 1;
-				break;
-			}
-			case 5: {
-				rate = 1;
-				break;
-			}
-			case 6: {
-				rate = 1;
-				break;
-			}
-			case 7: {
-				rate = 1;
-				break;
-			}
-			default: {
-				rate = -1;
-				break;
-			}
-		}
-		return rate;
-	}
-	
-	static void classInit(int sample_rate) {
-		FaustDSPSIG0* sig0 = newFaustDSPSIG0();
-		sig0->instanceInitFaustDSPSIG0(sample_rate);
-		sig0->fillFaustDSPSIG0(65536, ftbl0FaustDSPSIG0);
-		deleteFaustDSPSIG0(sig0);
-	}
-	
-	virtual void instanceConstants(int sample_rate) {
-		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (1.0f / fConst0);
-		fConst2 = (0.5f / fConst0);
-		fConst3 = (0.25f * fConst0);
-		fConst4 = (0.5f * fConst0);
-		fConst5 = (1760.0f / fConst0);
-		fConst6 = (3.14159274f / fConst0);
-	}
-	
-	virtual void instanceResetUserInterface() {
+
+   virtual void instanceResetUserInterface() {
 		fVslider0 = FAUSTFLOAT(0.5f);
 		fVslider1 = FAUSTFLOAT(0.5f);
 		fVslider2 = FAUSTFLOAT(0.5f);
@@ -403,103 +266,6 @@ class FaustDSP : public one_sample_dsp {
 		fVslider13 = FAUSTFLOAT(0.5f);
 		fVslider14 = FAUSTFLOAT(0.5f);
 		fVslider15 = FAUSTFLOAT(0.5f);
-	}
-	
-	virtual void instanceClear() {
-		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			iVec0[l0] = 0;
-		}
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec3[l1] = 0.0f;
-		}
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec5[l3] = 0.0f;
-		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec1[l4] = 0.0f;
-		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec6[l5] = 0.0f;
-		}
-		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fVec1[l6] = 0.0f;
-		}
-		IOTA = 0;
-		for (int l7 = 0; (l7 < 4096); l7 = (l7 + 1)) {
-			fVec2[l7] = 0.0f;
-		}
-		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec7[l8] = 0.0f;
-		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec10[l9] = 0.0f;
-		}
-		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			fRec8[l10] = 0.0f;
-		}
-		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
-			fRec11[l11] = 0.0f;
-		}
-		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
-			fVec3[l12] = 0.0f;
-		}
-		for (int l13 = 0; (l13 < 4096); l13 = (l13 + 1)) {
-			fVec4[l13] = 0.0f;
-		}
-		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
-			fRec12[l14] = 0.0f;
-		}
-		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			fRec15[l15] = 0.0f;
-		}
-		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
-			fRec13[l16] = 0.0f;
-		}
-		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			fRec16[l17] = 0.0f;
-		}
-		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
-			fVec5[l18] = 0.0f;
-		}
-		for (int l19 = 0; (l19 < 4096); l19 = (l19 + 1)) {
-			fVec6[l19] = 0.0f;
-		}
-		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
-			fRec17[l20] = 0.0f;
-		}
-		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
-			fRec19[l21] = 0.0f;
-		}
-		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
-			fRec20[l22] = 0.0f;
-		}
-		for (int l23 = 0; (l23 < 3); l23 = (l23 + 1)) {
-			fRec18[l23] = 0.0f;
-		}
-		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
-			fVec7[l24] = 0.0f;
-		}
-		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
-			fRec0[l25] = 0.0f;
-		}
-	}
-	
-	virtual void init(int sample_rate) {
-		classInit(sample_rate);
-		instanceInit(sample_rate);
-	}
-	virtual void instanceInit(int sample_rate) {
-		instanceConstants(sample_rate);
-		instanceResetUserInterface();
-		instanceClear();
-	}
-	
-	virtual FaustDSP* clone() {
-		return new FaustDSP();
-	}
-	
-	virtual int getSampleRate() {
-		return fSampleRate;
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -683,46 +449,315 @@ class FaustDSP : public one_sample_dsp {
 		ui_interface->closeBox();
 		ui_interface->closeBox();
 	}
-	virtual void control(int* iControl, FAUSTFLOAT* fControl) {
-		fControl[0] = float(fVslider0);
+
+	virtual int getNumIntControls() { return 16; }
+
+   virtual int getNumRealControls() { return 24; }
+};
+
+class FaustDSP : public one_sample_dsp {
+	
+ private:
+   FaustControls controls;
+	
+	int iVec0[2];
+	int fSampleRate;
+	float fConst0;
+	float fConst1;
+	float fRec3[2];
+	float fConst2;
+	float fRec5[2];
+	float fRec1[2];
+	float fConst3;
+	float fRec6[2];
+	float fVec1[2];
+	int IOTA;
+	float fVec2[4096];
+	float fConst4;
+	float fConst5;
+	float fRec7[2];
+	float fRec10[2];
+	float fRec8[2];
+	float fRec11[2];
+	float fVec3[2];
+	float fVec4[4096];
+	float fRec12[2];
+	float fRec15[2];
+	float fRec13[2];
+	float fRec16[2];
+	float fVec5[2];
+	float fVec6[4096];
+	float fRec17[2];
+	float fConst6;
+	float fRec19[2];
+	float fRec20[2];
+	float fRec18[3];
+	float fVec7[2];
+	float fRec0[2];
+	
+ public:
+	
+	void metadata(Meta* m) {
+       controls.metadata(m);
+	}
+
+	virtual int getNumInputs() {
+		return controls.getNumInputs();
+	}
+
+   virtual int getNumOutputs() {
+		return controls.getNumOutputs();
+	}
+
+   virtual int getInputRate(int channel) {
+		int rate;
+		switch ((channel)) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			case 1: {
+				rate = 1;
+				break;
+			}
+			case 2: {
+				rate = 1;
+				break;
+			}
+			case 3: {
+				rate = 1;
+				break;
+			}
+			case 4: {
+				rate = 1;
+				break;
+			}
+			case 5: {
+				rate = 1;
+				break;
+			}
+			case 6: {
+				rate = 1;
+				break;
+			}
+			case 7: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+		}
+		return rate;
+	}
+	virtual int getOutputRate(int channel) {
+		int rate;
+		switch ((channel)) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			case 1: {
+				rate = 1;
+				break;
+			}
+			case 2: {
+				rate = 1;
+				break;
+			}
+			case 3: {
+				rate = 1;
+				break;
+			}
+			case 4: {
+				rate = 1;
+				break;
+			}
+			case 5: {
+				rate = 1;
+				break;
+			}
+			case 6: {
+				rate = 1;
+				break;
+			}
+			case 7: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+		}
+		return rate;
+	}
+	
+	static void classInit(int sample_rate) {
+		FaustDSPSIG0* sig0 = newFaustDSPSIG0();
+		sig0->instanceInitFaustDSPSIG0(sample_rate);
+		sig0->fillFaustDSPSIG0(65536, ftbl0FaustDSPSIG0);
+		deleteFaustDSPSIG0(sig0);
+	}
+	
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (1.0f / fConst0);
+		fConst2 = (0.5f / fConst0);
+		fConst3 = (0.25f * fConst0);
+		fConst4 = (0.5f * fConst0);
+		fConst5 = (1760.0f / fConst0);
+		fConst6 = (3.14159274f / fConst0);
+	}
+	
+	virtual void instanceResetUserInterface() {
+       controls.instanceResetUserInterface();
+	}
+	
+	virtual void instanceClear() {
+		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+			iVec0[l0] = 0;
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fRec3[l1] = 0.0f;
+		}
+		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+			fRec5[l3] = 0.0f;
+		}
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			fRec1[l4] = 0.0f;
+		}
+		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+			fRec6[l5] = 0.0f;
+		}
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fVec1[l6] = 0.0f;
+		}
+		IOTA = 0;
+		for (int l7 = 0; (l7 < 4096); l7 = (l7 + 1)) {
+			fVec2[l7] = 0.0f;
+		}
+		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
+			fRec7[l8] = 0.0f;
+		}
+		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
+			fRec10[l9] = 0.0f;
+		}
+		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
+			fRec8[l10] = 0.0f;
+		}
+		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+			fRec11[l11] = 0.0f;
+		}
+		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
+			fVec3[l12] = 0.0f;
+		}
+		for (int l13 = 0; (l13 < 4096); l13 = (l13 + 1)) {
+			fVec4[l13] = 0.0f;
+		}
+		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
+			fRec12[l14] = 0.0f;
+		}
+		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
+			fRec15[l15] = 0.0f;
+		}
+		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
+			fRec13[l16] = 0.0f;
+		}
+		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
+			fRec16[l17] = 0.0f;
+		}
+		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
+			fVec5[l18] = 0.0f;
+		}
+		for (int l19 = 0; (l19 < 4096); l19 = (l19 + 1)) {
+			fVec6[l19] = 0.0f;
+		}
+		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
+			fRec17[l20] = 0.0f;
+		}
+		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
+			fRec19[l21] = 0.0f;
+		}
+		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
+			fRec20[l22] = 0.0f;
+		}
+		for (int l23 = 0; (l23 < 3); l23 = (l23 + 1)) {
+			fRec18[l23] = 0.0f;
+		}
+		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
+			fVec7[l24] = 0.0f;
+		}
+		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
+			fRec0[l25] = 0.0f;
+		}
+	}
+	
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
+	}
+
+   virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
+		instanceResetUserInterface();
+		instanceClear();
+	}
+	
+	virtual FaustDSP* clone() {
+		return new FaustDSP();
+	}
+	
+	virtual int getSampleRate() {
+		return fSampleRate;
+	}
+	
+	virtual void buildUserInterface(UI* ui_interface) {
+       controls.buildUserInterface(ui_interface);
+	}
+
+   virtual void control(int* iControl, FAUSTFLOAT* fControl) {
+		fControl[0] = float(controls.fVslider0);
 		iControl[0] = ((2.0f * fControl[0]) >= 1.0f);
-		fControl[1] = float(fVslider1);
+		fControl[1] = float(controls.fVslider1);
 		fControl[2] = (2.0f * fControl[1]);
 		iControl[1] = (fControl[2] >= 2.0f);
 		iControl[2] = (fControl[2] >= 1.0f);
-		fControl[3] = float(fVslider2);
-		fControl[4] = float(fVslider3);
+		fControl[3] = float(controls.fVslider2);
+		fControl[4] = float(controls.fVslider3);
 		fControl[5] = (0.999000013f * ((0.0166666675f * float(int(((48.0f * fControl[3]) + -12.0f)))) + (0.0333333351f * (fControl[4] + -0.5f))));
-		fVbargraph1 = FAUSTFLOAT(0);
-		iControl[3] = int(fVbargraph1);
-		fVbargraph5 = FAUSTFLOAT(0);
-		iControl[4] = int(fVbargraph5);
-		fVbargraph6 = FAUSTFLOAT(0);
-		iControl[5] = int(fVbargraph6);
-		fVbargraph16 = FAUSTFLOAT(0);
-		iControl[6] = int(fVbargraph16);
-		fVbargraph17 = FAUSTFLOAT(0);
-		iControl[7] = int(fVbargraph17);
-		fVbargraph18 = FAUSTFLOAT(0);
-		iControl[8] = int(fVbargraph18);
-		fVbargraph20 = FAUSTFLOAT(0);
-		iControl[9] = int(fVbargraph20);
-		fVbargraph21 = FAUSTFLOAT(0);
-		iControl[10] = int(fVbargraph21);
-		fVbargraph22 = FAUSTFLOAT(0);
-		iControl[11] = int(fVbargraph22);
-		fControl[6] = float(fVslider4);
-		fControl[7] = float(fVslider5);
-		fControl[8] = float(fVslider6);
-		fControl[9] = float(fVslider7);
-		fControl[10] = float(fVslider8);
-		fControl[11] = float(fVslider9);
-		fControl[12] = float(fVslider10);
-		fControl[13] = float(fVslider11);
-		fControl[14] = float(fVslider12);
-		fControl[15] = float(fVslider13);
-		fControl[16] = float(fVslider14);
-		fControl[17] = float(fVslider15);
+		controls.fVbargraph1 = FAUSTFLOAT(0);
+		iControl[3] = int(controls.fVbargraph1);
+		controls.fVbargraph5 = FAUSTFLOAT(0);
+		iControl[4] = int(controls.fVbargraph5);
+		controls.fVbargraph6 = FAUSTFLOAT(0);
+		iControl[5] = int(controls.fVbargraph6);
+		controls.fVbargraph16 = FAUSTFLOAT(0);
+		iControl[6] = int(controls.fVbargraph16);
+		controls.fVbargraph17 = FAUSTFLOAT(0);
+		iControl[7] = int(controls.fVbargraph17);
+		controls.fVbargraph18 = FAUSTFLOAT(0);
+		iControl[8] = int(controls.fVbargraph18);
+		controls.fVbargraph20 = FAUSTFLOAT(0);
+		iControl[9] = int(controls.fVbargraph20);
+		controls.fVbargraph21 = FAUSTFLOAT(0);
+		iControl[10] = int(controls.fVbargraph21);
+		controls.fVbargraph22 = FAUSTFLOAT(0);
+		iControl[11] = int(controls.fVbargraph22);
+		fControl[6] = float(controls.fVslider4);
+		fControl[7] = float(controls.fVslider5);
+		fControl[8] = float(controls.fVslider6);
+		fControl[9] = float(controls.fVslider7);
+		fControl[10] = float(controls.fVslider8);
+		fControl[11] = float(controls.fVslider9);
+		fControl[12] = float(controls.fVslider10);
+		fControl[13] = float(controls.fVslider11);
+		fControl[14] = float(controls.fVslider12);
+		fControl[15] = float(controls.fVslider13);
+		fControl[16] = float(controls.fVslider14);
+		fControl[17] = float(controls.fVslider15);
 		fControl[18] = (2.0f * fControl[17]);
 		iControl[12] = (fControl[18] >= 2.0f);
 		iControl[13] = (fControl[18] >= 1.0f);
@@ -735,8 +770,13 @@ class FaustDSP : public one_sample_dsp {
 		fControl[23] = (0.999000013f * fControl[6]);
 	}
 
-	virtual int getNumIntControls() { return 16; }
-	virtual int getNumRealControls() { return 24; }
+   virtual int getNumIntControls() {
+      return controls.getNumIntControls();
+   }
+
+   virtual int getNumRealControls() {
+      return controls.getNumRealControls();
+    }
 	
 	virtual void compute(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs, int* iControl, FAUSTFLOAT* fControl) {
 		iVec0[0] = 1;
@@ -744,21 +784,21 @@ class FaustDSP : public one_sample_dsp {
 		fRec5[0] = (fConst2 + (fRec5[1] - std::floor((fConst2 + fRec5[1]))));
 		float fTemp0 = (0.5f * (ftbl0FaustDSPSIG0[int((65536.0f * fRec5[0]))] + 1.0f));
 		float fTemp1 = (1.0f - fTemp0);
-		fVbargraph0 = FAUSTFLOAT(fTemp1);
-		fVbargraph2 = FAUSTFLOAT(fTemp0);
-		fVbargraph3 = FAUSTFLOAT(fTemp1);
-		fVbargraph4 = FAUSTFLOAT(fTemp0);
-		fVbargraph7 = FAUSTFLOAT(fTemp1);
-		fVbargraph8 = FAUSTFLOAT(fTemp0);
-		fVbargraph9 = FAUSTFLOAT(fTemp0);
-		fVbargraph10 = FAUSTFLOAT(fTemp0);
-		fVbargraph11 = FAUSTFLOAT(fTemp0);
-		fVbargraph12 = FAUSTFLOAT(fTemp1);
-		fVbargraph13 = FAUSTFLOAT(fTemp1);
-		fVbargraph14 = FAUSTFLOAT(fTemp1);
-		fVbargraph15 = FAUSTFLOAT(fTemp0);
-		fVbargraph19 = FAUSTFLOAT(fTemp1);
-		fVbargraph23 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph0 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph2 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph3 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph4 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph7 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph8 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph9 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph10 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph11 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph12 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph13 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph14 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph15 = FAUSTFLOAT(fTemp0);
+		controls.fVbargraph19 = FAUSTFLOAT(fTemp1);
+		controls.fVbargraph23 = FAUSTFLOAT(fTemp0);
 		float fTemp2 = float(inputs[0]);
 		float fTemp3 = std::pow(2.0f, ((5.0f * (fRec3[0] + fTemp2)) + -0.75f));
 		float fTemp4 = (440.0f * fTemp3);
