@@ -371,10 +371,12 @@ void ProtoFaustWidget::addWidgetAndParameter( int widgetType,
                                               float x,
                                               float y )
 {
-   if ( widgetType == ProtoFaustWidget::LED_RGB ) {
-      _module->addParameterLed( widgetType, parameterId, faustStringId );
-   } else {
-      _module->addParameter( widgetType, parameterId, faustStringId );
+   if ( _module ) {
+      if ( widgetType == ProtoFaustWidget::LED_RGB ) {
+         _module->addParameterLed( widgetType, parameterId, faustStringId );
+      } else {
+         _module->addParameter( widgetType, parameterId, faustStringId );
+      }
    }
 
    addWidget( widgetType, parameterId, x, y );
