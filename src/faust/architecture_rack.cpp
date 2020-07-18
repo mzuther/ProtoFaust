@@ -102,7 +102,13 @@ public:
    {
       MapUI::declare( zone, key, val );
 
-      if ( strcmp( key, "variant" ) == 0 ) {
+      if ( strcmp( key, "x" ) == 0 ) {
+         fPositionX[zone] = std::atof( val );
+
+      } else if ( strcmp( key, "y" ) == 0 ) {
+         fPositionY[zone] = std::atof( val );
+
+      } else if ( strcmp( key, "variant" ) == 0 ) {
          if ( strcmp( val, "knob-large-black" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_BLACK;
 
@@ -144,6 +150,26 @@ public:
    }
 
 
+   double getPositionX( FAUSTFLOAT* zone )
+   {
+      if ( fPositionX.find( zone ) != fPositionX.end() ) {
+         return fPositionX[zone];
+      } else {
+         return -1.0;
+      }
+   }
+
+
+   double getPositionY( FAUSTFLOAT* zone )
+   {
+      if ( fPositionY.find( zone ) != fPositionY.end() ) {
+         return fPositionY[zone];
+      } else {
+         return -1.0;
+      }
+   }
+
+
    int getWidgetType( FAUSTFLOAT* zone )
    {
       if ( fWidgetTypeMap.find( zone ) != fWidgetTypeMap.end() ) {
@@ -155,6 +181,9 @@ public:
 
 
 protected:
+   std::map<FAUSTFLOAT*, double> fPositionX;
+   std::map<FAUSTFLOAT*, double> fPositionY;
+
    std::map<FAUSTFLOAT*, int> fWidgetTypeMap;
 };
 

@@ -64,88 +64,56 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    // ------ switches ------
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_1_PARAM,
-                          "/ProtoFaust/Buttons/1",
-                          31.75,
-                          21.82 );
+                          "/ProtoFaust/Buttons/1" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_2_PARAM,
-                          "/ProtoFaust/Buttons/2",
-                          31.75,
-                          34.52 );
+                          "/ProtoFaust/Buttons/2" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_3_PARAM,
-                          "/ProtoFaust/Buttons/3",
-                          31.75,
-                          49.76 );
+                          "/ProtoFaust/Buttons/3" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_4_PARAM,
-                          "/ProtoFaust/Buttons/4",
-                          31.75,
-                          62.46 );
+                          "/ProtoFaust/Buttons/4" );
 
    // ------ buttons ------
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_5_PARAM,
-                          "/ProtoFaust/Buttons/5",
-                          31.75,
-                          77.7 );
+                          "/ProtoFaust/Buttons/5" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_6_PARAM,
-                          "/ProtoFaust/Buttons/6",
-                          31.75,
-                          90.4 );
+                          "/ProtoFaust/Buttons/6" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_7_PARAM,
-                          "/ProtoFaust/Buttons/7",
-                          31.75,
-                          105.64 );
+                          "/ProtoFaust/Buttons/7" );
 
    addWidgetAndParameter( ProtoFaustWidget::BUTTON_8_PARAM,
-                          "/ProtoFaust/Buttons/8",
-                          31.75,
-                          118.34 );
+                          "/ProtoFaust/Buttons/8" );
 
    // ------ knobs ------
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_1_PARAM,
-                          "/ProtoFaust/Knobs/1",
-                          53.34,
-                          28.17 );
+                          "/ProtoFaust/Knobs/1" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_2_PARAM,
-                          "/ProtoFaust/Knobs/2",
-                          78.74,
-                          28.17 );
+                          "/ProtoFaust/Knobs/2" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_3_PARAM,
-                          "/ProtoFaust/Knobs/3",
-                          53.34,
-                          56.11 );
+                          "/ProtoFaust/Knobs/3" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_4_PARAM,
-                          "/ProtoFaust/Knobs/4",
-                          78.74,
-                          56.11 );
+                          "/ProtoFaust/Knobs/4" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_5_PARAM,
-                          "/ProtoFaust/Knobs/5",
-                          53.34,
-                          84.05 );
+                          "/ProtoFaust/Knobs/5" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_6_PARAM,
-                          "/ProtoFaust/Knobs/6",
-                          78.74,
-                          84.05 );
+                          "/ProtoFaust/Knobs/6" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_7_PARAM,
-                          "/ProtoFaust/Knobs/7",
-                          53.34,
-                          111.99 );
+                          "/ProtoFaust/Knobs/7" );
 
    addWidgetAndParameter( ProtoFaustWidget::KNOB_8_PARAM,
-                          "/ProtoFaust/Knobs/8",
-                          78.74,
-                          111.99 );
+                          "/ProtoFaust/Knobs/8" );
 
    // ------ input ports ------
 
@@ -234,44 +202,28 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    // ------ RGB LEDs ------
 
    addWidgetAndParameter( ProtoFaustWidget::LED_1,
-                          "/ProtoFaust/Lights/1_Red",
-                          99.06,
-                          21.82 );
+                          "/ProtoFaust/Lights/1_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_2,
-                          "/ProtoFaust/Lights/2_Red",
-                          99.06,
-                          34.52 );
+                          "/ProtoFaust/Lights/2_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_3,
-                          "/ProtoFaust/Lights/3_Red",
-                          99.06,
-                          49.76 );
+                          "/ProtoFaust/Lights/3_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_4,
-                          "/ProtoFaust/Lights/4_Red",
-                          99.06,
-                          62.46 );
+                          "/ProtoFaust/Lights/4_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_5,
-                          "/ProtoFaust/Lights/5_Red",
-                          99.06,
-                          77.7 );
+                          "/ProtoFaust/Lights/5_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_6,
-                          "/ProtoFaust/Lights/6_Red",
-                          99.06,
-                          90.4 );
+                          "/ProtoFaust/Lights/6_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_7,
-                          "/ProtoFaust/Lights/7_Red",
-                          99.06,
-                          105.64 );
+                          "/ProtoFaust/Lights/7_Red" );
 
    addWidgetAndParameter( ProtoFaustWidget::LED_8,
-                          "/ProtoFaust/Lights/8_Red",
-                          99.06,
-                          118.34 );
+                          "/ProtoFaust/Lights/8_Red" );
 }
 
 
@@ -366,13 +318,15 @@ void ProtoFaustWidget::addWidget( int widgetType,
 
 
 void ProtoFaustWidget::addWidgetAndParameter( int parameterId,
-                                              const std::string& faustStringId,
-                                              float x,
-                                              float y )
+                                              const std::string& faustStringId )
 {
    auto zone = _module->FaustUI.getParamZone( faustStringId );
    auto widgetType = _module->FaustUI.getWidgetType( zone );
    _module->addParameter( widgetType, parameterId, zone );
+
+   // zone might be changed below, so get values here
+   auto x = _module->FaustUI.getPositionX( zone );
+   auto y = _module->FaustUI.getPositionY( zone );
 
    if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
       auto index = faustStringId.rfind( "_Red" );
