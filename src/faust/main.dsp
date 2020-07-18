@@ -125,36 +125,36 @@ with
                  attach(_ , knob_8) :
 
                  attach(_ , lfo_1 : led_1_r) :
-                 attach(_ , lfo_1 : led_1_g) :
-                 attach(_ , lfo_1 : led_1_b) :
+                 attach(_ , 0     : led_1_g) :
+                 attach(_ , 0     : led_1_b) :
 
-                 attach(_ , lfo_2 : led_2_r) :
-                 attach(_ , 0 : led_2_g) :
-                 attach(_ , 0 : led_2_b) :
+                 attach(_ , 0     : led_2_r) :
+                 attach(_ , lfo_2 : led_2_g) :
+                 attach(_ , 0     : led_2_b) :
 
-                 attach(_ , lfo_1 : led_3_r) :
-                 attach(_ , lfo_1 : led_3_g) :
+                 attach(_ , 0     : led_3_r) :
+                 attach(_ , 0     : led_3_g) :
                  attach(_ , lfo_1 : led_3_b) :
 
                  attach(_ , lfo_2 : led_4_r) :
-                 attach(_ , 0 : led_4_g) :
-                 attach(_ , 0 : led_4_b) :
+                 attach(_ , lfo_2 : led_4_g) :
+                 attach(_ , lfo_2 : led_4_b) :
 
                  attach(_ , lfo_1 : led_5_r) :
                  attach(_ , lfo_1 : led_5_g) :
                  attach(_ , lfo_1 : led_5_b) :
 
-                 attach(_ , lfo_2 : led_6_r) :
-                 attach(_ , 0 : led_6_g) :
-                 attach(_ , 0 : led_6_b) :
+                 attach(_ , lfo_1 : led_6_r) :
+                 attach(_ , lfo_2 : led_6_g) :
+                 attach(_ , 0     : led_6_b) :
 
-                 attach(_ , lfo_1 : led_7_r) :
+                 attach(_ , 0     : led_7_r) :
                  attach(_ , lfo_1 : led_7_g) :
-                 attach(_ , lfo_1 : led_7_b) :
+                 attach(_ , lfo_2 : led_7_b) :
 
-                 attach(_ , lfo_2 : led_8_r) :
-                 attach(_ , 0 : led_8_g) :
-                 attach(_ , 0 : led_8_b) :
+                 attach(_ , lfo_1 : led_8_r) :
+                 attach(_ , 0     : led_8_g) :
+                 attach(_ , lfo_2 : led_8_b) :
                  _;
 
   internal_processor = (in1 : gui_attacher) , in2 , in3 :

@@ -6,7 +6,29 @@ file. This change log follows the conventions of
 
 
 ## [Unreleased]
+### Added
+
+- add linter script and fix warnings
+
 ### Changed
+
+- use lambda set/get functions to update controllers (thanks to
+  Stéphane Letz)
+
+- use 'alloca' which is faster than std::vector and will also work on
+  Windows (thanks to Stéphane Letz)
+
+- move some UI handling to class "ProtoFaustWidget"
+
+- allow easier debugging of RGB LEDs (enjoy fireworks of light ...)
+
+- re-factor code
+
+- change selection of files formatted by astyle
+
+### Fixed
+
+- fix crash on opening module selection window
 
 
 
