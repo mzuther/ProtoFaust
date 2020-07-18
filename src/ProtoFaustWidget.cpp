@@ -63,102 +63,86 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ switches ------
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_THREE_WAY,
-                          ProtoFaustWidget::BUTTON_1_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_1_PARAM,
                           "/ProtoFaust/Buttons/1",
                           31.75,
                           21.82 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_THREE_WAY,
-                          ProtoFaustWidget::BUTTON_2_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_2_PARAM,
                           "/ProtoFaust/Buttons/2",
                           31.75,
                           34.52 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_TOGGLE,
-                          ProtoFaustWidget::BUTTON_3_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_3_PARAM,
                           "/ProtoFaust/Buttons/3",
                           31.75,
                           49.76 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_TOGGLE,
-                          ProtoFaustWidget::BUTTON_4_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_4_PARAM,
                           "/ProtoFaust/Buttons/4",
                           31.75,
                           62.46 );
 
    // ------ buttons ------
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_MOMENTARY,
-                          ProtoFaustWidget::BUTTON_5_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_5_PARAM,
                           "/ProtoFaust/Buttons/5",
                           31.75,
                           77.7 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_MOMENTARY,
-                          ProtoFaustWidget::BUTTON_6_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_6_PARAM,
                           "/ProtoFaust/Buttons/6",
                           31.75,
                           90.4 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_MOMENTARY,
-                          ProtoFaustWidget::BUTTON_7_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_7_PARAM,
                           "/ProtoFaust/Buttons/7",
                           31.75,
                           105.64 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::SWITCH_MOMENTARY,
-                          ProtoFaustWidget::BUTTON_8_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::BUTTON_8_PARAM,
                           "/ProtoFaust/Buttons/8",
                           31.75,
                           118.34 );
 
    // ------ knobs ------
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_WHITE,
-                          ProtoFaustWidget::KNOB_1_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_1_PARAM,
                           "/ProtoFaust/Knobs/1",
                           53.34,
                           28.17 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_RED,
-                          ProtoFaustWidget::KNOB_2_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_2_PARAM,
                           "/ProtoFaust/Knobs/2",
                           78.74,
                           28.17 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_WHITE,
-                          ProtoFaustWidget::KNOB_3_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_3_PARAM,
                           "/ProtoFaust/Knobs/3",
                           53.34,
                           56.11 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_RED,
-                          ProtoFaustWidget::KNOB_4_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_4_PARAM,
                           "/ProtoFaust/Knobs/4",
                           78.74,
                           56.11 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_WHITE,
-                          ProtoFaustWidget::KNOB_5_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_5_PARAM,
                           "/ProtoFaust/Knobs/5",
                           53.34,
                           84.05 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_RED,
-                          ProtoFaustWidget::KNOB_6_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_6_PARAM,
                           "/ProtoFaust/Knobs/6",
                           78.74,
                           84.05 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_WHITE,
-                          ProtoFaustWidget::KNOB_7_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_7_PARAM,
                           "/ProtoFaust/Knobs/7",
                           53.34,
                           111.99 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::KNOB_LARGE_RED,
-                          ProtoFaustWidget::KNOB_8_PARAM,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_8_PARAM,
                           "/ProtoFaust/Knobs/8",
                           78.74,
                           111.99 );
@@ -249,51 +233,43 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ RGB LEDs ------
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_1,
-                          "/ProtoFaust/Lights/1",
+   addWidgetAndParameter( ProtoFaustWidget::LED_1,
+                          "/ProtoFaust/Lights/1_Red",
                           99.06,
                           21.82 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_2,
-                          "/ProtoFaust/Lights/2",
+   addWidgetAndParameter( ProtoFaustWidget::LED_2,
+                          "/ProtoFaust/Lights/2_Red",
                           99.06,
                           34.52 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_3,
-                          "/ProtoFaust/Lights/3",
+   addWidgetAndParameter( ProtoFaustWidget::LED_3,
+                          "/ProtoFaust/Lights/3_Red",
                           99.06,
                           49.76 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_4,
-                          "/ProtoFaust/Lights/4",
+   addWidgetAndParameter( ProtoFaustWidget::LED_4,
+                          "/ProtoFaust/Lights/4_Red",
                           99.06,
                           62.46 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_5,
-                          "/ProtoFaust/Lights/5",
+   addWidgetAndParameter( ProtoFaustWidget::LED_5,
+                          "/ProtoFaust/Lights/5_Red",
                           99.06,
                           77.7 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_6,
-                          "/ProtoFaust/Lights/6",
+   addWidgetAndParameter( ProtoFaustWidget::LED_6,
+                          "/ProtoFaust/Lights/6_Red",
                           99.06,
                           90.4 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_7,
-                          "/ProtoFaust/Lights/7",
+   addWidgetAndParameter( ProtoFaustWidget::LED_7,
+                          "/ProtoFaust/Lights/7_Red",
                           99.06,
                           105.64 );
 
-   addWidgetAndParameter( faust::VCVRACKUI::LED_RGB,
-                          ProtoFaustWidget::LED_8,
-                          "/ProtoFaust/Lights/8",
+   addWidgetAndParameter( ProtoFaustWidget::LED_8,
+                          "/ProtoFaust/Lights/8_Red",
                           99.06,
                           118.34 );
 }
@@ -365,33 +341,26 @@ void ProtoFaustWidget::addWidget( int widgetType,
 }
 
 
-void ProtoFaustWidget::addWidgetAndParameter( int widgetType,
-                                              int parameterId,
+void ProtoFaustWidget::addWidgetAndParameter( int parameterId,
                                               const std::string& faustStringId,
                                               float x,
                                               float y )
 {
-   if ( _module ) {
-      if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
-         // add a parameter for each virtual LED pin
-         // (red, green and blue)
+   auto zone = _module->FaustUI.getParamZone( faustStringId );
+   auto widgetType = _module->FaustUI.getWidgetType( zone );
+   _module->addParameter( widgetType, parameterId, zone );
 
-         _module->addParameter( widgetType,
-                                parameterId,
-                                faustStringId + "_Red" );
+   if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
+      auto index = faustStringId.rfind( "_Red" );
+      auto faustStringIdBase = faustStringId.substr( 0, index );
 
-         _module->addParameter( widgetType,
-                                parameterId + 1,
-                                faustStringId + "_Green" );
+      zone = _module->FaustUI.getParamZone( faustStringIdBase + "_Green" );
+      widgetType = _module->FaustUI.getWidgetType( zone );
+      _module->addParameter( widgetType, parameterId + 1, zone );
 
-         _module->addParameter( widgetType,
-                                parameterId + 2,
-                                faustStringId + "_Blue" );
-      } else {
-         _module->addParameter( widgetType,
-                                parameterId,
-                                faustStringId );
-      }
+      zone = _module->FaustUI.getParamZone( faustStringIdBase + "_Blue" );
+      widgetType = _module->FaustUI.getWidgetType( zone );
+      _module->addParameter( widgetType, parameterId + 2, zone );
    }
 
    addWidget( widgetType, parameterId, x, y );

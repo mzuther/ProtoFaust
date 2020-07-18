@@ -97,7 +97,45 @@ public:
                          const char* val ) override
    {
       MapUI::declare( zone, key, val );
+
+      if ( strcmp( key, "variant" ) == 0 ) {
+         if ( strcmp( val, "knob-large-white" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_WHITE;
+
+         } else if ( strcmp( val, "knob-large-red" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_RED;
+
+         } else if ( strcmp( val, "switch-toggle" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::SWITCH_TOGGLE;
+
+         } else if ( strcmp( val, "switch-three-way" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::SWITCH_THREE_WAY;
+
+         } else if ( strcmp( val, "switch-momentary" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::SWITCH_MOMENTARY;
+
+         } else if ( strcmp( val, "led-rgb" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::LED_RGB;
+
+         } else {
+            fWidgetTypeMap[zone] = -1;
+         }
+      }
    }
+
+
+   int getWidgetType( FAUSTFLOAT* zone )
+   {
+      if ( fWidgetTypeMap.find( zone ) != fWidgetTypeMap.end() ) {
+         return fWidgetTypeMap[zone];
+      } else {
+         return -1;
+      }
+   }
+
+
+protected:
+   std::map<FAUSTFLOAT*, int> fWidgetTypeMap;
 };
 
 /********************END ARCHITECTURE SECTION (part 2/2)****************/

@@ -46,7 +46,7 @@ public:
 
    void addParameter( int widgetType,
                       int parameterId,
-                      const std::string& faustStringId );
+                      FAUSTFLOAT* zone );
 
 protected:
    std::vector<WidgetAccess> activeWidgets;

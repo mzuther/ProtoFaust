@@ -130,8 +130,7 @@ protected:
                    float x,
                    float y );
 
-   void addWidgetAndParameter( int widgetType,
-                               int parameterId,
+   void addWidgetAndParameter( int parameterId,
                                const std::string& faustStringId,
                                float x,
                                float y );

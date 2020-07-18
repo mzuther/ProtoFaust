@@ -109,7 +109,7 @@ void ProtoFaust::process( const ProcessArgs& args )
 
 void ProtoFaust::addParameter( int widgetType,
                                int parameterId,
-                               const std::string& faustStringId )
+                               FAUSTFLOAT* zone )
 {
    std::vector<WidgetAccess>* widgets;
 
@@ -120,8 +120,6 @@ void ProtoFaust::addParameter( int widgetType,
    }
 
    // prepare controller zone 'set' and 'get' functions
-   FAUSTFLOAT* zone = FaustUI.getParamZone( faustStringId );
-
    WidgetAccess::setFunction setFun = [ = ]( FAUSTFLOAT value ) {
       *zone = value;
    };
