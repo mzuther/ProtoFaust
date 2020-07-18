@@ -157,8 +157,12 @@ void ProtoFaust::addParameter( int widgetType,
          };
          break;
 
+      case faust::VCVRACKUI::KNOB_LARGE_BLACK:
       case faust::VCVRACKUI::KNOB_LARGE_WHITE:
       case faust::VCVRACKUI::KNOB_LARGE_RED:
+      case faust::VCVRACKUI::KNOB_SMALL_BLACK:
+      case faust::VCVRACKUI::KNOB_SMALL_WHITE:
+      case faust::VCVRACKUI::KNOB_SMALL_RED:
 
          // range:   0.0 to 1.0
          // default: 0.5 (centered)

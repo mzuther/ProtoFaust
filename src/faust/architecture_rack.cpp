@@ -70,8 +70,12 @@ public:
       SWITCH_THREE_WAY,
       SWITCH_MOMENTARY,
 
+      KNOB_LARGE_BLACK,
       KNOB_LARGE_WHITE,
       KNOB_LARGE_RED,
+      KNOB_SMALL_BLACK,
+      KNOB_SMALL_WHITE,
+      KNOB_SMALL_RED,
 
       PORT_INPUT,
       PORT_OUTPUT,
@@ -99,11 +103,25 @@ public:
       MapUI::declare( zone, key, val );
 
       if ( strcmp( key, "variant" ) == 0 ) {
-         if ( strcmp( val, "knob-large-white" ) == 0 ) {
+         if ( strcmp( val, "knob-large-black" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_BLACK;
+
+         } else if ( strcmp( val, "knob-large-white" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_WHITE;
 
          } else if ( strcmp( val, "knob-large-red" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::KNOB_LARGE_RED;
+
+
+         } else if ( strcmp( val, "knob-small-black" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_SMALL_BLACK;
+
+         } else if ( strcmp( val, "knob-small-white" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_SMALL_WHITE;
+
+         } else if ( strcmp( val, "knob-small-red" ) == 0 ) {
+            fWidgetTypeMap[zone] = WidgetTypes::KNOB_SMALL_RED;
+
 
          } else if ( strcmp( val, "switch-toggle" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::SWITCH_TOGGLE;
@@ -114,8 +132,10 @@ public:
          } else if ( strcmp( val, "switch-momentary" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::SWITCH_MOMENTARY;
 
+
          } else if ( strcmp( val, "led-rgb" ) == 0 ) {
             fWidgetTypeMap[zone] = WidgetTypes::LED_RGB;
+
 
          } else {
             fWidgetTypeMap[zone] = -1;

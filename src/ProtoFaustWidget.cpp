@@ -302,6 +302,12 @@ void ProtoFaustWidget::addWidget( int widgetType,
                       pos_converted, _module, parameterId ) );
          break;
 
+      case faust::VCVRACKUI::KNOB_LARGE_BLACK:
+
+         addParam( createParamCentered<Davies1900hLargeBlackKnob>(
+                      pos_converted, _module, parameterId ) );
+         break;
+
       case faust::VCVRACKUI::KNOB_LARGE_WHITE:
 
          addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
@@ -311,6 +317,24 @@ void ProtoFaustWidget::addWidget( int widgetType,
       case faust::VCVRACKUI::KNOB_LARGE_RED:
 
          addParam( createParamCentered<Davies1900hLargeRedKnob>(
+                      pos_converted, _module, parameterId ) );
+         break;
+
+      case faust::VCVRACKUI::KNOB_SMALL_BLACK:
+
+         addParam( createParamCentered<Davies1900hBlackKnob>(
+                      pos_converted, _module, parameterId ) );
+         break;
+
+      case faust::VCVRACKUI::KNOB_SMALL_WHITE:
+
+         addParam( createParamCentered<Davies1900hWhiteKnob>(
+                      pos_converted, _module, parameterId ) );
+         break;
+
+      case faust::VCVRACKUI::KNOB_SMALL_RED:
+
+         addParam( createParamCentered<Davies1900hRedKnob>(
                       pos_converted, _module, parameterId ) );
          break;
 
