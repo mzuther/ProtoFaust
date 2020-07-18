@@ -48,10 +48,6 @@ public:
                       int parameterId,
                       const std::string& faustStringId );
 
-   void addParameterLed( int widgetType,
-                         int parameterId,
-                         const std::string& faustStringId );
-
 protected:
    std::vector<WidgetAccess> activeWidgets;
    std::vector<WidgetAccess> passiveWidgets;

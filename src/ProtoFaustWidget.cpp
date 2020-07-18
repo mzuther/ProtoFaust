@@ -373,9 +373,24 @@ void ProtoFaustWidget::addWidgetAndParameter( int widgetType,
 {
    if ( _module ) {
       if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
-         _module->addParameterLed( widgetType, parameterId, faustStringId );
+         // add a parameter for each virtual LED pin
+         // (red, green and blue)
+
+         _module->addParameter( widgetType,
+                                parameterId,
+                                faustStringId + "_Red" );
+
+         _module->addParameter( widgetType,
+                                parameterId + 1,
+                                faustStringId + "_Green" );
+
+         _module->addParameter( widgetType,
+                                parameterId + 2,
+                                faustStringId + "_Blue" );
       } else {
-         _module->addParameter( widgetType, parameterId, faustStringId );
+         _module->addParameter( widgetType,
+                                parameterId,
+                                faustStringId );
       }
    }
 

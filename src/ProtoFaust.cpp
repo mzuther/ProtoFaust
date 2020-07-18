@@ -179,28 +179,6 @@ void ProtoFaust::addParameter( int widgetType,
 }
 
 
-void ProtoFaust::addParameterLed( int widgetType,
-                                  int parameterId,
-                                  const std::string& faustStringId )
-{
-   // add a parameter for each virtual LED pin
-   // (red, green and blue)
-
-   addParameter( widgetType,
-                 parameterId,
-                 faustStringId + "_Red" );
-
-   addParameter( widgetType,
-                 parameterId + 1,
-                 faustStringId + "_Green" );
-
-   addParameter( widgetType,
-                 parameterId + 2,
-                 faustStringId + "_Blue" );
-
-}
-
-
 void ProtoFaust::updateParameterIn( WidgetAccess& widget )
 {
    widget.faustSet( params[widget.parameterId].getValue() );
