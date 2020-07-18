@@ -36,6 +36,21 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
    setPanel( APP->window->loadSvg(
                 asset::plugin( pluginInstance, "res/ProtoFaust.svg" ) ) );
 
+   // when the module selection window is openend, this constructor is
+   // called with a null pointer -- I mean, honestly!!!
+   if ( _module ) {
+      currentUI = &_module->FaustUI;
+   } else {
+      dummyFaustDSP = std::unique_ptr<faust::FaustDSP>(
+                         new faust::FaustDSP() );
+
+      dummyFaustUI = std::unique_ptr<faust::VCVRACKUI>(
+                        new faust::VCVRACKUI() );
+
+      dummyFaustDSP->buildUserInterface( dummyFaustUI.get() );
+      currentUI = dummyFaustUI.get();
+   }
+
    // sorry for the following cruft -- I'd give my right arm for
    // LISP-like macros in C++ ...
 
@@ -320,25 +335,34 @@ void ProtoFaustWidget::addWidget( int widgetType,
 void ProtoFaustWidget::addWidgetAndParameter( int parameterId,
                                               const std::string& faustStringId )
 {
-   auto zone = _module->FaustUI.getParamZone( faustStringId );
-   auto widgetType = _module->FaustUI.getWidgetType( zone );
-   _module->addParameter( widgetType, parameterId, zone );
+   auto zone = currentUI->getParamZone( faustStringId );
+   auto widgetType = currentUI->getWidgetType( zone );
+
+   if ( _module ) {
+      _module->addParameter( widgetType, parameterId, zone );
+   }
 
    // zone might be changed below, so get values here
-   auto x = _module->FaustUI.getPositionX( zone );
-   auto y = _module->FaustUI.getPositionY( zone );
+   auto x = currentUI->getPositionX( zone );
+   auto y = currentUI->getPositionY( zone );
 
    if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
       auto index = faustStringId.rfind( "_Red" );
       auto faustStringIdBase = faustStringId.substr( 0, index );
 
-      zone = _module->FaustUI.getParamZone( faustStringIdBase + "_Green" );
-      widgetType = _module->FaustUI.getWidgetType( zone );
-      _module->addParameter( widgetType, parameterId + 1, zone );
+      zone = currentUI->getParamZone( faustStringIdBase + "_Green" );
+      widgetType = currentUI->getWidgetType( zone );
 
-      zone = _module->FaustUI.getParamZone( faustStringIdBase + "_Blue" );
-      widgetType = _module->FaustUI.getWidgetType( zone );
-      _module->addParameter( widgetType, parameterId + 2, zone );
+      if ( _module ) {
+         _module->addParameter( widgetType, parameterId + 1, zone );
+      }
+
+      zone = currentUI->getParamZone( faustStringIdBase + "_Blue" );
+      widgetType = currentUI->getWidgetType( zone );
+
+      if ( _module ) {
+         _module->addParameter( widgetType, parameterId + 2, zone );
+      }
    }
 
    addWidget( widgetType, parameterId, x, y );

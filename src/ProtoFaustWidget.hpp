@@ -134,6 +134,10 @@ protected:
                                const std::string& faustStringId );
 
    ProtoFaust* _module = nullptr;
+
+   std::unique_ptr<faust::FaustDSP> dummyFaustDSP;
+   std::unique_ptr<faust::VCVRACKUI> dummyFaustUI;
+   faust::VCVRACKUI* currentUI;
 };
 
 #endif // PROTO_FAUST_WIDGET_HPP
