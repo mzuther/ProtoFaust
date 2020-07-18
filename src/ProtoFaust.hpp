@@ -52,7 +52,7 @@ public:
                          int parameterId,
                          const std::string& faustStringId );
 
-private:
+protected:
    std::vector<WidgetAccess> activeWidgets;
    std::vector<WidgetAccess> passiveWidgets;
 

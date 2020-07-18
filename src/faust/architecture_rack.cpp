@@ -65,10 +65,36 @@
       class VCVRACKUI : public MapUI
 {
 public:
-   VCVRACKUI() : MapUI() {}
-   virtual ~VCVRACKUI() {}
+   enum WidgetTypes {
+      SWITCH_TOGGLE,
+      SWITCH_THREE_WAY,
+      SWITCH_MOMENTARY,
 
-   virtual void declare( FAUSTFLOAT* zone, const char* key, const char* val ) override
+      KNOB_LARGE_WHITE,
+      KNOB_LARGE_RED,
+
+      PORT_INPUT,
+      PORT_OUTPUT,
+      LED_RGB,
+      SCREW,
+
+      NUM_WIDGET_TYPES
+   };
+
+
+   VCVRACKUI() : MapUI()
+   {
+   }
+
+
+   virtual ~VCVRACKUI()
+   {
+   }
+
+
+   virtual void declare( FAUSTFLOAT* zone,
+                         const char* key,
+                         const char* val ) override
    {
       MapUI::declare( zone, key, val );
    }

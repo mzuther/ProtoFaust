@@ -32,22 +32,6 @@
 
 struct ProtoFaustWidget : ModuleWidget {
 public:
-   enum WidgetTypes {
-      SWITCH_TOGGLE,
-      SWITCH_THREE_WAY,
-      SWITCH_MOMENTARY,
-
-      KNOB_LARGE_WHITE,
-      KNOB_LARGE_RED,
-
-      PORT_INPUT,
-      PORT_OUTPUT,
-      LED_RGB,
-      SCREW,
-
-      NUM_WIDGET_TYPES
-   };
-
    enum ParamIds {
       BUTTON_1_PARAM,
       BUTTON_2_PARAM,
@@ -140,7 +124,7 @@ public:
 
    explicit ProtoFaustWidget( ProtoFaust* currentModule );
 
-private:
+protected:
    void addWidget( int widgetType,
                    int parameterId,
                    float x,

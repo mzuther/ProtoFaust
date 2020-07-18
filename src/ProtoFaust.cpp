@@ -113,7 +113,7 @@ void ProtoFaust::addParameter( int widgetType,
 {
    std::vector<WidgetAccess>* widgets;
 
-   if ( widgetType == ProtoFaustWidget::LED_RGB ) {
+   if ( widgetType == faust::VCVRACKUI::LED_RGB ) {
       widgets = &passiveWidgets;
    } else {
       widgets = &activeWidgets;
@@ -131,8 +131,8 @@ void ProtoFaust::addParameter( int widgetType,
    };
 
    switch ( widgetType ) {
-      case ProtoFaustWidget::SWITCH_TOGGLE:
-      case ProtoFaustWidget::SWITCH_MOMENTARY:
+      case faust::VCVRACKUI::SWITCH_TOGGLE:
+      case faust::VCVRACKUI::SWITCH_MOMENTARY:
 
          // values:  0.0, 1.0
          // default: 0.0 (off)
@@ -143,7 +143,7 @@ void ProtoFaust::addParameter( int widgetType,
                       "" );
          break;
 
-      case ProtoFaustWidget::SWITCH_THREE_WAY:
+      case faust::VCVRACKUI::SWITCH_THREE_WAY:
 
          // values:  0.0, 1.0, 2.0; scaled in ProtoFaust::updateParameter()
          // default: 0.0 (bottom)
@@ -159,8 +159,8 @@ void ProtoFaust::addParameter( int widgetType,
          };
          break;
 
-      case ProtoFaustWidget::KNOB_LARGE_WHITE:
-      case ProtoFaustWidget::KNOB_LARGE_RED:
+      case faust::VCVRACKUI::KNOB_LARGE_WHITE:
+      case faust::VCVRACKUI::KNOB_LARGE_RED:
 
          // range:   0.0 to 1.0
          // default: 0.5 (centered)
