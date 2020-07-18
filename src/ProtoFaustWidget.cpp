@@ -29,10 +29,10 @@
 
 // "repetitive" takes on a whole new meaning in this file ...
 
-ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* module ) :
-   _module( module )
+ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
+   _module( currentModule )
 {
-   setModule( module );
+   setModule( _module );
    setPanel( APP->window->loadSvg(
                 asset::plugin( pluginInstance, "res/ProtoFaust.svg" ) ) );
 
@@ -311,49 +311,49 @@ void ProtoFaustWidget::addWidget( int widgetType,
       case TOGGLE_SWITCH:
 
          addParam( createParamCentered<CKSS>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case THREE_WAY_SWITCH:
 
          addParam( createParamCentered<CKSSThree>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case PUSH_BUTTON:
 
          addParam( createParamCentered<BefacoPush>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case KNOB_WHITE:
 
          addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case KNOB_RED:
 
          addParam( createParamCentered<Davies1900hLargeRedKnob>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case PORT_INPUT:
 
          addInput( createInputCentered<CL1362Port>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case PORT_OUTPUT:
 
          addOutput( createOutputCentered<CL1362Port>(
-                       pos_converted, module, parameterId ) );
+                       pos_converted, _module, parameterId ) );
          break;
 
       case LED_RGB:
 
          addChild( createLightCentered<MediumLight<RedGreenBlueLight>>(
-                      pos_converted, module, parameterId ) );
+                      pos_converted, _module, parameterId ) );
          break;
 
       case SCREW:

@@ -134,7 +134,7 @@ public:
       NUM_GENERIC_IDS
    };
 
-   explicit ProtoFaustWidget( ProtoFaust* module );
+   explicit ProtoFaustWidget( ProtoFaust* currentModule );
 
 private:
    void addWidget( int widgetType,
