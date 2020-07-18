@@ -33,11 +33,13 @@
 struct ProtoFaustWidget : ModuleWidget {
 public:
    enum WidgetTypes {
-      TOGGLE_SWITCH,
-      THREE_WAY_SWITCH,
-      PUSH_BUTTON,
-      KNOB_WHITE,
-      KNOB_RED,
+      SWITCH_TOGGLE,
+      SWITCH_THREE_WAY,
+      SWITCH_MOMENTARY,
+
+      KNOB_LARGE_WHITE,
+      KNOB_LARGE_RED,
+
       PORT_INPUT,
       PORT_OUTPUT,
       LED_RGB,

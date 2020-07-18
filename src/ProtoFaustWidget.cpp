@@ -63,25 +63,25 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ switches ------
 
-   addWidgetAndParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_THREE_WAY,
                           ProtoFaustWidget::BUTTON_1_PARAM,
                           "/ProtoFaust/Buttons/1",
                           31.75,
                           21.82 );
 
-   addWidgetAndParameter( ProtoFaustWidget::THREE_WAY_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_THREE_WAY,
                           ProtoFaustWidget::BUTTON_2_PARAM,
                           "/ProtoFaust/Buttons/2",
                           31.75,
                           34.52 );
 
-   addWidgetAndParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_TOGGLE,
                           ProtoFaustWidget::BUTTON_3_PARAM,
                           "/ProtoFaust/Buttons/3",
                           31.75,
                           49.76 );
 
-   addWidgetAndParameter( ProtoFaustWidget::TOGGLE_SWITCH,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_TOGGLE,
                           ProtoFaustWidget::BUTTON_4_PARAM,
                           "/ProtoFaust/Buttons/4",
                           31.75,
@@ -89,25 +89,25 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ buttons ------
 
-   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_MOMENTARY,
                           ProtoFaustWidget::BUTTON_5_PARAM,
                           "/ProtoFaust/Buttons/5",
                           31.75,
                           77.7 );
 
-   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_MOMENTARY,
                           ProtoFaustWidget::BUTTON_6_PARAM,
                           "/ProtoFaust/Buttons/6",
                           31.75,
                           90.4 );
 
-   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_MOMENTARY,
                           ProtoFaustWidget::BUTTON_7_PARAM,
                           "/ProtoFaust/Buttons/7",
                           31.75,
                           105.64 );
 
-   addWidgetAndParameter( ProtoFaustWidget::PUSH_BUTTON,
+   addWidgetAndParameter( ProtoFaustWidget::SWITCH_MOMENTARY,
                           ProtoFaustWidget::BUTTON_8_PARAM,
                           "/ProtoFaust/Buttons/8",
                           31.75,
@@ -115,49 +115,49 @@ ProtoFaustWidget::ProtoFaustWidget( ProtoFaust* currentModule ) :
 
    // ------ knobs ------
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_WHITE,
                           ProtoFaustWidget::KNOB_1_PARAM,
                           "/ProtoFaust/Knobs/1",
                           53.34,
                           28.17 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_RED,
                           ProtoFaustWidget::KNOB_2_PARAM,
                           "/ProtoFaust/Knobs/2",
                           78.74,
                           28.17 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_WHITE,
                           ProtoFaustWidget::KNOB_3_PARAM,
                           "/ProtoFaust/Knobs/3",
                           53.34,
                           56.11 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_RED,
                           ProtoFaustWidget::KNOB_4_PARAM,
                           "/ProtoFaust/Knobs/4",
                           78.74,
                           56.11 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_WHITE,
                           ProtoFaustWidget::KNOB_5_PARAM,
                           "/ProtoFaust/Knobs/5",
                           53.34,
                           84.05 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_RED,
                           ProtoFaustWidget::KNOB_6_PARAM,
                           "/ProtoFaust/Knobs/6",
                           78.74,
                           84.05 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_WHITE,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_WHITE,
                           ProtoFaustWidget::KNOB_7_PARAM,
                           "/ProtoFaust/Knobs/7",
                           53.34,
                           111.99 );
 
-   addWidgetAndParameter( ProtoFaustWidget::KNOB_RED,
+   addWidgetAndParameter( ProtoFaustWidget::KNOB_LARGE_RED,
                           ProtoFaustWidget::KNOB_8_PARAM,
                           "/ProtoFaust/Knobs/8",
                           78.74,
@@ -308,31 +308,31 @@ void ProtoFaustWidget::addWidget( int widgetType,
    math::Vec pos_converted = mm2px( pos );
 
    switch ( widgetType ) {
-      case TOGGLE_SWITCH:
+      case SWITCH_TOGGLE:
 
          addParam( createParamCentered<CKSS>(
                       pos_converted, _module, parameterId ) );
          break;
 
-      case THREE_WAY_SWITCH:
+      case SWITCH_THREE_WAY:
 
          addParam( createParamCentered<CKSSThree>(
                       pos_converted, _module, parameterId ) );
          break;
 
-      case PUSH_BUTTON:
+      case SWITCH_MOMENTARY:
 
          addParam( createParamCentered<BefacoPush>(
                       pos_converted, _module, parameterId ) );
          break;
 
-      case KNOB_WHITE:
+      case KNOB_LARGE_WHITE:
 
          addParam( createParamCentered<Davies1900hLargeWhiteKnob>(
                       pos_converted, _module, parameterId ) );
          break;
 
-      case KNOB_RED:
+      case KNOB_LARGE_RED:
 
          addParam( createParamCentered<Davies1900hLargeRedKnob>(
                       pos_converted, _module, parameterId ) );
